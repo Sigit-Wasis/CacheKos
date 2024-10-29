@@ -29,8 +29,8 @@ class CreateResidentsTable extends Migration
             $table->date('tanggal_masuk');
             $table->text('keterangan')->nullable();
             $table->smallInteger('status_sewa');
-            $table->integer('created_by')->unsigned();
-            $table->integer('updated_by')->unsigned();
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by');
             $table->timestamps();
 
             // Menambahkan foreign key ke tabel Rooms
