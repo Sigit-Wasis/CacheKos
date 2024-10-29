@@ -27,6 +27,11 @@ return new class extends Migration
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
+
+            // Menambahkan foreign key jika ada referensi ke tabel lain
+            // Misalnya jika created_by dan updated_by adalah id dari tabel users
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
