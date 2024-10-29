@@ -25,6 +25,12 @@ return new class extends Migration
             $table->unsignedBigInteger('created_by'); // ID user yang membuat record
             $table->unsignedBigInteger('updated_by')->nullable(); // ID user yang mengubah record
             $table->timestamps();
+
+            // Menambahkan foreign key jika ada referensi ke tabel lain
+            // Misalnya jika created_by dan updated_by adalah id dari tabel users
+            $table->foreign('id_resident')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
