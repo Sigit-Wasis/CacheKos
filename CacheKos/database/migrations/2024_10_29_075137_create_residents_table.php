@@ -35,6 +35,9 @@ class CreateResidentsTable extends Migration
 
             // Menambahkan foreign key ke tabel Rooms
             $table->foreign('id_kamar')->references('id')->on('rooms')->onDelete('cascade');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
+            
         });
     }
 
@@ -45,10 +48,6 @@ class CreateResidentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('residents', function (Blueprint $table) {
-            // Menghapus foreign key sebelum menghapus tabel
-            $table->dropForeign(['id_kamar']);
-        });
 
         Schema::dropIfExists('residents');
     }

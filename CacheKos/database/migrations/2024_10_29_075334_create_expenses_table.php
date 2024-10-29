@@ -16,10 +16,15 @@ return new class extends Migration
             $table->string('nama_pengeluaran'); // Menyimpan nama pengeluaran
             $table->text('keterangan')->nullable(); // Menyimpan keterangan, bisa null
             $table->date('tanggal'); // Menyimpan tanggal pengeluaran
-            $table->float('nominal', 8, 2); // Menyimpan nominal sebagai float dengan 2 desimal
+            $table->float('nominal'); // Menyimpan nominal sebagai float
             $table->unsignedBigInteger('created_by'); // Menyimpan ID pembuat
             $table->unsignedBigInteger('updated_by')->nullable(); // Menyimpan ID pengupdate, bisa null
             $table->timestamps();
+
+            // Menambahkan foreign key jika ada referensi ke tabel lain
+            // Misalnya jika created_by dan updated_by adalah id dari tabel users
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
