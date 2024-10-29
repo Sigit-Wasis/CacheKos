@@ -29,15 +29,14 @@ class CreateResidentsTable extends Migration
             $table->date('tanggal_masuk');
             $table->text('keterangan')->nullable();
             $table->smallInteger('status_sewa');
-            $table->integer('created_by')->unsigned();
-            $table->integer('updated_by')->unsigned();
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by');
             $table->timestamps();
 
             // Menambahkan foreign key ke tabel Rooms
             $table->foreign('id_kamar')->references('id')->on('rooms')->onDelete('cascade');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
-            
         });
     }
 
@@ -52,4 +51,3 @@ class CreateResidentsTable extends Migration
         Schema::dropIfExists('residents');
     }
 };
-
