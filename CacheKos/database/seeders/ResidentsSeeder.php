@@ -15,6 +15,7 @@ class ResidentsSeeder extends Seeder
     public function run(): void
     {
         DB::table('residents')->insert([
+
             'jenis_sewa_kamar' => 1,
             'id_kamar' => 1,
             'nama_penghuni' => 'John Doe',
@@ -33,6 +34,7 @@ class ResidentsSeeder extends Seeder
             'updated_by' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
+
         ]);
     }
 }
