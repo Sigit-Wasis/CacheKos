@@ -31,8 +31,8 @@ class ResidentsSeeder extends Seeder
             'status_sewa' => 1, // contoh status sewa 1: aktif
             'created_by' => 1,
             'updated_by' => 1,
-            'created_at' => Carbon ::now,
-            'updated_at' => Carbon ::now,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
     }
 }
