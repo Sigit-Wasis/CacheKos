@@ -14,7 +14,7 @@ class PaymentsSeeder extends Seeder
     {
         DB::table('payments')->insert([
             [
-                'id' => 1,
+               
                 'invoice' => 'INV-001',
                 'jumlah_bayar' => 500000,
                 'status' => 'Lunas',
@@ -30,12 +30,12 @@ class PaymentsSeeder extends Seeder
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'id' => 2,
+                
                 'invoice' => 'INV-002',
                 'jumlah_bayar' => 250000,
                 'status' => 'Belum Lunas',
                 'tanggal' => date('Y-m-d H:i:s'),
-                'id_resident' => 2,
+                'id_resident' => 1,
                 'keterangan' => 'Pembayaran Bulanan Sebagian',
                 'kurang_bayar' => 250000,
                 'grand_total' => 500000,
