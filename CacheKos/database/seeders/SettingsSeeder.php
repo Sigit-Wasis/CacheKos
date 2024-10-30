@@ -14,7 +14,7 @@ class SettingsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('settings')->insert([
+        DB::table('room_settings')->insert([
             'nama_kost' => 'Cache Kost',
             'alamat' => 'Jl. Mawar No. 123, Jakarta',
             'telepon' => '081234567890',
