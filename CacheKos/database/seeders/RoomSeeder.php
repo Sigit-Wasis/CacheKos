@@ -9,7 +9,7 @@ class RoomSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('room')->insert([
+        DB::table('rooms')->insert([
             [
                 'nama_kamar' => 'Kamar Deluxe',
                 'nomor_kamar' => '101',
