@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class payments extends Model
+class payment extends Model
 {
-    protected $table = 'payments';
+    protected $table = 'payment';
     protected $primaryKey = 'id';
 
     // Menentukan atribut yang dapat diisi (fillable)
