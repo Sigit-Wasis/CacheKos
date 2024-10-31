@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Expense extends Model
 {
     // Menentukan nama tabel di database
-    protected $table = 'Expense';
-    
+    protected $table = 'expenses';
+
     // Menentukan primary key (pastikan typo "primarykey" sudah diperbaiki menjadi "primaryKey")
     protected $primaryKey = 'id';
 
