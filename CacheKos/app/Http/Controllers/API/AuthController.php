@@ -29,9 +29,6 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-        
-
-      
 
         // Cek kredensial pengguna
         $user = User::where('username', $request->username)->first();
@@ -39,7 +36,7 @@ class AuthController extends Controller
         // Jika pengguna tidak ditemukan atau password salah
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
-                'message' => 'Akses Ditolak!'
+                'message' => 'Akses Ditolak! Username atau password salah.'
             ], 401);
         }
 
@@ -59,6 +56,33 @@ class AuthController extends Controller
                 ],
                 'access_token' => $token,
                 'token_type' => 'Bearer'
+            ]
+        ]);
+    }
+
+    // Fungsi untuk memeriksa validitas token (misalnya dalam middleware)
+    public function checkToken(Request $request)
+    {
+        // Memeriksa token dari header
+        $token = $request->bearerToken();
+
+        if (!$token || !Auth::guard('api')->setToken($token)->check()) {
+            return response()->json([
+                'message' => 'Token tidak valid atau telah kedaluwarsa.'
+            ], 401);
+        }
+
+        // Jika token valid, dapatkan informasi pengguna
+        $user = Auth::guard('api')->user();
+
+        return response()->json([
+            'message' => 'Token valid.',
+            'user' => [
+                'id' => $user->id,
+                'username' => $user->username,
+                'nama_lengkap' => $user->nama_lengkap,
+                'email' => $user->email,
+                // Tambahkan atribut lain sesuai yang diperlukan
             ]
         ]);
     }
