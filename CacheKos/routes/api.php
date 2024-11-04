@@ -26,7 +26,10 @@ Route::prefix('users')->group(function () {
     Route::get('/', [UserController::class, 'index']); // Get all users
     Route::post('/', [UserController::class, 'create']); 
     Route::get('/{id}', [UserController::class, 'edit']); // Get a single user by ID for editing
-    Route::put('/{id}', [UserController::class, 'update']); // Mengupdate data pengguna berdasarkan ID
+    Route::put('/{id}', [UserController::class, 'update']); // Mengupdate data pengguna berdasarkan
+    Route::delete('users/{id}', [UserController::class, 'delete']);
+
+    
     
 });
  
