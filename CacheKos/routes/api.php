@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\SettingController;
 use App\Http\Controllers\API\RoomController;
+use App\Http\Controllers\API\AuthController;
 // use App\Http\Controllers\API\ResidentController;
 
 /*
@@ -21,8 +22,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//route login 
+Route::post('/login', [AuthController::class, 'login']);
+
+
+
 // Route untuk RoomController
-Route::prefix('rooms')->group(function () {
+Route::prefix('rooms')->middleware('auth:sanctum')->group(function () {
     Route::get('/', [RoomController::class, 'index']); // Menampilkan semua data kamar
     Route::post('/', [RoomController::class, 'create']); // Menambahkan data kamar baru
     Route::put('/{id}', [RoomController::class, 'edit']); // Memperbarui data kamar berdasarkan ID
