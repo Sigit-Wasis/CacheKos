@@ -27,6 +27,7 @@ Route::prefix('users')->group(function () {
     Route::post('/', [UserController::class, 'create']); 
     Route::get('/{id}', [UserController::class, 'edit']); // Get a single user by ID for editing
     Route::put('/{id}', [UserController::class, 'update']); // Mengupdate data pengguna berdasarkan ID
+    
 });
  
 
@@ -36,5 +37,4 @@ Route::prefix('users')->group(function () {
 //     Route::post('/', [ResidentController::class, 'store']); // Create a new resident
 //     Route::get('/{id}', [ResidentController::class, 'show']); // Get a single resident by ID
 //     Route::put('/{id}', [ResidentController::class, 'update']); // Update a resident by ID
-//     Route::delete('/{id}', [ResidentController::class, 'destroy']); // Delete a resident by ID
 // });
