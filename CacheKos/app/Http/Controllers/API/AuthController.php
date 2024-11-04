@@ -86,4 +86,24 @@ class AuthController extends Controller
             ]
         ]);
     }
+
+    // Fungsi untuk logout pengguna
+    public function logout(Request $request)
+    {
+        // Mendapatkan pengguna yang terautentikasi
+        $user = Auth::user(); // Menggunakan Auth::user() untuk mendapatkan pengguna yang sedang login
+
+        // Debug: Cek apakah pengguna terautentikasi
+        if (!$user) {
+            return response()->json([
+                'message' => 'Pengguna tidak terautentikasi. Pastikan Anda mengirimkan token yang benar.'
+            ], 401);
+        }
+        // Hapus token dari pengguna
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'message' => 'Logout berhasil.'
+        ]);
+    }
 }
