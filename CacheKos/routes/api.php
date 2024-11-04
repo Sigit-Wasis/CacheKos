@@ -7,14 +7,13 @@ use App\Http\Controllers\Api\RoomController; // Mengimpor RoomController
 // use App\Http\Controllers\Api\ResidentController; // Mengimpor ResidentController jika diperlukan
 
 /*
-|---------------------------------------------------------------------------
-| API Routes
-|---------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
+|---------------------------------------------------------------------------|
+| API Routes                                                                |
+|---------------------------------------------------------------------------|
+| Here is where you can register API routes for your application.          |
+| These routes are loaded by the RouteServiceProvider within a group which |
+| is assigned the "api" middleware group. Enjoy building your API!        |
+|---------------------------------------------------------------------------|
 */
 
 // Rute untuk autentikasi
@@ -25,13 +24,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Rute untuk logout
+// Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 
 // Route untuk RoomController
-Route::prefix('rooms')->group(function () {
+Route::prefix('rooms')->middleware('auth:sanctum')->group(function () {
     Route::get('/', [RoomController::class, 'index']); // Menampilkan semua data kamar
     Route::post('/', [RoomController::class, 'create']); // Menambahkan data kamar baru
     Route::put('/{id}', [RoomController::class, 'edit']); // Memperbarui data kamar berdasarkan ID
-    Route ::get('/{id}', [RoomController::class, 'show']); // Mengambil data kamar berdasarkan ID
+    Route::get('/{id}', [RoomController::class, 'show']); // Mengambil data kamar berdasarkan ID
     Route::delete('/{id}', [RoomController::class, 'destroy']); // Menghapus data kamar berdasarkan ID
 });
 
