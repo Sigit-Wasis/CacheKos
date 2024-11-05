@@ -2,14 +2,14 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\SettingController;
-use App\Http\Controllers\API\RoomController;
-// use App\Http\Controllers\API\ResidentController;
+use App\Http\Controllers\Api\AuthController; // Mengimpor AuthController
+use App\Http\Controllers\Api\RoomController; // Mengimpor RoomController
+// use App\Http\Controllers\Api\ResidentController; // Mengimpor ResidentController jika diperlukan
 
 /*
-|--------------------------------------------------------------------------
+|---------------------------------------------------------------------------
 | API Routes
-|--------------------------------------------------------------------------
+|---------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
@@ -17,12 +17,18 @@ use App\Http\Controllers\API\RoomController;
 |
 */
 
+// Rute untuk autentikasi
+Route::post('/login', [AuthController::class, 'login']);
+
+// Rute untuk logout
+Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+
+
+// Rute untuk mendapatkan informasi pengguna yang terautentikasi
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route login
-Route::post('/login', [UserController::class, 'login']);
 
 // Route untuk RoomController
 Route::prefix('rooms')->group(function () {
@@ -34,13 +40,13 @@ Route::prefix('rooms')->group(function () {
    
 });
 
-// Route untuk ResidentController (Jika diperlukan, hapus komentar di bawah ini untuk mengaktifkan)
-// Route::prefix('residents')->group(function () {
-//     Route::get('/', [ResidentController::class, 'index']); // Get all residents
-//     Route::post('/', [ResidentController::class, 'store']); // Create a new resident
-//     Route::get('/{id}', [ResidentController::class, 'show']); // Get a single resident by ID
-//     Route::put('/{id}', [ResidentController::class, 'update']); // Update a resident by ID
-//     Route::delete('/{id}', [ResidentController::class, 'destroy']); // Delete a resident by ID
+// Rute untuk ResidentController (jika diperlukan)
+// Route::prefix('residents')->middleware('auth:sanctum')->group(function () {
+//     Route::get('/', [ResidentController::class, 'index']); // Mendapatkan semua resident
+//     Route::post('/', [ResidentController::class, 'store']); // Membuat resident baru
+//     Route::get('/{id}', [ResidentController::class, 'show']); // Mendapatkan resident berdasarkan ID
+//     Route::put('/{id}', [ResidentController::class, 'update']); // Memperbarui resident berdasarkan ID
+//     Route::delete('/{id}', [ResidentController::class, 'destroy']); // Menghapus resident berdasarkan ID
 // });
 
 // Route untuk SettingController
