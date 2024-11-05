@@ -41,8 +41,8 @@ class ResidentController extends Controller
             'tanggal_masuk' => $request->tanggal_masuk,
             'status_sewa' => $request->status_sewa,
             'keterangan' => $request->keterangan,
-            'created_by' => 1,  // Ensure the user is authenticated
-            'updated_by' => 1,
+            'created_by' =>Auth::id() ?? 1,  // Ensure the user is authenticated
+            'updated_by' =>Auth::id() ?? 1,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -55,7 +55,7 @@ class ResidentController extends Controller
             'code' => 201,
             'data' => DB::table('residents')->where('id', $residentId)->first()
         ], 201);
-    }
+    }           
 
     public function show($id)
     {
