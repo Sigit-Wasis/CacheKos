@@ -26,15 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //logout 
-// Route::post('/logout', [AuthController::class, 'logout']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
-// Route::middleware('auth:sanctum')->post('/logout', function (Request $request) {
-//     $request->user()->currentAccessToken()->delete();
-//     return response()->json(['message' => 'Logged out successfully']);
-// });
-/******  8d190a1e-7df7-4c22-828d-dbf41e93af5b  *******/
-
-
 
 // Route untuk RoomController
 Route::prefix('rooms')->middleware('auth:sanctum')->group(function () {
