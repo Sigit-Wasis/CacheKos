@@ -2,18 +2,37 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\SettingController;
-use App\Http\Controllers\API\RoomController;
-use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\API\ResidentController;
+use App\Http\Controllers\Api\AuthController; // Mengimpor AuthController
+use App\Http\Controllers\Api\RoomController; // Mengimpor RoomController
+// use App\Http\Controllers\Api\ResidentController; // Mengimpor ResidentController jika diperlukan
 
+/*
+|---------------------------------------------------------------------------
+| API Routes
+|---------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+*/
 
+// Rute untuk autentikasi
+Route::post('/login', [AuthController::class, 'login']);
+
+// Rute untuk mendapatkan informasi pengguna yang terautentikasi
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-return $request->user();
+    return $request->user();
 });
 
-//route login 
-Route::post('/login', [AuthController::class, 'login']);
+//logout 
+// Route::post('/logout', [AuthController::class, 'logout']);
+Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+// Route::middleware('auth:sanctum')->post('/logout', function (Request $request) {
+//     $request->user()->currentAccessToken()->delete();
+//     return response()->json(['message' => 'Logged out successfully']);
+// });
+/******  8d190a1e-7df7-4c22-828d-dbf41e93af5b  *******/
 
 
 
@@ -26,20 +45,23 @@ Route::prefix('rooms')->middleware('auth:sanctum')->group(function () {
     Route::delete('/{id}', [RoomController::class, 'destroy']); // Menghapus data kamar berdasarkan ID
 });
 
-// Route untuk ResidentController (Jika diperlukan, hapus komentar di bawah ini untuk mengaktifkan)
-Route::prefix('resident')->group(function () {
-    Route::get('/', [ResidentController::class, 'index']); // Get all residents
-    Route::post('/', [ResidentController::class, 'store']); // Create a new resident
-    Route::get('/{id}', [ResidentController::class, 'show']); // Get a single resident by ID
-    Route::put('/{id}', [ResidentController::class, 'update']); // Update a resident by ID
-    Route::delete('/{id}', [ResidentController::class, 'delate']); // Delete a resident by ID
+// Rute untuk ResidentController (jika diperlukan)
+// Route::prefix('residents')->middleware('auth:sanctum')->group(function () {
+//     Route::get('/', [ResidentController::class, 'index']); // Mendapatkan semua resident
+//     Route::post('/', [ResidentController::class, 'store']); // Membuat resident baru
+//     Route::get('/{id}', [ResidentController::class, 'show']); // Mendapatkan resident berdasarkan ID
+//     Route::put('/{id}', [ResidentController::class, 'update']); // Memperbarui resident berdasarkan ID
+//     Route::delete('/{id}', [ResidentController::class, 'destroy']); // Menghapus resident berdasarkan ID
+// });
+
+//route setting
+Route:: prefix ('settings')->group(function () {
+Route:: get ('/', [SettingController::class, 'index']);
+Route:: post ('/', [SettingController::class, 'store']);
+Route:: get ('/{id}', [SettingController::class, 'show']);
+Route:: put ('/{id}', [SettingController::class, 'update']);
+Route:: delete ('/{id}', [SettingController::class, 'destroy']);
 });
 
-// Route untuk SettingController
-Route::prefix('settings')->group(function () {
-    Route::get('/', [SettingController::class, 'index']);
-    Route::post('/', [SettingController::class, 'store']);
-    Route::get('/{id}', [SettingController::class, 'show']);
-    Route::put('/{id}', [SettingController::class, 'update']);
-    Route::delete('/{id}', [SettingController::class, 'destroy']);
-});
+
+

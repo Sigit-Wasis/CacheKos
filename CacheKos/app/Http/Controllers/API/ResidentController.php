@@ -129,7 +129,7 @@ class ResidentController extends Controller
         return response()->json(['message' => 'Failed to update resident or no changes made'], 400);
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
     // Check if the resident exists
     $resident = DB::table('residents')->where('id', $id)->first();
