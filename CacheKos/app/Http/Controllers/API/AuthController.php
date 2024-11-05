@@ -59,7 +59,50 @@ class AuthController extends Controller
         ]);
     }
 
-   
-    
-    
+    // Fungsi untuk memeriksa validitas token (misalnya dalam middleware)
+    public function checkToken(Request $request)
+    {
+        // Memeriksa token dari header
+        $token = $request->bearerToken();
+
+        if (!$token || !Auth::guard('api')->setToken($token)->check()) {
+            return response()->json([
+                'message' => 'Token tidak valid atau telah kedaluwarsa.'
+            ], 401);
+        }
+
+        // Jika token valid, dapatkan informasi pengguna
+        $user = Auth::guard('api')->user();
+
+        return response()->json([
+            'message' => 'Token valid.',
+            'user' => [
+                'id' => $user->id,
+                'username' => $user->username,
+                'nama_lengkap' => $user->nama_lengkap,
+                'email' => $user->email,
+                // Tambahkan atribut lain sesuai yang diperlukan
+            ]
+        ]);
+    }
+
+    // Fungsi untuk logout pengguna
+    public function logout(Request $request)
+    {
+        // Mendapatkan pengguna yang terautentikasi
+        $user = Auth::user(); // Menggunakan Auth::user() untuk mendapatkan pengguna yang sedang login
+
+        // Debug: Cek apakah pengguna terautentikasi
+        if (!$user) {
+            return response()->json([
+                'message' => 'Pengguna tidak terautentikasi. Pastikan Anda mengirimkan token yang benar.'
+            ], 401);
+        }
+        // Hapus token dari pengguna
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'message' => 'Logout berhasil.'
+        ]);
+    }
 }

@@ -24,8 +24,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Rute untuk logout
-// Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+//logout 
+// Route::post('/logout', [AuthController::class, 'logout']);
+Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+// Route::middleware('auth:sanctum')->post('/logout', function (Request $request) {
+//     $request->user()->currentAccessToken()->delete();
+//     return response()->json(['message' => 'Logged out successfully']);
+// });
+/******  8d190a1e-7df7-4c22-828d-dbf41e93af5b  *******/
+
+
 
 // Route untuk RoomController
 Route::prefix('rooms')->middleware('auth:sanctum')->group(function () {
@@ -44,3 +52,15 @@ Route::prefix('rooms')->middleware('auth:sanctum')->group(function () {
 //     Route::put('/{id}', [ResidentController::class, 'update']); // Memperbarui resident berdasarkan ID
 //     Route::delete('/{id}', [ResidentController::class, 'destroy']); // Menghapus resident berdasarkan ID
 // });
+
+//route setting
+Route:: prefix ('settings')->group(function () {
+Route:: get ('/', [SettingController::class, 'index']);
+Route:: post ('/', [SettingController::class, 'store']);
+Route:: get ('/{id}', [SettingController::class, 'show']);
+Route:: put ('/{id}', [SettingController::class, 'update']);
+Route:: delete ('/{id}', [SettingController::class, 'destroy']);
+});
+
+
+
