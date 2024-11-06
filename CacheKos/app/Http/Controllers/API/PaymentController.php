@@ -3,15 +3,14 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request; // Import the Request class
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use App\Models\Payment;
 
 class PaymentController extends Controller
 {
     public function index()
     {
-        // Mengambil data dengan kolom tertentu di tabel 'payments'
-        $payments = DB::table('payments')->select(
+        $payments = Payment::select(
             'id',
             'invoice',
             'jumlah_bayar',
@@ -26,7 +25,6 @@ class PaymentController extends Controller
             'updated_by'
         )->get();
 
-        // Menampilkan data dari variabel
         return response()->json([
             'message' => 'Data payments berhasil diambil',
             'code' => 200,
@@ -36,7 +34,6 @@ class PaymentController extends Controller
 
     public function create(Request $request)
     {
-        // Validasi data yang diterima dari request
         $validatedData = $request->validate([
             'invoice' => 'required|string|max:255',
             'jumlah_bayar' => 'required|numeric',
@@ -47,27 +44,78 @@ class PaymentController extends Controller
             'kurang_bayar' => 'nullable|numeric',
             'grand_total' => 'required|numeric',
             'bukti_bayar' => 'nullable|string',
-            'created_by' => 'required|string|max:100',
-            'updated_by' => 'nullable|string|max:100',
+            'created_by' => 'required|integer',  
+            'updated_by' => 'nullable|integer', 
         ]);
 
-        // Insert data into the payments table
-        $inserted = DB::table('payments')->insert($validatedData);
+        $newPayment = Payment::create($validatedData);
 
-        if ($inserted) {
-            // Fetch the last inserted payment
-            $newPayment = DB::table('payments')->latest()->first();
+        return response()->json([
+            'message' => 'Data payments berhasil ditambahkan',
+            'code' => 201,
+            'data' => $newPayment
+        ]);
+    }
 
-            return response()->json([
-                'message' => 'Data payments berhasil ditambahkan',
-                'code' => 201, // Use 201 for created
-                'data' => $newPayment
-            ]);
-        } else {
-            return response()->json([
-                'message' => 'Data payments gagal ditambahkan',
-                'code' => 500
-            ]);
+    public function update(Request $request, $id)
+    {
+        $payment = Payment::find($id);
+
+        if (!$payment) {
+            return response()->json(['message' => 'Payment not found'], 404);
         }
+
+        $validatedData = $request->validate([
+            'invoice' => 'required|string',
+            'jumlah_bayar' => 'required|numeric',
+            'status' => 'required|string',
+            'tanggal' => 'required|date',
+            'keterangan' => 'nullable|string',
+            'kurang_bayar' => 'required|numeric',
+            'grand_total' => 'required|numeric',
+            'bukti_bayar' => 'nullable|string',
+            'updated_by' => 'nullable|integer', 
+        ]);
+
+        $payment->update($validatedData);
+
+        return response()->json([
+            'message' => 'Payment updated successfully',
+            'data' => $payment
+        ]);
+    }
+
+    public function show($id)
+    {
+        $payment = Payment::find($id);
+
+        if (!$payment) {
+            return response()->json([
+                'message' => 'Data payment tidak ditemukan.',
+            ], 404);
+        }
+
+        return response()->json([
+            'message' => 'Data payment berhasil dimuat.',
+            'data' => $payment
+        ], 200);
+    }
+
+    public function destroy($id)
+    {
+        $payment = Payment::find($id);
+
+        if (!$payment) {
+            return response()->json([
+                'message' => 'Pembayaran tidak ditemukan.',
+            ], 404);
+        }
+
+        $payment->delete();
+
+        return response()->json([
+            'message' => 'Data payments berhasil dihapus',
+            'code' => 200
+        ]);
     }
 }
