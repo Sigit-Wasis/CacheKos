@@ -6,7 +6,7 @@ import HomePage from './pages/HomePage';
 function App() {
   return (
     <Router>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      {/* <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">CacheKos</Link>
           <div className="collapse navbar-collapse">
@@ -20,10 +20,10 @@ function App() {
             </ul>
           </div>
         </div>
-      </nav>
+      </nav> */}
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/home" element={<HomePage />} />
       </Routes>
     </Router>
   );

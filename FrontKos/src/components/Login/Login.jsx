@@ -1,15 +1,42 @@
 import React, { useState } from "react";
-import "./Login.css"; // Impor CSS jika ada
+import { useNavigate } from "react-router-dom";
+import "./Login.css"; // Import CSS if available
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate(); // Hook for navigation
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Tambahkan logika login di sini, misalnya mengirim data ke server
-    console.log("Username:", username);
-    console.log("Password:", password);
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Login successful:", data);
+
+        // Store the token or user data if necessary
+        localStorage.setItem("token", data.token);
+
+        // Redirect to the home page
+        navigate("/home");
+      } else {
+        // Handle errors (e.g., invalid credentials)
+        const errorData = await response.json();
+        setError(errorData.message || "Login failed");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      setError("An error occurred. Please try again later.");
+    }
   };
 
   return (
@@ -26,7 +53,7 @@ const Login = () => {
                 type="text"
                 className="form-control"
                 id="username"
-                placeholder="Masukkan Username"
+                placeholder="Enter Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
@@ -40,12 +67,13 @@ const Login = () => {
                 type="password"
                 className="form-control"
                 id="password"
-                placeholder="Masukkan Password"
+                placeholder="Enter Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
+            {error && <p className="text-danger">{error}</p>}
             <button type="submit" className="btn btn-primary w-100">
               Login
             </button>

@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController; // Mengimpor AuthController
 use App\Http\Controllers\Api\RoomController; // Mengimpor RoomController
-// use App\Http\Controllers\Api\ResidentController; // Mengimpor ResidentController jika diperlukan
+use App\Http\Controllers\Api\ResidentController; // Mengimpor ResidentController jika diperlukan
 
 /*
 |---------------------------------------------------------------------------
@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//logout
+//logout 
 // Route::post('/logout', [AuthController::class, 'logout']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 // Route::middleware('auth:sanctum')->post('/logout', function (Request $request) {
@@ -46,13 +46,13 @@ Route::prefix('rooms')->middleware('auth:sanctum')->group(function () {
 });
 
 // Rute untuk ResidentController (jika diperlukan)
-// Route::prefix('residents')->middleware('auth:sanctum')->group(function () {
-//     Route::get('/', [ResidentController::class, 'index']); // Mendapatkan semua resident
-//     Route::post('/', [ResidentController::class, 'store']); // Membuat resident baru
-//     Route::get('/{id}', [ResidentController::class, 'show']); // Mendapatkan resident berdasarkan ID
-//     Route::put('/{id}', [ResidentController::class, 'update']); // Memperbarui resident berdasarkan ID
-//     Route::delete('/{id}', [ResidentController::class, 'destroy']); // Menghapus resident berdasarkan ID
-// });
+Route::prefix('residents')->middleware('auth:sanctum')->group(function () {
+    Route::get('/', [ResidentController::class, 'index']); // Mendapatkan semua resident
+    Route::post('/', [ResidentController::class, 'store']); // Membuat resident baru
+    Route::get('/{id}', [ResidentController::class, 'show']); // Mendapatkan resident berdasarkan ID
+    Route::put('/{id}', [ResidentController::class, 'update']); // Memperbarui resident berdasarkan ID
+    Route::delete('/{id}', [ResidentController::class, 'destroy']); // Menghapus resident berdasarkan ID
+});
 
 //route setting
 Route:: prefix ('settings')->group(function () {
