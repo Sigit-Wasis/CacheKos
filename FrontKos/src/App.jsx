@@ -4,6 +4,26 @@ import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 
 function App() {
+<<<<<<< HEAD
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const navigate=useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsAuthenticated(true);
+      // navigate("/home"); kalo dihidupkan tidak muncul navigasi room
+    }
+  }, [navigate]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsAuthenticated(false);
+  };
+
+=======
+>>>>>>> 054e70a4ab2065228d88e14549cf6d389dc991e6
   return (
     <Router>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
