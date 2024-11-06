@@ -13,7 +13,7 @@ function App() {
     const token = localStorage.getItem("token");
     if (token) {
       setIsAuthenticated(true);
-      // navigate("/home");
+      // navigate("/home"); kalo dihidupkan tidak muncul navigasi room
     }
   }, [navigate]);
 
