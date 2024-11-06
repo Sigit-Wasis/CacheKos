@@ -1,43 +1,39 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./Login.css"; // Import CSS if available
+import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Impor useNavigate dari react-router-dom
+import "./Login.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate(); // Inisialisasi useNavigate
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+  
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
+      // Kirim permintaan login ke backend Laravel
+      const response = await axios.post("http://localhost:8000/api/login", {
+        username,
+        password,
       });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Login successful:", data);
-
-        // Store the token or user data if necessary
-        localStorage.setItem("token", data.token);
-
-        // Redirect to the home page
-        navigate("/home");
+  
+      // Cek apakah respons berhasil
+      if (response.data.message === "Login berhasil") {
+        localStorage.setItem("token", response.data.data.access_token); // Simpan token
+        alert("Login berhasil!");
+        navigate("/home"); 
       } else {
-        // Handle errors (e.g., invalid credentials)
-        const errorData = await response.json();
-        setError(errorData.message || "Login failed");
+        setError("Username atau password salah");
       }
-    } catch (error) {
-      console.error("Error during login:", error);
-      setError("An error occurred. Please try again later.");
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Terjadi kesalahan pada server");
     }
   };
+  
 
   return (
     <div className="login-container">
@@ -73,7 +69,7 @@ const Login = () => {
                 required
               />
             </div>
-            {error && <p className="text-danger">{error}</p>}
+            {error && <div className="alert alert-danger">{error}</div>}
             <button type="submit" className="btn btn-primary w-100">
               Login
             </button>
