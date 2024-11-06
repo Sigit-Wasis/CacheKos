@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link , useNavigate} from "react
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import Room from "./pages/Room";
+import Setting from "./pages/Setting";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -47,6 +48,7 @@ function App() {
                   Home
                 </Link>
               </li>
+             
               {!isAuthenticated ? (
                 <li className="nav-item">
                   <Link className="nav-link" to="/login">
@@ -60,6 +62,11 @@ function App() {
                       Room
                     </Link>
                   </li>
+                  <li className="nav-item">
+                <Link className="nav-link" to="/setting">
+                  Setting 
+                </Link>
+              </li>
                   <li className="nav-item">
                     <Link
                       className="nav-link btn btn-link"
@@ -79,6 +86,7 @@ function App() {
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/setting" element={<Setting />} />
         {isAuthenticated && <Route path="/room" element={<Room />} />}
       </Routes>
     </div>
