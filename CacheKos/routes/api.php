@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController; // Mengimpor AuthController
 use App\Http\Controllers\Api\RoomController; // Mengimpor RoomController
+use App\Http\Controllers\Api\SettingController; // Mengimpor SettingController
 // use App\Http\Controllers\Api\ResidentController; // Mengimpor ResidentController jika diperlukan
 
 /*
@@ -26,15 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //logout 
-// Route::post('/logout', [AuthController::class, 'logout']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
-// Route::middleware('auth:sanctum')->post('/logout', function (Request $request) {
-//     $request->user()->currentAccessToken()->delete();
-//     return response()->json(['message' => 'Logged out successfully']);
-// });
-/******  8d190a1e-7df7-4c22-828d-dbf41e93af5b  *******/
-
-
 
 // Route untuk RoomController
 Route::prefix('rooms')->middleware('auth:sanctum')->group(function () {
