@@ -52,6 +52,7 @@ class AuthController extends Controller
                     'username' => $user->username,
                     'nama_lengkap' => $user->nama_lengkap,
                     'email' => $user->email,
+                    // Tambahkan atribut lain sesuai yang diperlukan
                 ],
                 'access_token' => $token,
                 'token_type' => 'Bearer'

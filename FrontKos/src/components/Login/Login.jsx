@@ -1,39 +1,16 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom"; // Impor useNavigate dari react-router-dom
-import "./Login.css";
+import "./Login.css"; // Impor CSS jika ada
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const navigate = useNavigate(); // Inisialisasi useNavigate
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setError("");
-  
-    try {
-      // Kirim permintaan login ke backend Laravel
-      const response = await axios.post("http://localhost:8000/api/login", {
-        username,
-        password,
-      });
-  
-      // Cek apakah respons berhasil
-      if (response.data.message === "Login berhasil") {
-        localStorage.setItem("token", response.data.data.access_token); // Simpan token
-        alert("Login berhasil!");
-        navigate("/home"); 
-      } else {
-        setError("Username atau password salah");
-      }
-    } catch (err) {
-      console.error("Login error:", err);
-      setError("Terjadi kesalahan pada server");
-    }
+    // Tambahkan logika login di sini, misalnya mengirim data ke server
+    console.log("Username:", username);
+    console.log("Password:", password);
   };
-  
 
   return (
     <div className="login-container">
@@ -69,7 +46,6 @@ const Login = () => {
                 required
               />
             </div>
-            {error && <div className="alert alert-danger">{error}</div>}
             <button type="submit" className="btn btn-primary w-100">
               Login
             </button>
