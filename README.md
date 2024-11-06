@@ -12,3 +12,4 @@
 - Masuk ke dalam folder FrontKos 
 - Kemudian Jalankan npm install
 - Jalankan npm run dev 
+- Buka Di browser dengan URL yang muncul setelah menjalankan npm run dev

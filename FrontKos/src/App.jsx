@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from "react
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import Room from "./pages/Room";
-import Resident from "./pages/Resident";
+// import Resident from "./pages/Resident";
 import User from "./pages/User"; // Import komponen User
 
 function App() {
@@ -63,11 +63,11 @@ function App() {
                       Room
                     </Link>
                   </li>
-                  <li className="nav-item">
+                  {/* <li className="nav-item">
                     <Link className="nav-link" to="/resident">
                       Resident
                     </Link>
-                  </li>
+                  </li> */}
                   <li className="nav-item">
                     <Link className="nav-link" to="/user">
                       User
@@ -93,7 +93,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
         {isAuthenticated && <Route path="/room" element={<Room />} />}
-        {isAuthenticated && <Route path="/resident" element={<Resident />} />}
+        {/* {isAuthenticated && <Route path="/resident" element={<Resident />} />} */}
         {isAuthenticated && <Route path="/user" element={<User />} />} {/* Tambahkan rute User */}
       </Routes>
     </div>
