@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController; // Mengimpor AuthController
 use App\Http\Controllers\Api\RoomController; // Mengimpor RoomController
+use App\Http\Controllers\Api\SettingController; // Mengimpor SettingController
 // use App\Http\Controllers\Api\ResidentController; // Mengimpor ResidentController jika diperlukan
 
 /*
