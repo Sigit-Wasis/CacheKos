@@ -50,6 +50,7 @@ function App() {
                   Home
                 </Link>
               </li>
+             
               {!isAuthenticated ? (
                 <li className="nav-item">
                   <Link className="nav-link" to="/login">
@@ -74,6 +75,11 @@ function App() {
                     </Link>
                   </li>
                   <li className="nav-item">
+                <Link className="nav-link" to="/setting">
+                  Setting 
+                </Link>
+              </li>
+                  <li className="nav-item">
                     <Link
                       className="nav-link btn btn-link"
                       to="/login"
@@ -92,6 +98,7 @@ function App() {
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/setting" element={<Setting />} />
         {isAuthenticated && <Route path="/room" element={<Room />} />}
         {/* {isAuthenticated && <Route path="/resident" element={<Resident />} />} */}
         {isAuthenticated && <Route path="/user" element={<User />} />} {/* Tambahkan rute User */}
