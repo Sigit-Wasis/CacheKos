@@ -6,9 +6,3 @@
 - Akses http://localhost:8000 di Browser
 
 
-## Clone FrontKos
-
-- Clone Seperti Command Diatas
-- Masuk ke dalam folder FrontKos 
-- Kemudian Jalankan npm install
-- Jalankan npm run dev 
