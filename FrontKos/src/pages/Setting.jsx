@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Setting.css';
+import axios from 'axios';
 
 const Setting = () => {
     const [settings, setSettings] = useState(null);
@@ -9,14 +10,12 @@ const Setting = () => {
     useEffect(() => {
         const fetchSettings = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/settings');
-                if (!response.ok) {
-                    throw new Error('Failed to fetch settings');
-                }
-                const data = await response.json();
-                setSettings(data);
+                const response = await axios.get('http://localhost:8000/api/settings');
+                // Ambil data pertama dari array dalam response.data.data
+                setSettings(response.data.data[0]);
             } catch (err) {
-                setError(err.message);
+                console.error("Error fetching data:", err);
+                setError("Could not load settings. Please try again later.");
             } finally {
                 setLoading(false);
             }
@@ -26,11 +25,15 @@ const Setting = () => {
     }, []);
 
     if (loading) {
-        return <div className="loading">Loading...</div>;
+        return <div className="loading" aria-live="polite">Loading...</div>;
     }
 
     if (error) {
-        return <div className="error">{error}</div>;
+        return <div className="error" aria-live="assertive">{error}</div>;
+    }
+
+    if (!settings) {
+        return <div>No data available</div>;
     }
 
     return (
@@ -38,7 +41,6 @@ const Setting = () => {
             <h1 className="settings-title">Pengaturan Kost</h1>
 
             <div className="settings-grid">
-                {/* Info Umum */}
                 <div className="settings-card">
                     <h2 className="card-title">Informasi Umum</h2>
                     <table className="settings-table">
@@ -59,11 +61,14 @@ const Setting = () => {
                                 <td className="label">Email</td>
                                 <td>{settings.email}</td>
                             </tr>
+                            <tr>
+                                <td className="label">Deskripsi</td>
+                                <td>{settings.deskripsi}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
 
-                {/* Pengaturan Pembayaran */}
                 <div className="settings-card">
                     <h2 className="card-title">Pengaturan Pembayaran</h2>
                     <table className="settings-table">
@@ -74,13 +79,12 @@ const Setting = () => {
                             </tr>
                             <tr>
                                 <td className="label">Biaya Terlambat</td>
-                                <td>Rp {parseInt(settings.biaya_terlambat).toLocaleString('id-ID')}</td>
+                                <td>Rp {parseFloat(settings.biaya_terlambat).toLocaleString('id-ID')}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                {/* Media Sosial */}
                 <div className="settings-card">
                     <h2 className="card-title">Media Sosial</h2>
                     <table className="settings-table">
