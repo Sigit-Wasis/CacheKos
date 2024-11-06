@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link , useNavigate} from "react
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import Room from "./pages/Room";
-import Setting from "./components/Setting/Setting";
+import Setting from "./pages/Setting";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
