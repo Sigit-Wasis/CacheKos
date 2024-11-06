@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const ResidentPage = () => {
   const [residents, setResidents] = useState([]);
@@ -48,6 +49,7 @@ const ResidentPage = () => {
   return (
     <div className="container mt-5">
     <h1 className="mb-4">Residents</h1>
+    <Link to="/add" className="btn btn-primary mb-4">Add New Resident</Link>
     <div className="row">
       {residents.map((resident) => (
         <div className="col-md-4 mb-4" key={resident.id}>

@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import Room from "./pages/Room";
 import Resident from "./pages/Resident";
+import AddResidentPage from "./pages/AddResidentPage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -87,6 +88,7 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         {isAuthenticated && <Route path="/room" element={<Room />} />}
         {isAuthenticated && <Route path="/resident" element={<Resident/>} />}
+        {isAuthenticated && <Route path="/add" element={<AddResidentPage/>} />}
       </Routes>
     </div>
   );
