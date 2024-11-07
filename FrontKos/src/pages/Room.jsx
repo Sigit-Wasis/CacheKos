@@ -46,8 +46,10 @@ const Room = () => {
                   Nomor Kamar: {room.nomor_kamar}
                 </h6>
                 <p className="card-text">
-                  Harga per Bulan: Rp {room.harga_per_bulan.toLocaleString()} <br />
-                  Harga per Hari: Rp {room.harga_per_hari.toLocaleString()} <br />
+                  Harga per Bulan: Rp {room.harga_per_bulan.toLocaleString()}{" "}
+                  <br />
+                  Harga per Hari: Rp {room.harga_per_hari.toLocaleString()}{" "}
+                  <br />
                   Fasilitas: {room.fasilitas} <br />
                   Kelengkapan Lain: {room.kelengkapan_lain} <br />
                   Catatan: {room.catatan_kamar}
