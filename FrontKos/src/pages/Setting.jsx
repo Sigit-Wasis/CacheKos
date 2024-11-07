@@ -6,13 +6,15 @@ const Setting = () => {
     const [settings, setSettings] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isEditing, setIsEditing] = useState(false);
+    const [formData, setFormData] = useState({});
 
     useEffect(() => {
         const fetchSettings = async () => {
             try {
                 const response = await axios.get('http://localhost:8000/api/settings');
-                // Ambil data pertama dari array dalam response.data.data
                 setSettings(response.data.data[0]);
+                setFormData(response.data.data[0]);
             } catch (err) {
                 console.error("Error fetching data:", err);
                 setError("Could not load settings. Please try again later.");
@@ -20,9 +22,24 @@ const Setting = () => {
                 setLoading(false);
             }
         };
-
         fetchSettings();
     }, []);
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSave = async () => {
+        try {
+            await axios.put(`http://localhost:8000/api/settings/1`, formData);
+            setSettings(formData);
+            setIsEditing(false);
+        } catch (err) {
+            console.error("Error saving data:", err);
+            setError("Could not save settings. Please try again later.");
+        }
+    };
 
     if (loading) {
         return <div className="loading" aria-live="polite">Loading...</div>;
@@ -38,87 +55,63 @@ const Setting = () => {
 
     return (
         <div className="settings-container">
-            <h1 className="settings-title">Pengaturan Kost</h1>
+            <h1 className="settings-title">Pengaturan</h1>
 
-            <div className="settings-grid">
+            <div className="settings-wrapper">
                 <div className="settings-card">
-                    <h2 className="card-title">Informasi Umum</h2>
-                    <table className="settings-table">
-                        <tbody>
-                            <tr>
-                                <td className="label">Nama Kost</td>
-                                <td>{settings.nama_kost}</td>
-                            </tr>
-                            <tr>
-                                <td className="label">Alamat</td>
-                                <td>{settings.alamat}</td>
-                            </tr>
-                            <tr>
-                                <td className="label">Telepon</td>
-                                <td>{settings.telepon}</td>
-                            </tr>
-                            <tr>
-                                <td className="label">Email</td>
-                                <td>{settings.email}</td>
-                            </tr>
-                            <tr>
-                                <td className="label">Deskripsi</td>
-                                <td>{settings.deskripsi}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <h2 className="card-title">Profil Kost</h2>
+                    <div className="settings-details">
+                        <p><strong>Nama Kost:</strong> {isEditing ? (
+                            <input name="nama_kost" value={formData.nama_kost || ""} onChange={handleInputChange} />
+                        ) : settings.nama_kost}</p>
+
+                        <p><strong>Alamat Kost:</strong> {isEditing ? (
+                            <input name="alamat" value={formData.alamat || ""} onChange={handleInputChange} />
+                        ) : settings.alamat}</p>
+
+                        <p><strong>Telepon Kost:</strong> {isEditing ? (
+                            <input name="telepon" value={formData.telepon || ""} onChange={handleInputChange} />
+                        ) : settings.telepon}</p>
+
+                        <p><strong>Email Kost:</strong> {isEditing ? (
+                            <input name="email" value={formData.email || ""} onChange={handleInputChange} />
+                        ) : settings.email}</p>
+                    </div>
                 </div>
 
                 <div className="settings-card">
-                    <h2 className="card-title">Pengaturan Pembayaran</h2>
-                    <table className="settings-table">
-                        <tbody>
-                            <tr>
-                                <td className="label">Tenggang Waktu</td>
-                                <td>{settings.tenggang_waktu} hari</td>
-                            </tr>
-                            <tr>
-                                <td className="label">Biaya Terlambat</td>
-                                <td>Rp {parseFloat(settings.biaya_terlambat).toLocaleString('id-ID')}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <h2 className="card-title">Pengaturan Kost</h2>
+                <div className="settings-details">
+               
+        
+              <p><strong>Tenggang Waktu Keterlambatan:</strong> {isEditing ? (
+              <input 
+                name="tenggang_waktu" 
+                value={formData.tenggang_waktu || ""} 
+                onChange={handleInputChange} 
+               />
+               ) : `${settings?.tenggang_waktu || 0} Hari`}</p>
 
-                <div className="settings-card">
-                    <h2 className="card-title">Media Sosial</h2>
-                    <table className="settings-table">
-                        <tbody>
-                            <tr>
-                                <td className="label">Facebook</td>
-                                <td>
-                                    <a href={settings.facebook} target="_blank" rel="noopener noreferrer">
-                                        {settings.facebook}
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="label">Instagram</td>
-                                <td>
-                                    <a href={settings.instagram} target="_blank" rel="noopener noreferrer">
-                                        {settings.instagram}
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="label">TikTok</td>
-                                <td>
-                                    <a href={settings.tiktok} target="_blank" rel="noopener noreferrer">
-                                        {settings.tiktok}
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    );
-};
+              <p><strong>Biaya Keterlambatan per Hari:</strong> {isEditing ? (
+                <input 
+                name="biaya_terlambat" 
+                value={formData.biaya_terlambat || ""} 
+                onChange={handleInputChange} 
+                     />
+             ) : `Rp ${parseFloat(settings?.biaya_terlambat || 0).toLocaleString('id-ID')}`}</p>
+
+               <button onClick={() => setIsEditing(!isEditing)} className="edit-button">
+                    {isEditing ? "Cancel" : "Edit"}
+                </button>
+                {isEditing && <button onClick={handleSave} className="save-button">Save</button>}
+
+                
+                             </div>
+                        </div>
+                    </div>
+                 </div>
+        
+          );
+        };
 
 export default Setting;

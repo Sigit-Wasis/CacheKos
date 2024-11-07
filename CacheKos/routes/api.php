@@ -60,7 +60,7 @@ Route:: prefix ('settings')->group(function () {
 Route:: get ('/', [SettingController::class, 'index']);
 Route:: post ('/', [SettingController::class, 'store']);
 Route:: get ('/{id}', [SettingController::class, 'show']);
-Route:: put ('/{id}', [SettingController::class, 'update']);
+Route:: put ('/{id}', [SettingController::class, 'edit']);
 Route:: delete ('/{id}', [SettingController::class, 'destroy']);
 });
 
