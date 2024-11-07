@@ -87,7 +87,7 @@ function App() {
             </ul>
           </div>
         </div>
-      </nav>
+      </nav> 
       <Routes>
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />
@@ -95,6 +95,8 @@ function App() {
         <Route path="/setting" element={<Setting />} />
         <Route path="/payment" element={<Payment />} />
         {isAuthenticated && <Route path="/room" element={<Room />} />}
+        {/* {isAuthenticated && <Route path="/resident" element={<Resident/>} />} */}
+        {/* {isAuthenticated && <Route path="/add" element={<AddResidentPage/>} />} */}
       </Routes>
     </div>
   );
