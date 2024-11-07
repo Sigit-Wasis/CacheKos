@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import Room from "./pages/Room";
 import Setting from "./pages/Setting";
+import Payment from "./pages/Payment";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -67,6 +68,11 @@ function App() {
                   Setting 
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/payment">
+                  Payment
+                </Link>
+              </li>
                   <li className="nav-item">
                     <Link
                       className="nav-link btn btn-link"
@@ -81,13 +87,16 @@ function App() {
             </ul>
           </div>
         </div>
-      </nav>
+      </nav> 
       <Routes>
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/setting" element={<Setting />} />
+        <Route path="/payment" element={<Payment />} />
         {isAuthenticated && <Route path="/room" element={<Room />} />}
+        {/* {isAuthenticated && <Route path="/resident" element={<Resident/>} />} */}
+        {/* {isAuthenticated && <Route path="/add" element={<AddResidentPage/>} />} */}
       </Routes>
     </div>
   );
