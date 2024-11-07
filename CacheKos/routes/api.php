@@ -6,11 +6,7 @@ use App\Http\Controllers\Api\AuthController; // Mengimpor AuthController
 use App\Http\Controllers\Api\RoomController; // Mengimpor RoomController
 use App\Http\Controllers\Api\ResidentController; // Mengimpor ResidentController jika diperlukan
 use App\Http\Controllers\Api\SettingController; // Mengimpor SettingController
-<<<<<<< HEAD
-use App\Http\Controllers\Api\PaymentController; // Mengimpor UserController
-// use App\Http\Controllers\Api\ResidentController; // Mengimpor ResidentController jika diperlukan
-=======
->>>>>>> 54921f2504e4410663d696d17417aee023b78048
+use App\Http\Controllers\Api\PaymentController; // Mengimpor PaymentController
 
 /*
 |---------------------------------------------------------------------------|
