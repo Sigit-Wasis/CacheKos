@@ -4,6 +4,10 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import Room from "./pages/Room";
 import Setting from "./pages/Setting";
+<<<<<<< HEAD
+=======
+import Payment from "./pages/Payment";
+>>>>>>> 52c36c5aca1ca3ef9a81d19e5090430e5ea4881d
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -67,6 +71,14 @@ function App() {
                   Setting 
                 </Link>
               </li>
+<<<<<<< HEAD
+=======
+              <li className="nav-item">
+                <Link className="nav-link" to="/payment">
+                  Payment
+                </Link>
+              </li>
+>>>>>>> 52c36c5aca1ca3ef9a81d19e5090430e5ea4881d
                   <li className="nav-item">
                     <Link
                       className="nav-link btn btn-link"
@@ -87,7 +99,13 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/setting" element={<Setting />} />
+        <Route path="/payment" element={<Payment />} />
         {isAuthenticated && <Route path="/room" element={<Room />} />}
+<<<<<<< HEAD
+=======
+        {/* {isAuthenticated && <Route path="/resident" element={<Resident/>} />} */}
+        {/* {isAuthenticated && <Route path="/add" element={<AddResidentPage/>} />} */}
+>>>>>>> 52c36c5aca1ca3ef9a81d19e5090430e5ea4881d
       </Routes>
     </div>
   );
