@@ -4,6 +4,7 @@
 body {
     font-family: 'Poppins', sans-serif;
 }
+
 /* Remove borders from the table */
 .table-bordered, .table-bordered th, .table-bordered td {
     border: none;
@@ -17,4 +18,36 @@ body {
 /* Optional: You can still highlight the rows on hover */
 .table-hover tbody tr:hover {
     background-color: #f1f1f1;
+}
+
+/* Loading Placeholder Styling */
+.loading-placeholder-table {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.loading-placeholder-item {
+    background-color: #e0e0e0;
+    height: 40px;
+    border-radius: 4px;
+    animation: loading-animation 1.5s infinite ease;
+}
+
+@keyframes loading-animation {
+    0% {
+        background-color: #e0e0e0;
+    }
+    50% {
+        background-color: #d0d0d0;
+    }
+    100% {
+        background-color: #e0e0e0;
+    }
+}
+
+/* Optional: Add some margin below the table for spacing */
+.table-responsive {
+    margin-bottom: 20px;
 }

@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import Placeholder from 'react-bootstrap/Placeholder';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-import './Payment.css';  // Add this line for the custom styles
+import './Payment.css';  // Make sure your custom styles are here
 
 const Payment = () => {
     const { id } = useParams();
@@ -36,53 +34,15 @@ const Payment = () => {
     if (loading) {
         return (
             <div className="container text-center mt-5">
-                {/* Placeholder untuk judul tabel */}
-                <Placeholder as="h2" animation="wave">
-                    <Placeholder xs={6} />
-                </Placeholder>
-                
-                {/* Placeholder untuk tabel daftar pembayaran */}
-                <div className="table-responsive shadow-lg rounded bg-white p-4 mt-4">
-                    <table className="table table-hover table-bordered">
-                        <thead className="table-primary text-center">
-                            <tr>
-                                <th scope="col">
-                                    <Placeholder as="span" animation="wave"><Placeholder xs={4} /></Placeholder>
-                                </th>
-                                <th scope="col">
-                                    <Placeholder as="span" animation="wave"><Placeholder xs={4} /></Placeholder>
-                                </th>
-                                <th scope="col">
-                                    <Placeholder as="span" animation="wave"><Placeholder xs={4} /></Placeholder>
-                                </th>
-                                <th scope="col">
-                                    <Placeholder as="span" animation="wave"><Placeholder xs={4} /></Placeholder>
-                                </th>
-                                <th scope="col">
-                                    <Placeholder as="span" animation="wave"><Placeholder xs={4} /></Placeholder>
-                                </th>
-                                <th scope="col">
-                                    <Placeholder as="span" animation="wave"><Placeholder xs={4} /></Placeholder>
-                                </th>
-                                <th scope="col">
-                                    <Placeholder as="span" animation="wave"><Placeholder xs={4} /></Placeholder>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {[...Array(5)].map((_, index) => (
-                                <tr key={index} className="text-center align-middle">
-                                    <td><Placeholder as="p" animation="wave"><Placeholder xs={6} /></Placeholder></td>
-                                    <td><Placeholder as="p" animation="wave"><Placeholder xs={6} /></Placeholder></td>
-                                    <td><Placeholder as="p" animation="wave"><Placeholder xs={6} /></Placeholder></td>
-                                    <td><Placeholder as="p" animation="wave"><Placeholder xs={6} /></Placeholder></td>
-                                    <td><Placeholder as="p" animation="wave"><Placeholder xs={6} /></Placeholder></td>
-                                    <td><Placeholder as="p" animation="wave"><Placeholder xs={6} /></Placeholder></td>
-                                    <td><Placeholder as="p" animation="wave"><Placeholder xs={6} /></Placeholder></td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                {/* Loading Table Placeholder */}
+                <div className="loading-placeholder-table">
+                    <div className="loading-placeholder-item"></div>
+                    <div className="loading-placeholder-item"></div>
+                    <div className="loading-placeholder-item"></div>
+                    <div className="loading-placeholder-item"></div>
+                    <div className="loading-placeholder-item"></div>
+                    <div className="loading-placeholder-item"></div>
+                    <div className="loading-placeholder-item"></div>
                 </div>
             </div>
         );
