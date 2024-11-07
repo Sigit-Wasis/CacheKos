@@ -9,6 +9,7 @@ const Setting = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({});
 
+    // Fetch settings from the API
     useEffect(() => {
         const fetchSettings = async () => {
             try {
@@ -25,11 +26,13 @@ const Setting = () => {
         fetchSettings();
     }, []);
 
+    // Handle input changes for the form
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
+    // Save the form data when editing is done
     const handleSave = async () => {
         try {
             await axios.put(`http://localhost:8000/api/settings/1`, formData);
@@ -41,14 +44,17 @@ const Setting = () => {
         }
     };
 
+    // Loading state
     if (loading) {
         return <div className="loading" aria-live="polite">Loading...</div>;
     }
 
+    // Error handling
     if (error) {
         return <div className="error" aria-live="assertive">{error}</div>;
     }
 
+    // No data available case
     if (!settings) {
         return <div>No data available</div>;
     }
@@ -58,6 +64,7 @@ const Setting = () => {
             <h1 className="settings-title">Pengaturan</h1>
 
             <div className="settings-wrapper">
+                {/* Card Profil Kost */}
                 <div className="settings-card">
                     <h2 className="card-title">Profil Kost</h2>
                     <div className="settings-details">
@@ -76,42 +83,50 @@ const Setting = () => {
                         <p><strong>Email Kost:</strong> {isEditing ? (
                             <input name="email" value={formData.email || ""} onChange={handleInputChange} />
                         ) : settings.email}</p>
+
+                <h2 className="card-title">Social Media</h2>
+                        <p><strong>Tiktok Kost:</strong> {isEditing ? (
+                            <input name="tiktok" value={formData.tiktok || ""} onChange={handleInputChange} />
+                        ) : settings.tiktok}</p>
+                        <p><strong>Instagram Kost:</strong> {isEditing ? (
+                            <input name="instagram" value={formData.instagram || ""} onChange={handleInputChange} />
+                        ) : settings.instagram}</p>
+                        
                     </div>
                 </div>
 
+                {/* Card Pengaturan Kost */}
                 <div className="settings-card">
-                <h2 className="card-title">Pengaturan Kost</h2>
-                <div className="settings-details">
-               
-        
-              <p><strong>Tenggang Waktu Keterlambatan:</strong> {isEditing ? (
-              <input 
-                name="tenggang_waktu" 
-                value={formData.tenggang_waktu || ""} 
-                onChange={handleInputChange} 
-               />
-               ) : `${settings?.tenggang_waktu || 0} Hari`}</p>
+                    <h2 className="card-title">Pengaturan Kost</h2>
+                    <div className="settings-details">
+                        <p><strong>Tenggang Waktu Keterlambatan:</strong> {isEditing ? (
+                            <input 
+                                name="tenggang_waktu" 
+                                value={formData.tenggang_waktu || ""} 
+                                onChange={handleInputChange} 
+                            />
+                        ) : `${settings?.tenggang_waktu || 0} Hari`}</p>
 
-              <p><strong>Biaya Keterlambatan per Hari:</strong> {isEditing ? (
-                <input 
-                name="biaya_terlambat" 
-                value={formData.biaya_terlambat || ""} 
-                onChange={handleInputChange} 
-                     />
-             ) : `Rp ${parseFloat(settings?.biaya_terlambat || 0).toLocaleString('id-ID')}`}</p>
+                        <p><strong>Biaya Keterlambatan per Hari:</strong> {isEditing ? (
+                            <input 
+                                name="biaya_terlambat" 
+                                value={formData.biaya_terlambat || ""} 
+                                onChange={handleInputChange} 
+                            />
+                        ) : `Rp ${parseFloat(settings?.biaya_terlambat || 0).toLocaleString('id-ID')}`}</p>
 
-               <button onClick={() => setIsEditing(!isEditing)} className="edit-button">
-                    {isEditing ? "Cancel" : "Edit"}
-                </button>
-                {isEditing && <button onClick={handleSave} className="save-button">Save</button>}
-
-                
-                             </div>
+                        <div className="buttons">
+                            <button onClick={() => setIsEditing(!isEditing)} className="edit-button">
+                                {isEditing ? "Cancel" : "Edit"}
+                            </button>
+                            {isEditing && <button onClick={handleSave} className="save-button">Save</button>}
                         </div>
                     </div>
-                 </div>
-        
-          );
-        };
+                </div>
+
+            </div>
+        </div>
+    );
+};
 
 export default Setting;
