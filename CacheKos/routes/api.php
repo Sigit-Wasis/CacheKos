@@ -65,4 +65,3 @@ Route:: get ('/{id}', [PaymentController::class, 'show']);
 Route:: put ('/{id}', [PaymentController::class, 'update']);
 Route:: delete ('/{id}', [PaymentController::class, 'destroy']);
 });
-
