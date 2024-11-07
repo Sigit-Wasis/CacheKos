@@ -1,0 +1,20 @@
+/* Payment.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Rethink+Sans:wght@400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+/* Remove borders from the table */
+.table-bordered, .table-bordered th, .table-bordered td {
+    border: none;
+}
+
+/* Optional: Add spacing to the table cells to make it more readable without borders */
+.table th, .table td {
+    padding: 12px;
+}
+
+/* Optional: You can still highlight the rows on hover */
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
