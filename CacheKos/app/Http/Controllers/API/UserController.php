@@ -30,7 +30,7 @@ class UserController extends Controller
             'nama_lengkap' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
+            // 'password' => 'required|string|min:6',
         ]);
 
         // Menyimpan data pengguna baru ke dalam tabel users
@@ -39,7 +39,7 @@ class UserController extends Controller
             'nama_lengkap' => $request->nama_lengkap,
             'alamat' => $request->alamat,
             'email' => $request->email,
-            'password' => bcrypt($request->password), // Mengenkripsi password
+            'password' => bcrypt("12345"), // Mengenkripsi password
             'created_at' => now(),
             'updated_at' => now(),
         ]);

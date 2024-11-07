@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\SettingController;
+use App\Http\Controllers\Api\UserController;
+
 // use App\Http\Controllers\Api\ResidentController; // Uncomment jika diperlukan
 
 /*
@@ -38,6 +40,14 @@ Route::prefix('rooms')->middleware('auth:sanctum')->group(function () {
     Route::put('/{id}', [RoomController::class, 'edit']); // Memperbarui data kamar berdasarkan ID
     Route::get('/{id}', [RoomController::class, 'show']); // Mengambil data kamar berdasarkan ID
     Route::delete('/{id}', [RoomController::class, 'destroy']); // Menghapus data kamar berdasarkan ID
+});
+
+Route::prefix('users')->middleware('auth:sanctum')->group(function () {
+    Route::get('/', [UserController::class, 'index']); // Menampilkan semua data kamar
+    Route::post('/', [UserController::class, 'create']); // Menambahkan data kamar baru
+    Route::put('/{id}', [UserController::class, 'edit']); // Memperbarui data kamar berdasarkan ID
+    Route::get('/{id}', [UserController::class, 'show']); // Mengambil data kamar berdasarkan ID
+    Route::delete('/{id}', [UserController::class, 'destroy']); // Menghapus data kamar berdasarkan ID
 });
 
 // Rute untuk ResidentController (jika diperlukan)

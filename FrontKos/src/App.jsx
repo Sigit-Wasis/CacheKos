@@ -1,28 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link,  useNavigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import Room from "./pages/Room";
-// import Resident from "./pages/Resident";
-import User from "./pages/User"; // Import komponen User
+import User from "./pages/User";
+// import Resident from "./pages/Resident"; // Tetap dikomentar
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const navigate = useNavigate();
+  
+    const navigate=useNavigate();
+  
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        setIsAuthenticated(true);
+        // navigate("/home");
+      }
+    }, [navigate]);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsAuthenticated(true);
-      // navigate("/home");
-    }
-  }, [navigate]);
-
+  
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
-    navigate("/login");
   };
 
   return (
@@ -50,7 +51,6 @@ function App() {
                   Home
                 </Link>
               </li>
-             
               {!isAuthenticated ? (
                 <li className="nav-item">
                   <Link className="nav-link" to="/login">
@@ -64,29 +64,24 @@ function App() {
                       Room
                     </Link>
                   </li>
-                  {/* <li className="nav-item">
-                    <Link className="nav-link" to="/resident">
+                  <li className="nav-item">
+                    {/* Bagian Resident dikomentar */}
+                    {/* <Link className="nav-link" to="/resident">
                       Resident
-                    </Link>
-                  </li> */}
+                    </Link> */}
+                  </li>
                   <li className="nav-item">
                     <Link className="nav-link" to="/user">
                       User
                     </Link>
                   </li>
                   <li className="nav-item">
-                <Link className="nav-link" to="/setting">
-                  Setting 
-                </Link>
-              </li>
-                  <li className="nav-item">
-                    <Link
-                      className="nav-link btn btn-link"
-                      to="/login"
+                    <button
+                      className="btn btn-link nav-link"
                       onClick={handleLogout}
                     >
                       Logout
-                    </Link>
+                    </button>
                   </li>
                 </>
               )}
@@ -97,11 +92,10 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/setting" element={<Setting />} />
+        <Route path="/user" element={isAuthenticated ? <User /> : <LoginPage />} />
         {isAuthenticated && <Route path="/room" element={<Room />} />}
+        {/* Rute Resident tetap dikomentar */}
         {/* {isAuthenticated && <Route path="/resident" element={<Resident />} />} */}
-        {isAuthenticated && <Route path="/user" element={<User />} />} {/* Tambahkan rute User */}
       </Routes>
     </div>
   );
