@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const ResidentPage = () => {
   const [residents, setResidents] = useState([]);
@@ -28,7 +30,7 @@ const ResidentPage = () => {
         });
 
         setResidents(response.data.data);
-        setFilteredResidents(response.data.data); // Set initial filtered data
+        setFilteredResidents(response.data.data);
       } catch (error) {
         console.error("Error fetching residents:", error);
         setError("Failed to fetch residents. Please try again.");
@@ -40,12 +42,10 @@ const ResidentPage = () => {
     fetchResidents();
   }, [navigate]);
 
-  // Fungsi untuk menangani perubahan teks pencarian
   const handleSearchChange = (event) => {
     const value = event.target.value;
     setSearchText(value);
 
-    // Filter data residents berdasarkan teks pencarian
     const filteredData = residents.filter(resident =>
       resident.nama_penghuni.toLowerCase().includes(value.toLowerCase())
     );
@@ -72,7 +72,30 @@ const ResidentPage = () => {
   };
 
   if (loading) {
-    return <p>Loading data...</p>;
+    return (
+      <div className="container mt-5">
+        <h1 className="mb-4"><Skeleton width={200} /></h1>
+        <div className="mb-3">
+          <Skeleton height={40} />
+        </div>
+        <div className="row">
+          {Array(6).fill().map((_, index) => (
+            <div className="col-md-4 mb-4" key={index}>
+              <div className="card h-100">
+                <div className="card-body">
+                  <h5 className="card-title"><Skeleton width={`100%`} /></h5>
+                  <p className="card-text"><Skeleton count={7} /></p>
+                </div>
+                <div className="card-footer">
+                  <Skeleton width={`60%`} />
+                  <Skeleton height={30} width={`20%`} className="float-end" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   if (error) {
