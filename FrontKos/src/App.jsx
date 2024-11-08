@@ -1,16 +1,4 @@
 import React, { useState, useEffect } from "react";
-<<<<<<< HEAD
-import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import HomePage from "./pages/HomePage";
-import Room from "./pages/Room";
-import Resident from "./pages/Resident";
-import AddResidentPage from "./pages/AddResidentPage";
-import InactiveResidentsPage from "./pages/InactiveResidentsPage";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
-=======
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
@@ -22,7 +10,7 @@ import Setting from "./pages/Setting";
 import Payment from "./pages/Payment";
 import Resident from "./pages/Resident";
 import AddResidentPage from "./pages/AddResidentPage";
->>>>>>> eaef0628d19baa6cb53bcad0afaec7899247d8ae
+import InactiveResidentPage from "./pages/InactiveResidentsPage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -78,34 +66,6 @@ function App() {
                       Room
                     </Link>
                   </li>
-<<<<<<< HEAD
-
-                  {/* Resident Dropdown */}
-                  <li className="nav-item dropdown">
-                    <Link
-                      className="nav-link dropdown-toggle"
-                      to="#"
-                      id="residentDropdown"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      Resident
-                    </Link>
-                    <ul className="dropdown-menu" aria-labelledby="residentDropdown">
-                      <li>
-                        <Link className="dropdown-item" to="/resident">
-                          Resident
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item" to="/inactiveresident">
-                          Inactive Resident
-                        </Link>
-                      </li>
-                    </ul>
-                  </li>
-=======
                   <li className="nav-item">
                 <Link className="nav-link" to="/setting">
                   Setting 
@@ -136,13 +96,12 @@ function App() {
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/add">
+                    <Link className="dropdown-item" to="/selesai">
                       Penghuni Selesai
                     </Link>
                   </li>
                 </ul>
               </li>
->>>>>>> eaef0628d19baa6cb53bcad0afaec7899247d8ae
 
                   <li className="nav-item">
                     <Link
@@ -163,18 +122,13 @@ function App() {
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
-<<<<<<< HEAD
-        {isAuthenticated && <Route path="/room" element={<Room />} />}
-        {isAuthenticated && <Route path="/resident" element={<Resident />} />}
-        {isAuthenticated && <Route path="/add" element={<AddResidentPage />} />}
-        {isAuthenticated && <Route path="/inactiveresident" element={<InactiveResidentsPage />} />}
-=======
         <Route path="/setting" element={<Setting />} />
         <Route path="/payment" element={<Payment />} />
         {isAuthenticated && <Route path="/room" element={<Room />} />}
         {isAuthenticated && <Route path="/resident" element={<Resident/>} />}
         {isAuthenticated && <Route path="/add" element={<AddResidentPage/>} />}
->>>>>>> eaef0628d19baa6cb53bcad0afaec7899247d8ae
+        {isAuthenticated && <Route path="/selesai" element={<InactiveResidentPage/>} />}
+
       </Routes>
     </div>
   );
