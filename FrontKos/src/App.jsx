@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { BrowserRouter as Router, Route, Routes, Link , useNavigate} from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
@@ -121,7 +120,7 @@ function App() {
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/add">
+                    <Link className="dropdown-item" to="/selesai">
                       Penghuni Selesai
                     </Link>
                   </li>
