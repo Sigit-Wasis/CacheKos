@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+<<<<<<< HEAD
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
@@ -9,6 +10,19 @@ import InactiveResidentsPage from "./pages/InactiveResidentsPage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
+=======
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
+import { BrowserRouter as Router, Route, Routes, Link , useNavigate} from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import HomePage from "./pages/HomePage";
+import Room from "./pages/Room";
+import Setting from "./pages/Setting";
+import Payment from "./pages/Payment";
+import Resident from "./pages/Resident";
+import AddResidentPage from "./pages/AddResidentPage";
+>>>>>>> eaef0628d19baa6cb53bcad0afaec7899247d8ae
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -64,6 +78,7 @@ function App() {
                       Room
                     </Link>
                   </li>
+<<<<<<< HEAD
 
                   {/* Resident Dropdown */}
                   <li className="nav-item dropdown">
@@ -90,6 +105,44 @@ function App() {
                       </li>
                     </ul>
                   </li>
+=======
+                  <li className="nav-item">
+                <Link className="nav-link" to="/setting">
+                  Setting 
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/payment">
+                  Payment
+                </Link>
+              </li>
+
+              {/* dropdown resident  */}
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Penghuni
+                </a>
+                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <Link className="dropdown-item" to="/resident">
+                       Penghuni Aktif
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/add">
+                      Penghuni Selesai
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+>>>>>>> eaef0628d19baa6cb53bcad0afaec7899247d8ae
 
                   <li className="nav-item">
                     <Link
@@ -110,10 +163,18 @@ function App() {
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
+<<<<<<< HEAD
         {isAuthenticated && <Route path="/room" element={<Room />} />}
         {isAuthenticated && <Route path="/resident" element={<Resident />} />}
         {isAuthenticated && <Route path="/add" element={<AddResidentPage />} />}
         {isAuthenticated && <Route path="/inactiveresident" element={<InactiveResidentsPage />} />}
+=======
+        <Route path="/setting" element={<Setting />} />
+        <Route path="/payment" element={<Payment />} />
+        {isAuthenticated && <Route path="/room" element={<Room />} />}
+        {isAuthenticated && <Route path="/resident" element={<Resident/>} />}
+        {isAuthenticated && <Route path="/add" element={<AddResidentPage/>} />}
+>>>>>>> eaef0628d19baa6cb53bcad0afaec7899247d8ae
       </Routes>
     </div>
   );
