@@ -3,8 +3,13 @@ import { BrowserRouter as Router, Route, Routes, Link , useNavigate} from "react
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import Room from "./pages/Room";
+<<<<<<< HEAD
 import Resident from "./pages/Resident";
 import AddResidentPage from "./pages/AddResidentPage";
+=======
+import Setting from "./pages/Setting";
+import Payment from "./pages/Payment";
+>>>>>>> bd5744d872b63cb7c250fca1fe82defc5a7c545a
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -63,10 +68,22 @@ function App() {
                     </Link>
                   </li>
                   <li className="nav-item">
+<<<<<<< HEAD
                     <Link className="nav-link" to="/resident">
                       Resident
                     </Link>
                   </li>
+=======
+                <Link className="nav-link" to="/setting">
+                  Setting 
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/payment">
+                  Payment
+                </Link>
+              </li>
+>>>>>>> bd5744d872b63cb7c250fca1fe82defc5a7c545a
                   <li className="nav-item">
                     <Link
                       className="nav-link btn btn-link"
@@ -86,9 +103,14 @@ function App() {
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
+<<<<<<< HEAD
+=======
+        <Route path="/setting" element={<Setting />} />
+        <Route path="/payment" element={<Payment />} />
+>>>>>>> bd5744d872b63cb7c250fca1fe82defc5a7c545a
         {isAuthenticated && <Route path="/room" element={<Room />} />}
-        {isAuthenticated && <Route path="/resident" element={<Resident/>} />}
-        {isAuthenticated && <Route path="/add" element={<AddResidentPage/>} />}
+        {/* {isAuthenticated && <Route path="/resident" element={<Resident/>} />} */}
+        {/* {isAuthenticated && <Route path="/add" element={<AddResidentPage/>} />} */}
       </Routes>
     </div>
   );

@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController; // Mengimpor AuthController
 use App\Http\Controllers\Api\RoomController; // Mengimpor RoomController
 use App\Http\Controllers\Api\ResidentController; // Mengimpor ResidentController jika diperlukan
+use App\Http\Controllers\Api\SettingController; // Mengimpor SettingController
+use App\Http\Controllers\Api\PaymentController; // Mengimpor PaymentController
 
 /*
 |---------------------------------------------------------------------------|
@@ -58,9 +60,15 @@ Route:: prefix ('settings')->group(function () {
 Route:: get ('/', [SettingController::class, 'index']);
 Route:: post ('/', [SettingController::class, 'store']);
 Route:: get ('/{id}', [SettingController::class, 'show']);
-Route:: put ('/{id}', [SettingController::class, 'update']);
+Route:: put ('/{id}', [SettingController::class, 'edit']);
 Route:: delete ('/{id}', [SettingController::class, 'destroy']);
 });
 
-
-
+//route payment
+Route:: prefix ('payments')->group(function () {
+Route:: get ('/', [PaymentController::class, 'index']);
+Route:: post ('/', [PaymentController::class, 'store']);
+Route:: get ('/{id}', [PaymentController::class, 'show']);
+Route:: put ('/{id}', [PaymentController::class, 'update']);
+Route:: delete ('/{id}', [PaymentController::class, 'destroy']);
+});
