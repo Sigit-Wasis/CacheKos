@@ -15,8 +15,9 @@
     font-size: 2rem;
     color: #34495e;
     margin-bottom: 1.5rem;
+    color: #2d3748;
+    letter-spacing: -0.025em;
     text-align: center;
-    font-weight: 700;
 }
 
 /* Grid layout for responsive cards */

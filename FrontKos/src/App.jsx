@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from "react"; 
-import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from "react-router-dom";
+
+import React, { useState, useEffect } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+import { BrowserRouter as Router, Route, Routes, Link , useNavigate} from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import Room from "./pages/Room";
 import Setting from "./pages/Setting";
-import Expense from "./pages/Expense"; // Impor komponen Expense
+import Payment from "./pages/Payment";
+import Resident from "./pages/Resident";
+import AddResidentPage from "./pages/AddResidentPage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -47,7 +52,6 @@ function App() {
                   Home
                 </Link>
               </li>
-
               {!isAuthenticated ? (
                 <li className="nav-item">
                   <Link className="nav-link" to="/login">
@@ -61,11 +65,69 @@ function App() {
                       Room
                     </Link>
                   </li>
+
+                  {/* Resident Dropdown */}
+                  <li className="nav-item dropdown">
+                    <Link
+                      className="nav-link dropdown-toggle"
+                      to="#"
+                      id="residentDropdown"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Resident
+                    </Link>
+                    <ul className="dropdown-menu" aria-labelledby="residentDropdown">
+                      <li>
+                        <Link className="dropdown-item" to="/resident">
+                          Resident
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" to="/inactiveresident">
+                          Inactive Resident
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/setting">
-                      Setting
+                <Link className="nav-link" to="/setting">
+                  Setting 
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/payment">
+                  Payment
+                </Link>
+              </li>
+
+              {/* dropdown resident  */}
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Penghuni
+                </a>
+                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <Link className="dropdown-item" to="/resident">
+                       Penghuni Aktif
                     </Link>
                   </li>
+                  <li>
+                    <Link className="dropdown-item" to="/add">
+                      Penghuni Selesai
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+
                   <li className="nav-item">
                     <Link
                       className="nav-link btn btn-link"
@@ -87,14 +149,21 @@ function App() {
           </div>
         </div>
       </nav>
-
       <Routes>
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
+
+        {isAuthenticated && <Route path="/room" element={<Room />} />}
+        {isAuthenticated && <Route path="/resident" element={<Resident />} />}
+        {isAuthenticated && <Route path="/add" element={<AddResidentPage />} />}
+        {isAuthenticated && <Route path="/inactiveresident" element={<InactiveResidentsPage />} />}
+
         <Route path="/setting" element={<Setting />} />
         <Route path="/expense" element={<Expense />} /> {/* Tambahkan route untuk Expense */}
         {isAuthenticated && <Route path="/room" element={<Room />} />}
+        {isAuthenticated && <Route path="/resident" element={<Resident/>} />}
+        {isAuthenticated && <Route path="/add" element={<AddResidentPage/>} />}
       </Routes>
     </div>
   );
