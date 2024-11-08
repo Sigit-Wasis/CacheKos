@@ -3,12 +3,8 @@ import { BrowserRouter as Router, Route, Routes, Link , useNavigate} from "react
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import Room from "./pages/Room";
-<<<<<<< HEAD
 import Resident from "./pages/Resident";
 import AddResidentPage from "./pages/AddResidentPage";
-=======
-import Setting from "./pages/Setting";
->>>>>>> 96747dd2ca2fe8188641f47e7646b08206aec734
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -53,7 +49,6 @@ function App() {
                   Home
                 </Link>
               </li>
-             
               {!isAuthenticated ? (
                 <li className="nav-item">
                   <Link className="nav-link" to="/login">
@@ -68,17 +63,10 @@ function App() {
                     </Link>
                   </li>
                   <li className="nav-item">
-<<<<<<< HEAD
                     <Link className="nav-link" to="/resident">
                       Resident
                     </Link>
                   </li>
-=======
-                <Link className="nav-link" to="/setting">
-                  Setting 
-                </Link>
-              </li>
->>>>>>> 96747dd2ca2fe8188641f47e7646b08206aec734
                   <li className="nav-item">
                     <Link
                       className="nav-link btn btn-link"
@@ -98,7 +86,6 @@ function App() {
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/setting" element={<Setting />} />
         {isAuthenticated && <Route path="/room" element={<Room />} />}
         {isAuthenticated && <Route path="/resident" element={<Resident/>} />}
         {isAuthenticated && <Route path="/add" element={<AddResidentPage/>} />}
