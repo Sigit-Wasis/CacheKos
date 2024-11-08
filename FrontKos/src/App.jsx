@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link , useNavigate} from "react-router-dom";
+import React, { useState, useEffect } from "react"; 
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import Room from "./pages/Room";
 import Setting from "./pages/Setting";
+import Expense from "./pages/Expense"; // Impor komponen Expense
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       setIsAuthenticated(true);
-      // navigate("/home");
     }
   }, [navigate]);
 
@@ -48,7 +47,7 @@ function App() {
                   Home
                 </Link>
               </li>
-             
+
               {!isAuthenticated ? (
                 <li className="nav-item">
                   <Link className="nav-link" to="/login">
@@ -63,10 +62,10 @@ function App() {
                     </Link>
                   </li>
                   <li className="nav-item">
-                <Link className="nav-link" to="/setting">
-                  Setting 
-                </Link>
-              </li>
+                    <Link className="nav-link" to="/setting">
+                      Setting
+                    </Link>
+                  </li>
                   <li className="nav-item">
                     <Link
                       className="nav-link btn btn-link"
@@ -76,17 +75,25 @@ function App() {
                       Logout
                     </Link>
                   </li>
+                  {/* Tambahkan link ke Expense */}
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/expense">
+                      Expense
+                    </Link>
+                  </li>
                 </>
               )}
             </ul>
           </div>
         </div>
       </nav>
+
       <Routes>
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/setting" element={<Setting />} />
+        <Route path="/expense" element={<Expense />} /> {/* Tambahkan route untuk Expense */}
         {isAuthenticated && <Route path="/room" element={<Room />} />}
       </Routes>
     </div>
