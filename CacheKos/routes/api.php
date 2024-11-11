@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\RoomController; // Mengimpor RoomController
 use App\Http\Controllers\Api\ResidentController; // Mengimpor ResidentController jika diperlukan
 use App\Http\Controllers\Api\SettingController; // Mengimpor SettingController
 use App\Http\Controllers\Api\PaymentController; // Mengimpor PaymentController
+use App\Http\Controllers\API\DashboardController;
 
 /*
 |---------------------------------------------------------------------------|
@@ -54,6 +55,10 @@ Route::prefix('residents')->middleware('auth:sanctum')->group(function () {
     Route::put('/{id}', [ResidentController::class, 'update']); // Memperbarui resident berdasarkan ID
     Route::delete('/{id}', [ResidentController::class, 'destroy']); // Menghapus resident berdasarkan ID
 });
+
+Route::prefix('dashboard')->middleware('auth:sanctum')->group(function () {
+    Route::get('/kamar-terisi', [DashboardController::class, 'index']); // Mendapatkan semua resident
+    });
 
 //route setting
 Route:: prefix ('settings')->group(function () {
