@@ -43,11 +43,11 @@ Route::prefix('rooms')->middleware('auth:sanctum')->group(function () {
 });
 
 Route::prefix('users')->middleware('auth:sanctum')->group(function () {
-    Route::get('/', [UserController::class, 'index']); // Menampilkan semua data kamar
-    Route::post('/', [UserController::class, 'create']); // Menambahkan data kamar baru
-    Route::put('/{id}', [UserController::class, 'edit']); // Memperbarui data kamar berdasarkan ID
-    Route::get('/{id}', [UserController::class, 'show']); // Mengambil data kamar berdasarkan ID
-    Route::delete('/{id}', [UserController::class, 'destroy']); // Menghapus data kamar berdasarkan ID
+    Route::get('/', [UserController::class, 'index']); // Menampilkan semua data user
+    Route::post('/', [UserController::class, 'create']); // Menambahkan data user baru
+    Route::put('/{id}', [UserController::class, 'edit']); // Memperbarui data user berdasarkan ID
+    Route::get('/{id}', [UserController::class, 'show']); // Mengambil data user berdasarkan ID
+    Route::delete('/{id}', [UserController::class, 'destroy']); // Menghapus data user berdasarkan ID
 });
 
 // Rute untuk ResidentController (jika diperlukan)

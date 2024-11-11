@@ -1,4 +1,3 @@
-// User.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -9,7 +8,9 @@ const User = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [newUser, setNewUser] = useState({ nama_lengkap: '', username: '', email: '', alamat: '' });
+  const [currentUserId, setCurrentUserId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const User = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setUsers(response.data.data);
+        setUsers(response.data.data); // Menyesuaikan respons
       } catch (error) {
         console.error("Error fetching users:", error);
         setError("Gagal mengambil data pengguna. Silakan coba lagi.");
@@ -41,7 +42,6 @@ const User = () => {
 
   const handleAddUser = async () => {
     const token = localStorage.getItem('token');
-    console.log(newUser)
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/users', newUser, {
         headers: {
@@ -57,6 +57,49 @@ const User = () => {
     }
   };
 
+  const handleEditUser = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.put(`http://127.0.0.1:8000/api/users/${currentUserId}`, newUser, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // Update pengguna yang telah diedit di state `users`
+      setUsers(users.map(user => (user.id === currentUserId ? response.data.data : user)));
+      setShowModal(false);
+      setIsEditing(false);
+      setNewUser({ nama_lengkap: '', username: '', email: '', alamat: '' });
+      setCurrentUserId(null);
+    } catch (error) {
+      console.error("Error updating user:", error);
+      setError("Gagal memperbarui pengguna. Silakan coba lagi.");
+    }
+  };
+
+  const handleDeleteUser = async (id) => {
+    const token = localStorage.getItem('token');
+    try {
+      await axios.delete(`http://127.0.0.1:8000/api/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // Menghapus pengguna dari state `users`
+      setUsers(users.filter(user => user.id !== id));
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      setError("Gagal menghapus pengguna. Silakan coba lagi.");
+    }
+  };
+
+  const openEditModal = (user) => {
+    setCurrentUserId(user.id);
+    setNewUser({ nama_lengkap: user.nama_lengkap, username: user.username, email: user.email, alamat: user.alamat });
+    setIsEditing(true);
+    setShowModal(true);
+  };
+
   if (loading) {
     return <p>Loading data...</p>;
   }
@@ -69,7 +112,11 @@ const User = () => {
     <div className="container mt-5">
       <div className="header">
         <h1 className="title">Daftar Pengguna</h1>
-        <button className="btn btn-primary add-user-btn" onClick={() => setShowModal(true)}>
+        <button className="btn btn-primary add-user-btn" onClick={() => {
+          setShowModal(true);
+          setIsEditing(false);
+          setNewUser({ nama_lengkap: '', username: '', email: '', alamat: '' });
+        }}>
           Tambah User
         </button>
       </div>
@@ -83,23 +130,22 @@ const User = () => {
                 <p className="card-text"><strong>Nama Lengkap:</strong> {user.nama_lengkap}</p>
                 <p className="card-text"><strong>Email:</strong> {user.email}</p>
                 <p className="card-text"><strong>Alamat:</strong> {user.alamat}</p>
-                <p className="card-text"><strong>Tanggal Bergabung:</strong> {new Date(user.created_at).toLocaleDateString()}</p>
               </div>
               <div className="card-footer">
-                <small className="text-muted">Last updated on {new Date(user.updated_at).toLocaleDateString()}</small>
+                <button className="btn btn-warning me-2 edit-btn" onClick={() => openEditModal(user)}>Edit</button>
+                <button className="btn btn-danger delete-btn" onClick={() => handleDeleteUser(user.id)}>Delete</button>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Modal Form */}
       {showModal && (
         <div className="modal" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Tambah Pengguna</h5>
+                <h5 className="modal-title">{isEditing ? 'Edit Pengguna' : 'Tambah Pengguna'}</h5>
                 <button type="button" className="close" onClick={() => setShowModal(false)}>
                   &times;
                 </button>
@@ -136,7 +182,9 @@ const User = () => {
               </div>
               <div className="modal-footer">
                 <button className="btn btn-secondary" onClick={() => setShowModal(false)}>Batal</button>
-                <button className="btn btn-primary" onClick={handleAddUser}>Simpan</button>
+                <button className="btn btn-primary" onClick={isEditing ? handleEditUser : handleAddUser}>
+                  {isEditing ? 'Simpan Perubahan' : 'Simpan'}
+                </button>
               </div>
             </div>
           </div>
