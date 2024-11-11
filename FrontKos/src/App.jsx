@@ -81,7 +81,6 @@ function App() {
                       Payment
                     </Link>
                   </li>
-                  
 
                   {/* dropdown resident  */}
                   <li className="nav-item dropdown">
@@ -98,11 +97,16 @@ function App() {
                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                       <li>
                         <Link className="dropdown-item" to="/resident">
+                          Penghuni
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" to="/active">
                           Penghuni Aktif
                         </Link>
                       </li>
                       <li>
-                        <Link className="dropdown-item" to="/selesai">
+                        <Link className="dropdown-item" to="/inactive">
                           Penghuni Selesai
                         </Link>
                       </li>
@@ -132,9 +136,12 @@ function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/dashboard" element={<Dashboard />} />
         {isAuthenticated && <Route path="/room" element={<Room />} />}
-        {isAuthenticated && <Route path="/resident" element={<Resident />} />}
-        {isAuthenticated && <Route path="/add" element={<AddResidentPage />} />}
-        {isAuthenticated && <Route path="/selesai" element={<InactiveResidentsPage />} />}
+        {isAuthenticated && <Route path="/resident" element={<Resident/>} />}
+        {isAuthenticated && <Route path="/add" element={<AddResidentPage/>} />}
+        {isAuthenticated && <Route path="/inactive" element={<InactiveResidentsPage/>} />}
+        {isAuthenticated && <Route path="/active" element={<ActiveResident/>} />}
+        {isAuthenticated && <Route path="/edit/:id" element={<EditResidentPage/>} />}
+        {isAuthenticated && <Route path="/invoice/:id" element={<PrintInvoicePage/>} />}
       </Routes>
     </div>
   );
