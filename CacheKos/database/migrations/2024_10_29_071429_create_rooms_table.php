@@ -15,8 +15,10 @@ class CreateRoomsTable extends Migration
             $table->id(); 
             $table->string('nama_kamar'); 
             $table->string('nomor_kamar')->unique(); 
-            $table->float('harga_per_bulan'); 
             $table->float('harga_per_hari');
+            $table->float('harga_per_minggu');
+            $table->float('harga_per_bulan'); 
+            $table->float('harga_per_tahun');
             $table->text('fasilitas'); 
             $table->text('kelengkapan_lain'); 
             $table->text('catatan_kamar'); 

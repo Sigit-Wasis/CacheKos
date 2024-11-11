@@ -32,6 +32,8 @@ class RoomController extends Controller
                 'nomor_kamar' => 'required|string|max:50',
                 'harga_per_bulan' => 'required|numeric',
                 'harga_per_hari' => 'required|numeric',
+                'harga_per_minggu' => 'required|numeric',
+                'harga_per_tahun' => 'required|numeric',
                 'fasilitas' => 'nullable|string',
                 'kelengkapan_lain' => 'nullable|string',
                 'catatan_kamar' => 'nullable|string',
