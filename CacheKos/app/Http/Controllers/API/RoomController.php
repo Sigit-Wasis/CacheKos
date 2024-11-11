@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class RoomController extends Controller
 {
@@ -31,15 +32,21 @@ class RoomController extends Controller
                 'nomor_kamar' => 'required|string|max:50',
                 'harga_per_bulan' => 'required|numeric',
                 'harga_per_hari' => 'required|numeric',
+                'harga_per_minggu' => 'required|numeric',
+                'harga_per_tahun' => 'required|numeric',
                 'fasilitas' => 'nullable|string',
                 'kelengkapan_lain' => 'nullable|string',
                 'catatan_kamar' => 'nullable|string',
-                'created_by' => 'required|integer',  
-                'updated_by' => 'nullable|integer', 
+                
             ]);
 
             // Menambahkan data baru ke tabel rooms
+            // Menambahkan kolom 'created_by' dengan ID pengguna yang sedang login
+            $validatedData['created_by'] = Auth::id(); 
+            // Menambahkan kolom 'created_by' dengan ID pengguna yang sedang login
+            $validatedData['updated_by'] = Auth::id(); 
             $roomId = DB::table('rooms')->insertGetId($validatedData);
+
 
             // Mengembalikan respons JSON setelah berhasil menambahkan data
             return response()->json([
