@@ -188,7 +188,7 @@ const ResidentPage = () => {
                 
                 <div className="card-footer">
                 <button 
-                    className="btn btn-primary btn-sm float-end me-2"
+                    className="btn btn-primary btn-sm float-end"
                     onClick={() => navigate(`/invoice/${resident.id}`)}
                   >
                     Print Invoice
@@ -200,7 +200,7 @@ const ResidentPage = () => {
                     Edit
                   </button>
                   <button 
-                    className="btn btn-danger btn-sm float-end"
+                    className="btn btn-danger btn-sm float-start"
                     onClick={() => handleDelete(resident.id)}
                   >
                     Delete

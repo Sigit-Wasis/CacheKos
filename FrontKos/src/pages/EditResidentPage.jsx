@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const EditResidentPage = () => {
-  const { id } = useParams(); // Get the resident ID from URL parameters
+  const { id } = useParams();  // Get the resident ID from URL parameters
   const [resident, setResident] = useState({
     nama_penghuni: '',
     id_kamar: '',
@@ -19,75 +19,46 @@ const EditResidentPage = () => {
     tanggal_masuk: '',
     keterangan: '',
     status_sewa: 1,
-  });
-  const [rooms, setRooms] = useState([]);
+  }); // Initialize resident data state
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  // Fetch available rooms and resident data by ID
+  // Fetch resident data by ID
   useEffect(() => {
     const token = localStorage.getItem('token');
 
-    const fetchResidentData = async () => {
+    const fetchResident = async () => {
       try {
-        const roomResponse = await axios.get('http://127.0.0.1:8000/api/rooms', {
+        const response = await axios.get(`http://127.0.0.1:8000/api/residents/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setRooms(roomResponse.data.data); // Set available rooms
-
-        const residentResponse = await axios.get(`http://127.0.0.1:8000/api/residents/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setResident(residentResponse.data.data); // Set resident data
+        setResident(response.data.data);  // Set fetched data to resident state
       } catch (error) {
-        setError("Failed to fetch data. Please try again.");
+        setError("Failed to fetch resident data. Please try again.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchResidentData();
+    fetchResident();
   }, [id]);
 
   // Handle changes to input fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
-    // Adjust 'lama_sewa' based on 'jenis_sewa_kamar'
-    if (name === 'jenis_sewa_kamar') {
-      let lamaSewaDefault = '';
-      switch (value) {
-        case '1':
-          lamaSewaDefault = '1';
-          break;
-        case '2':
-          lamaSewaDefault = '7';
-          break;
-        case '3':
-          lamaSewaDefault = '30';
-          break;
-        case '4':
-          lamaSewaDefault = '365';
-          break;
-        default:
-          lamaSewaDefault = '';
-      }
-      setResident({ ...resident, [name]: value, lama_sewa: lamaSewaDefault });
-    } else {
-      setResident({ ...resident, [name]: value });
-    }
+    setResident({ ...resident, [name]: value });
   };
 
   // Save edited data
   const handleSave = async () => {
     const token = localStorage.getItem('token');
-
+    
     try {
       await axios.put(`http://127.0.0.1:8000/api/residents/${id}`, resident, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      navigate('/resident'); // Redirect to the resident page after saving
+      navigate('/resident'); // Redirect to the main page after saving
     } catch (error) {
       setError("Failed to save resident data. Please try again.");
     }
@@ -113,22 +84,16 @@ const EditResidentPage = () => {
             />
           </div>
 
-          {/* Room ID Select */}
+          {/* Room ID Input */}
           <div className="mb-3">
-            <label>Room:</label>
-            <select
+            <label>Room ID:</label>
+            <input
+              type="text"
               name="id_kamar"
               className="form-control"
               value={resident.id_kamar}
               onChange={handleInputChange}
-            >
-              <option value="">Select Room</option>
-              {rooms.map((room) => (
-                <option key={room.id} value={room.id}>
-                  {room.nama_kamar}
-                </option>
-              ))}
-            </select>
+            />
           </div>
 
           {/* Phone Number Input */}
@@ -171,23 +136,23 @@ const EditResidentPage = () => {
 
           {/* Room Rental Type Select */}
           <div className="mb-3">
-            <label>jenis Kamar Sewa:</label>
+            <label>Room Rental Type:</label>
             <select
               name="jenis_sewa_kamar"
               className="form-control"
               value={resident.jenis_sewa_kamar}
               onChange={handleInputChange}
             >
-              <option value="1">Harian</option>
-              <option value="2">Mingguan</option>
-              <option value="3">Bulanan</option>
-              <option value="4">Tahunan</option>
+              <option value={1}>Harian</option>
+              <option value={2}>Mingguan</option>
+              <option value={3}>Bulanan</option>
+              <option value={4}>Tahunan</option>
             </select>
           </div>
 
           {/* Resident Status Select */}
           <div className="mb-3">
-            <label>Status Penghuni :</label>
+            <label>Resident Status:</label>
             <select
               name="status_penghuni"
               className="form-control"
@@ -204,7 +169,7 @@ const EditResidentPage = () => {
 
           {/* Occupation Select */}
           <div className="mb-3">
-            <label>Pekerjaan:</label>
+            <label>Occupation:</label>
             <select
               name="pekerjaan"
               className="form-control"
@@ -217,12 +182,14 @@ const EditResidentPage = () => {
               <option value={4}>Karyawan</option>
               <option value={5}>Wiraswasta</option>
               <option value={6}>PNS</option>
+              <option value={7}>Programmer</option>
+
             </select>
           </div>
 
-          {/* Number of Residents Input */}
+          {/* Other fields as needed */}
           <div className="mb-3">
-            <label>Jumlah Penghuni:</label>
+            <label>Number of Residents:</label>
             <input
               type="number"
               name="jumlah_penghuni"
@@ -232,9 +199,8 @@ const EditResidentPage = () => {
             />
           </div>
 
-          {/* Lease Duration Input */}
           <div className="mb-3">
-            <label>Lama Sewa:</label>
+            <label>Rental Duration:</label>
             <input
               type="text"
               name="lama_sewa"
@@ -244,9 +210,8 @@ const EditResidentPage = () => {
             />
           </div>
 
-          {/* Entry Date Input */}
           <div className="mb-3">
-            <label>Tanggal Masuk:</label>
+            <label>Entry Date:</label>
             <input
               type="date"
               name="tanggal_masuk"
@@ -256,9 +221,8 @@ const EditResidentPage = () => {
             />
           </div>
 
-          {/* Remarks Input */}
           <div className="mb-3">
-            <label>Keterangan:</label>
+            <label>Remarks:</label>
             <textarea
               name="keterangan"
               className="form-control"
@@ -269,7 +233,7 @@ const EditResidentPage = () => {
 
           {/* Lease Status Select */}
           <div className="mb-3">
-            <label>Status Sewa:</label>
+            <label>Lease Status:</label>
             <select
               name="status_sewa"
               className="form-control"
@@ -285,7 +249,7 @@ const EditResidentPage = () => {
           <button className="btn btn-primary" onClick={handleSave}>
             Save Changes
           </button>
-          <button className="btn btn-secondary ms-2" onClick={() => navigate('/resident')}>
+          <button className="btn btn-secondary ms-2" onClick={() => navigate('/')}>
             Cancel
           </button>
         </div>
