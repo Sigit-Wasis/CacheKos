@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import CSS Bootstrap
+import { FaEdit, FaTrash } from 'react-icons/fa'; // Import icons untuk Edit dan Delete
+import Swal from 'sweetalert2';
+import './Room.css';
+
+
 
 const Room = () => {
   const [rooms, setRooms] = useState([]);
@@ -16,7 +21,10 @@ const Room = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editRoom, setEditRoom] = useState(null); // Untuk menampung data kamar yang akan diedit
 
+  // Mengambil data kamar dari API saat komponen pertama kali dimuat
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -25,12 +33,9 @@ const Room = () => {
       return;
     }
 
-    // Mengambil daftar kamar dari API
     axios
       .get("http://localhost:8000/api/rooms", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
         setRooms(response.data.data);
@@ -49,53 +54,112 @@ const Room = () => {
     }));
   };
 
+  // Menangani pengiriman form (tambah atau edit kamar)
   const handleSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-
-   
-    const roomData = {
-      ...newRoom,
-     
-    };
-
-    // Mengirim data kamar baru ke API
-    console.log(roomData);
-    axios
-      .post("http://localhost:8000/api/rooms", roomData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        if (response.data && response.data.data) {
-          setRooms((prevRooms) => [...prevRooms, response.data.data]); // Menambahkan kamar baru ke daftar
-          setSuccess("Kamar berhasil ditambahkan!");
-          setNewRoom({
-            nama_kamar: "",
-            nomor_kamar: "",
-            harga_per_bulan: "",
-            harga_per_hari: "",
-            fasilitas: "",
-            kelengkapan_lain: "",
-            catatan_kamar: "",
+  
+    if (isEditMode) {
+      // Update kamar yang sudah ada
+      axios
+        .put(`http://localhost:8000/api/rooms/${editRoom.id}`, newRoom, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          const updatedRoom = response.data.data;
+          setRooms(rooms.map((room) => (room.id === updatedRoom.id ? updatedRoom : room)));
+          Swal.fire({
+            title: "Sukses",
+            text: "Kamar berhasil diperbarui",
+            icon: "success",
+            timer: 1500
+          }).then(() => {
+            toggleModal(); // Menutup modal setelah klik OK
           });
-          setError("");
-          toggleModal(); // Menutup modal setelah sukses menambah data
-        } else {
+          resetForm();
+        })
+        .catch((error) => {
+          setError("Gagal memperbarui kamar. Silakan coba lagi.");
+          console.error(error);
+        });
+    } else {
+      // Menambahkan kamar baru
+      axios
+        .post("http://localhost:8000/api/rooms", newRoom, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          setRooms((prevRooms) => [...prevRooms, response.data.data]);
+          Swal.fire({
+            title: "Sukses",
+            text: "Kamar berhasil ditambahkan",
+            icon: "success",
+            timer: 1500
+          }).then(() => {
+            toggleModal(); // Menutup modal setelah klik OK
+          });
+          resetForm();
+        })
+        .catch((error) => {
           setError("Gagal menambahkan kamar. Silakan coba lagi.");
-        }
+          console.error(error);
+        });
+    }
+  };
+  
+
+  // Menghapus kamar berdasarkan ID
+  const handleDelete = (id) => {
+    const token = localStorage.getItem("token");
+    axios
+      .delete(`http://localhost:8000/api/rooms/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(() => {
+        setRooms(rooms.filter((room) => room.id !== id));
+        Swal.fire({
+          title: "Sukses",
+          text: "Kamar berhasil dihapus",
+          icon: "success",
+          timer: 1500
+        }).then(() => {
+          
+        });
       })
       .catch((error) => {
-        setError("Gagal menambahkan kamar. Silakan coba lagi.");
+        setError("Gagal menghapus kamar. Silakan coba lagi.");
+        setTimeout(() => setError(""), 3000); // Menghilangkan alert setelah 3 detik
         console.error(error);
       });
   };
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+  // Mengubah form ke mode edit
+  const handleEdit = (room) => {
+    setIsEditMode(true);
+    setEditRoom(room);
+    setNewRoom(room);
+    setIsModalOpen(true); // Buka modal untuk edit
+  };
+
+  // Menutup modal dan reset form
+  const resetForm = () => {
+    setNewRoom({
+      nama_kamar: "",
+      nomor_kamar: "",
+      harga_per_bulan: "",
+      harga_per_hari: "",
+      fasilitas: "",
+      kelengkapan_lain: "",
+      catatan_kamar: "",
+    });
     setError("");
     setSuccess("");
+    setIsEditMode(false);
+  };
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+    resetForm(); // Reset form saat modal ditutup
   };
 
   return (
@@ -107,32 +171,21 @@ const Room = () => {
         Tambah Kamar
       </button>
 
-      {/* Modal Form Tambah Kamar */}
+      {/* Modal Form Tambah/Edit Kamar */}
       {isModalOpen && (
-        <div
-          className="modal fade show d-block"
-          tabIndex="-1"
-          aria-hidden="true"
-        >
+        <div className="modal fade show d-block" tabIndex="-1" aria-hidden="true">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Tambah Kamar Baru</h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  onClick={toggleModal}
-                  aria-label="Close"
-                ></button>
+                <h5 className="modal-title">{isEditMode ? 'Edit Kamar' : 'Tambah Kamar Baru'}</h5>
+                <button type="button" className="btn-close" onClick={toggleModal}></button>
               </div>
               <form onSubmit={handleSubmit}>
                 <div className="modal-body">
-                  {/* Tampilkan error atau success di dalam modal */}
                   {error && <div className="alert alert-danger">{error}</div>}
-                  {success && (
-                    <div className="alert alert-success">{success}</div>
-                  )}
+                  {success && <div className="alert alert-success">{success}</div>}
 
+                  {/* Form input */}
                   <div className="form-group">
                     <label>Nama Kamar</label>
                     <input
@@ -204,15 +257,11 @@ const Room = () => {
                   </div>
                 </div>
                 <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={toggleModal}
-                  >
+                  <button type="button" className="btn btn-secondary" onClick={toggleModal}>
                     Tutup
                   </button>
                   <button type="submit" className="btn btn-primary">
-                    Simpan
+                    {isEditMode ? 'Simpan Perubahan' : 'Simpan'}
                   </button>
                 </div>
               </form>
@@ -223,35 +272,43 @@ const Room = () => {
 
       {/* Daftar Kamar */}
       <div className="row">
-        {rooms.map((room) => (
-          <div className="col-md-4" key={room.id}>
-            <div className="card mb-4 shadow-sm">
-              <div className="card-header bg-primary ">
-                <h5 className="card-title mb-0 text-white">{room.nama_kamar}</h5>
-              </div>
-
-              <div className="card-body">
-                <h6 className="card-subtitle mb-2 text-muted">
-                  Nomor Kamar: {room.nomor_kamar}
-                </h6>
-                <p className="card-text">
-                  <strong>Harga per Bulan:</strong> Rp{" "}
-                  {room.harga_per_bulan.toLocaleString()}
-                  <br />
-                  <strong>Harga per Hari:</strong> Rp{" "}
-                  {room.harga_per_hari.toLocaleString()}
-                  <br />
-                  <strong>Fasilitas:</strong> {room.fasilitas}
-                  <br />
-                  <strong>Kelengkapan Lain:</strong> {room.kelengkapan_lain}
-                  <br />
-                  <strong>Catatan:</strong> {room.catatan_kamar}
-                </p>
-              </div>
-            </div>
+  {rooms.map((room) => (
+    <div key={room.id} className="col-md-4">
+      <div className="card mb-4">
+        <div className="card-body">
+          <h5 className="card-title-room">{room.nama_kamar}</h5>
+          <p className="card-text"><strong>Nomor Kamar:</strong> {room.nomor_kamar}</p>
+          <p className="card-text"><strong>Harga Per Bulan:</strong> {room.harga_per_bulan}</p>
+          <p className="card-text"><strong>Harga Per Hari:</strong> {room.harga_per_hari}</p>
+          
+          {/* Menampilkan fasilitas, kelengkapan lain, dan catatan kamar */}
+          <p className="card-text"><strong>Fasilitas:</strong> {room.fasilitas}</p>
+          <p className="card-text"><strong>Kelengkapan Lain:</strong> {room.kelengkapan_lain}</p>
+          <p className="card-text"><strong>Catatan Kamar:</strong> {room.catatan_kamar}</p>
+          
+          
+          {/* Tombol edit dan delete */}
+          <div className="btn-aksi">
+          <button
+            className="btn btn-warning mr-2"
+            onClick={() => handleEdit(room)}
+          >
+            <FaEdit /> Edit
+          </button>
+          <button
+            className="btn btn-danger"
+            onClick={() => handleDelete(room.id)}
+          >
+            <FaTrash /> Hapus
+          </button>
           </div>
-        ))}
+          
+        </div>
       </div>
+    </div>
+  ))}
+</div>
+
     </div>
   );
 };
