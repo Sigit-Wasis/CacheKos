@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -15,10 +15,33 @@ const AddResidentPage = () => {
     jumlah_penghuni: '',
     lama_sewa: '',
     tanggal_masuk: '',
-    keterangan: ''
+    keterangan: '',
+    status_sewa: '',
+
   });
+  const [rooms, setRooms] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchRooms = async () => {
+      const token = localStorage.getItem('token');
+
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/rooms', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setRooms(response.data.data);
+      } catch (error) {
+        console.error("Error fetching rooms:", error);
+        setError("Failed to fetch rooms. Please try again.");
+      }
+    };
+
+    fetchRooms();
+  }, []);
 
   const handleInputChange = (e) => {
     setResidentData({ ...residentData, [e.target.name]: e.target.value });
@@ -38,9 +61,9 @@ const AddResidentPage = () => {
           },
         }
       );
-      navigate('/residents');  // Redirect ke halaman daftar residents setelah berhasil menambahkan
+      navigate('/residents');
     } catch (error) {
-      console.error("Error adding resident:", error);
+      console.error("Error adding resident:", error.response ? error.response.data : error.message);
       setError("Failed to add resident. Please check your data and try again.");
     }
   };
@@ -56,7 +79,12 @@ const AddResidentPage = () => {
         </div>
         <div className="form-group">
           <label>Id Kamar</label>
-          <input type="text" name="id_kamar" value={residentData.id_kamar} onChange={handleInputChange} className="form-control" required />
+          <select name="id_kamar" value={residentData.id_kamar} onChange={handleInputChange} className="form-control" required>
+            <option value="">Pilih Kamar</option>
+            {rooms.map((room) => (
+              <option key={room.id} value={room.id}>{room.nama_kamar}</option>
+            ))}
+          </select>
         </div>
         <div className="form-group">
           <label>No Handphone</label>
@@ -80,19 +108,33 @@ const AddResidentPage = () => {
             <option value="">Pilih Jenis Sewa</option>
             <option value="1">Harian</option>
             <option value="2">Mingguan</option>
+            <option value="3">Bulanan</option>
+            <option value="4">Tahunan</option>
           </select>
         </div>
         <div className="form-group">
           <label>Status Penghuni</label>
           <select name="status_penghuni" value={residentData.status_penghuni} onChange={handleInputChange} className="form-control" required>
             <option value="">Pilih Status</option>
-            <option value="1">Active</option>
-            <option value="2">Inactive</option>
+            <option value="1">Belum Menikah</option>
+            <option value="2">Menikah</option>
+            <option value="3">Janda</option>
+            <option value="4">Duda</option>
+            <option value="5">Cerai Mati</option>
           </select>
         </div>
         <div className="form-group">
           <label>Pekerjaan</label>
-          <input type="text" name="pekerjaan" value={residentData.pekerjaan} onChange={handleInputChange} className="form-control" required />
+          <select name="pekerjaan" value={residentData.pekerjaan} onChange={handleInputChange} className="form-control" required>
+            <option value="">Pilih Pekerjaan</option>
+            <option value="1">Mahasiswa</option>
+            <option value="2">Guru</option>
+            <option value="3">Polisi</option>
+            <option value="4">Dokter</option>
+            <option value="5">Perawat</option>
+            <option value="6">Programmer</option>
+            <option value="7">Lainnya</option>
+          </select>
         </div>
         <div className="form-group">
           <label>Jumlah Penghuni</label>
@@ -109,6 +151,14 @@ const AddResidentPage = () => {
         <div className="form-group">
           <label>Keterangan</label>
           <textarea name="keterangan" value={residentData.keterangan} onChange={handleInputChange} className="form-control"></textarea>
+        </div>
+        <div className="form-group">
+          <label>Status Sewa</label>
+          <select name="status_sewa" value={residentData.status_sewa} onChange={handleInputChange} className="form-control" required>
+            <option value="">Pilih Status</option>
+            <option value="1">Aktif</option>
+            <option value="2">Nonaktif</option>
+          </select>
         </div>
         <button type="submit" className="btn btn-primary mt-3">Add Resident</button>
       </form>
