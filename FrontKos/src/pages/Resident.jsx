@@ -65,7 +65,7 @@ const ResidentPage = () => {
 
       setResidents(residents.filter((resident) => resident.id !== id));
       setFilteredResidents(filteredResidents.filter((resident) => resident.id !== id));
-    } catch (error) {
+    } catch (error) {cd 
       console.error("Error deleting resident:", error);
       setError("Failed to delete resident. Please try again.");
     }
@@ -119,6 +119,7 @@ const ResidentPage = () => {
         {filteredResidents.length > 0 ? (
           filteredResidents.map((resident) => (
             <div className="col-md-4 mb-4" key={resident.id}>
+               <small className="text-muted">Last updated on {new Date().toLocaleDateString()}</small>
               <div className="card h-100">
                 <div className="card-body">
                   <h5 className="card-title">{resident.nama_penghuni}</h5>
@@ -169,7 +170,7 @@ const ResidentPage = () => {
                     }
                   </p>
                   <p className="card-text"><strong>Jumlah Penghuni:</strong> {resident.jumlah_penghuni}</p>
-                  <p className="card-text"><strong>Lama Sewa:</strong> {resident.lama_sewa}</p>
+                  <p className="card-text"><strong>Lama Sewa:</strong> {resident.lama_sewa} Hari</p>
                   <p className="card-text"><strong>Tanggal Masuk:</strong> {resident.tanggal_masuk}</p>
                   <p className="card-text"><strong>Keterangan:</strong> {resident.keterangan}</p>
                   <p className="card-text">
@@ -184,14 +185,27 @@ const ResidentPage = () => {
                     }
                   </p>
                 </div>
+                
                 <div className="card-footer">
-                  <small className="text-muted">Last updated on {new Date().toLocaleDateString()}</small>
+                <button 
+                    className="btn btn-primary btn-sm float-end me-2"
+                    onClick={() => navigate(`/invoice/${resident.id}`)}
+                  >
+                    Print Invoice
+                  </button>
+                   <button 
+                    className="btn btn-warning btn-sm float-end"
+                    onClick={() => navigate(`/edit/${resident.id}`)}
+                  >
+                    Edit
+                  </button>
                   <button 
                     className="btn btn-danger btn-sm float-end"
                     onClick={() => handleDelete(resident.id)}
                   >
                     Delete
                   </button>
+                 
                 </div>
               </div>
             </div>
