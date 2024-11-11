@@ -1,0 +1,176 @@
+/* User.css */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: #4a90e2;
+  font-weight: 700;
+}
+
+.add-user-btn {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.add-user-btn:hover {
+  background-color: #357ab8;
+  transform: scale(1.05);
+}
+
+.add-user-btn:active {
+  background-color: #2b5f8d;
+  transform: scale(0.95);
+}
+
+.card {
+  border: 2px solid #4a90e2;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  border-color: #357ab8;
+}
+
+.card-title {
+  color: #4a90e2;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.card-footer {
+  background-color: #f1f7fd;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-top: 1px solid #dceefc;
+}
+
+.card-footer .btn {
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.card-footer .btn-warning {
+  background-color: #ffcc00;
+  color: white;
+  border: none;
+}
+
+.card-footer .btn-warning:hover {
+  background-color: #e6b800;
+  transform: scale(1.05);
+}
+
+.card-footer .btn-danger {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+}
+
+.card-footer .btn-danger:hover {
+  background-color: #e63939;
+  transform: scale(1.05);
+}
+
+/* Modal Styling */
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  position: relative;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  background-color: #ffffff;
+  animation: slideIn 0.4s ease;
+  max-width: 500px;
+  width: 100%;
+}
+
+.modal-header {
+  background-color: #4a90e2;
+  color: white;
+  padding: 15px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 1.2rem;
+  color: #333;
+  opacity: 0.8;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.close:hover {
+  opacity: 1;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
