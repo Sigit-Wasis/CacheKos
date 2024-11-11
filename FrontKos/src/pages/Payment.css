@@ -2,8 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Rethink+Sans:wght@400;600&display=swap');
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif !important;
 }
+.custom-font-weight {
+    font-weight: 700 !important; /* Menambahkan ketebalan font */
+}
+
 
 /* Remove borders from the table */
 .table-bordered, .table-bordered th, .table-bordered td {
@@ -21,10 +25,13 @@ body {
 }
 
 /* Loading Placeholder Styling */
+.table td, .table th {
+    vertical-align: middle;
+}
+
+/* Style untuk tabel agar sesuai dengan placeholder */
 .loading-placeholder-table {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
+    width: 100%;
     margin-top: 20px;
 }
 
@@ -35,6 +42,7 @@ body {
     animation: loading-animation 1.5s infinite ease;
 }
 
+/* Animasi untuk placeholder */
 @keyframes loading-animation {
     0% {
         background-color: #e0e0e0;
@@ -47,7 +55,15 @@ body {
     }
 }
 
-/* Optional: Add some margin below the table for spacing */
+/* Styling tambahan untuk tabel */
 .table-responsive {
     margin-bottom: 20px;
+}
+
+/* Placeholder for each row */
+.loading-placeholder-item {
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+    margin-bottom: 10px;
 }

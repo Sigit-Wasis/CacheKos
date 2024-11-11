@@ -36,6 +36,7 @@ import InactiveResidentsPage from "./pages/InactiveResidentsPage";
 import ActiveResident from "./pages/ActiveResidents";
 import EditResidentPage from "./pages/EditResidentPage";
 import PrintInvoicePage from "./pages/PrintInvoicePage";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -75,6 +76,13 @@ function App() {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav me-auto">
+<<<<<<< HEAD
+            <li className="nav-item">
+                    <Link className="nav-link" to="/">
+                      Dashboard
+                    </Link>
+                  </li>
+=======
               <li className="nav-item">
                 <Link className="nav-link" to="/">
                   Home
@@ -82,6 +90,7 @@ function App() {
               </li>
 <<<<<<< HEAD
 =======
+>>>>>>> b8e5ee8cd21eb6cac01da50ecf6d11da807d9a4e
 
 >>>>>>> 9a8568605d227926f8aa006cd853d92e641d37e7
               {!isAuthenticated ? (
@@ -178,6 +187,7 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/setting" element={<Setting />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         {isAuthenticated && <Route path="/room" element={<Room />} />}
         {isAuthenticated && <Route path="/resident" element={<Resident/>} />}
         {isAuthenticated && <Route path="/add" element={<AddResidentPage/>} />}

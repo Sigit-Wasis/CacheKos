@@ -2,29 +2,12 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\RoomController;
-use App\Http\Controllers\Api\SettingController;
-use App\Http\Controllers\Api\UserController;
-
-// use App\Http\Controllers\Api\ResidentController; // Uncomment jika diperlukan
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-=======
 use App\Http\Controllers\Api\AuthController; // Mengimpor AuthController
 use App\Http\Controllers\Api\RoomController; // Mengimpor RoomController
 use App\Http\Controllers\Api\ResidentController; // Mengimpor ResidentController jika diperlukan
 use App\Http\Controllers\Api\SettingController; // Mengimpor SettingController
 use App\Http\Controllers\Api\PaymentController; // Mengimpor PaymentController
+use App\Http\Controllers\API\DashboardController;
 
 /*
 |---------------------------------------------------------------------------|
@@ -34,7 +17,6 @@ use App\Http\Controllers\Api\PaymentController; // Mengimpor PaymentController
 | These routes are loaded by the RouteServiceProvider within a group which |
 | is assigned the "api" middleware group. Enjoy building your API!        |
 |---------------------------------------------------------------------------|
->>>>>>> 9a8568605d227926f8aa006cd853d92e641d37e7
 */
 
 // Rute untuk autentikasi
@@ -45,12 +27,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-<<<<<<< HEAD
-// Rute untuk logout
-=======
 //logout 
 // Route::post('/logout', [AuthController::class, 'logout']);
->>>>>>> 9a8568605d227926f8aa006cd853d92e641d37e7
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 // Route::middleware('auth:sanctum')->post('/logout', function (Request $request) {
 //     $request->user()->currentAccessToken()->delete();
@@ -88,7 +66,10 @@ Route::prefix('residents')->middleware('auth:sanctum')->group(function () {
     Route::delete('/{id}', [ResidentController::class, 'destroy']); // Menghapus resident berdasarkan ID
 });
 
-<<<<<<< HEAD
+Route::prefix('dashboard')->middleware('auth:sanctum')->group(function () {
+    Route::get('/kamar-terisi', [DashboardController::class, 'index']); // Mendapatkan semua resident
+});
+
 // Route untuk SettingController
 Route::prefix('settings')->group(function () {
     Route::get('/', [SettingController::class, 'index']);
@@ -97,22 +78,13 @@ Route::prefix('settings')->group(function () {
     Route::put('/{id}', [SettingController::class, 'update']);
     Route::delete('/{id}', [SettingController::class, 'destroy']);
 });
-=======
-//route setting
-Route:: prefix ('settings')->group(function () {
-Route:: get ('/', [SettingController::class, 'index']);
-Route:: post ('/', [SettingController::class, 'store']);
-Route:: get ('/{id}', [SettingController::class, 'show']);
-Route:: put ('/{id}', [SettingController::class, 'edit']);
-Route:: delete ('/{id}', [SettingController::class, 'destroy']);
+
+// Route untuk PaymentController
+Route::prefix('payments')->group(function () {
+    Route::get('/', [PaymentController::class, 'index']);
+    Route::post('/', [PaymentController::class, 'store']);
+    Route::get('/{id}', [PaymentController::class, 'show']);
+    Route::put('/{id}', [PaymentController::class, 'update']);
+    Route::delete('/{id}', [PaymentController::class, 'destroy']);
 });
 
-//route payment
-Route:: prefix ('payments')->group(function () {
-Route:: get ('/', [PaymentController::class, 'index']);
-Route:: post ('/', [PaymentController::class, 'store']);
-Route:: get ('/{id}', [PaymentController::class, 'show']);
-Route:: put ('/{id}', [PaymentController::class, 'update']);
-Route:: delete ('/{id}', [PaymentController::class, 'destroy']);
-});
->>>>>>> 9a8568605d227926f8aa006cd853d92e641d37e7
