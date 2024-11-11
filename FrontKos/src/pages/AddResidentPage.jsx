@@ -17,7 +17,6 @@ const AddResidentPage = () => {
     tanggal_masuk: '',
     keterangan: '',
     status_sewa: '',
-
   });
   const [rooms, setRooms] = useState([]);
   const [error, setError] = useState(null);
@@ -44,7 +43,31 @@ const AddResidentPage = () => {
   }, []);
 
   const handleInputChange = (e) => {
-    setResidentData({ ...residentData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // Set default values for 'lama_sewa' based on 'jenis_sewa_kamar'
+    if (name === 'jenis_sewa_kamar') {
+      let lamaSewaDefault = '';
+      switch (value) {
+        case '1': // Harian
+          lamaSewaDefault = '1';
+          break;
+        case '2': // Mingguan
+          lamaSewaDefault = '7';
+          break;
+        case '3': // Bulanan
+          lamaSewaDefault = '30';
+          break;
+        case '4': // Tahunan
+          lamaSewaDefault = '365';
+          break;
+        default:
+          lamaSewaDefault = '';
+      }
+      setResidentData({ ...residentData, [name]: value, lama_sewa: lamaSewaDefault });
+    } else {
+      setResidentData({ ...residentData, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -142,7 +165,7 @@ const AddResidentPage = () => {
         </div>
         <div className="form-group">
           <label>Lama Sewa</label>
-          <input type="text" name="lama_sewa" value={residentData.lama_sewa} onChange={handleInputChange} className="form-control" required />
+          <input type="text" name="lama_sewa" value={residentData.lama_sewa} onChange={handleInputChange} placeholder='Hari...' className="form-control" required />
         </div>
         <div className="form-group">
           <label>Tanggal Masuk</label>

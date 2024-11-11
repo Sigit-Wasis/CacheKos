@@ -10,7 +10,10 @@ import Setting from "./pages/Setting";
 import Payment from "./pages/Payment";
 import Resident from "./pages/Resident";
 import AddResidentPage from "./pages/AddResidentPage";
-import InactiveResidentPage from "./pages/InactiveResidentsPage";
+import InactiveResidentsPage from "./pages/InactiveResidentsPage";
+import ActiveResident from "./pages/ActiveResidents";
+import EditResidentPage from "./pages/EditResidentPage";
+import PrintInvoicePage from "./pages/PrintInvoicePage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -93,11 +96,16 @@ function App() {
                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                       <li>
                         <Link className="dropdown-item" to="/resident">
+                          Penghuni
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" to="/active">
                           Penghuni Aktif
                         </Link>
                       </li>
                       <li>
-                        <Link className="dropdown-item" to="/selesai">
+                        <Link className="dropdown-item" to="/inactive">
                           Penghuni Selesai
                         </Link>
                       </li>
@@ -126,9 +134,12 @@ function App() {
         <Route path="/setting" element={<Setting />} />
         <Route path="/payment" element={<Payment />} />
         {isAuthenticated && <Route path="/room" element={<Room />} />}
-        {isAuthenticated && <Route path="/resident" element={<Resident />} />}
-        {isAuthenticated && <Route path="/add" element={<AddResidentPage />} />}
-        {isAuthenticated && <Route path="/selesai" element={<InactiveResidentPage />} />}
+        {isAuthenticated && <Route path="/resident" element={<Resident/>} />}
+        {isAuthenticated && <Route path="/add" element={<AddResidentPage/>} />}
+        {isAuthenticated && <Route path="/inactive" element={<InactiveResidentsPage/>} />}
+        {isAuthenticated && <Route path="/active" element={<ActiveResident/>} />}
+        {isAuthenticated && <Route path="/edit/:id" element={<EditResidentPage/>} />}
+        {isAuthenticated && <Route path="/invoice/:id" element={<PrintInvoicePage/>} />}
       </Routes>
     </div>
   );
