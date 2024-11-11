@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link , useNavigate} from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  useNavigate,
+} from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import Room from "./pages/Room";
@@ -9,7 +15,7 @@ import Payment from "./pages/Payment";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -49,7 +55,7 @@ function App() {
                   Home
                 </Link>
               </li>
-             
+
               {!isAuthenticated ? (
                 <li className="nav-item">
                   <Link className="nav-link" to="/login">
@@ -64,15 +70,15 @@ function App() {
                     </Link>
                   </li>
                   <li className="nav-item">
-                <Link className="nav-link" to="/setting">
-                  Setting 
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/payment">
-                  Payment
-                </Link>
-              </li>
+                    <Link className="nav-link" to="/setting">
+                      Setting
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/payment">
+                      Payment
+                    </Link>
+                  </li>
                   <li className="nav-item">
                     <Link
                       className="nav-link btn btn-link"
@@ -87,9 +93,12 @@ function App() {
             </ul>
           </div>
         </div>
-      </nav> 
+      </nav>
       <Routes>
-        <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
+        <Route
+          path="/login"
+          element={<LoginPage setIsAuthenticated={setIsAuthenticated} />}
+        />
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/setting" element={<Setting />} />

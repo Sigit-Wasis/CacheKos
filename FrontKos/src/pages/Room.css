@@ -1,0 +1,76 @@
+.card-body {
+    padding: 1.25rem;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+/* Hover effect untuk card-body */
+.card-body:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Judul kamar */
+.card-title-room {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #0f13b9;
+    border-bottom: 2px solid blue;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+}
+
+.card-title-room:hover {
+    color: #0056b3;
+}
+
+/* Text untuk informasi kamar */
+.card-text {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.card-text strong {
+    color: #0f13b9; /* Warna untuk label seperti Fasilitas, Kelengkapan, dll */
+}
+
+/* Tombol aksi */
+.btn-aksi {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 1rem;
+}
+
+.btn-aksi .btn {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin-right: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-aksi .btn-warning {
+    background-color: #ffc107;
+    color: #fff;
+}
+
+.btn-aksi .btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+/* Hover effect untuk tombol */
+.btn-aksi .btn:hover {
+    transform: scale(1.05); /* Efek sedikit membesar */
+}
+
+.btn-aksi .btn-warning:hover {
+    background-color: #e0a800; /* Warna lebih gelap saat hover */
+}
+
+.btn-aksi .btn-danger:hover {
+    background-color: #c82333; /* Warna lebih gelap saat hover */
+}
