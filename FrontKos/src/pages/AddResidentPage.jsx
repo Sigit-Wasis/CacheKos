@@ -53,13 +53,13 @@ const AddResidentPage = () => {
           lamaSewaDefault = '1';
           break;
         case '2': // Mingguan
-          lamaSewaDefault = '7';
+          lamaSewaDefault = '1';
           break;
         case '3': // Bulanan
-          lamaSewaDefault = '30';
+          lamaSewaDefault = '1';
           break;
         case '4': // Tahunan
-          lamaSewaDefault = '365';
+          lamaSewaDefault = '1';
           break;
         default:
           lamaSewaDefault = '';
@@ -178,8 +178,8 @@ const AddResidentPage = () => {
           <input type="number" name="jumlah_penghuni" value={residentData.jumlah_penghuni} onChange={handleInputChange} className="form-control" required />
         </div>
         <div className="form-group">
-          <label>Lama Sewa</label>
-          <input type="text" name="lama_sewa" value={residentData.lama_sewa} onChange={handleInputChange} placeholder='Hari...' className="form-control" required />
+          <label>Lama Sewa </label>
+          <input type="number" name="lama_sewa" value={residentData.lama_sewa} onChange={handleInputChange} placeholder='Hari...' className="form-control" required />
         </div>
         <div className="form-group">
           <label>Tanggal Masuk</label>

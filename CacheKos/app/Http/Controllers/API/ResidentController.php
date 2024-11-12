@@ -90,7 +90,7 @@ class ResidentController extends Controller
             'status_penghuni' => 'required|integer',         // smallint, integer validation
             'pekerjaan' => 'required|integer',               // smallint, integer validation
             'jumlah_penghuni' => 'required|integer',         // int, integer validation
-            'lama_sewa' => 'required|string|max:255',        // varchar(255), string with max length
+            'lama_sewa' => 'required|integer',        // varchar(255), string with max length
             'tanggal_masuk' => 'required|date',              // date validation
             'keterangan' => 'nullable|string',               // text, nullable
             'status_sewa' => 'required|integer',             // smallint, integer validation

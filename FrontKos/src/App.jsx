@@ -28,7 +28,6 @@ function App() {
     }
   }, [navigate]);
 
-  
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
@@ -54,14 +53,9 @@ function App() {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav me-auto">
-            <li className="nav-item">
-                    <Link className="nav-link" to="/">
-                      Dashboard
-                    </Link>
-                  </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/">
-                  Home
+                  Dashboard
                 </Link>
               </li>
 
@@ -89,7 +83,7 @@ function App() {
                     </Link>
                   </li>
 
-                  {/* dropdown resident  */}
+                  {/* Dropdown for Resident */}
                   <li className="nav-item dropdown">
                     <a
                       className="nav-link dropdown-toggle"
@@ -121,11 +115,6 @@ function App() {
                   </li>
 
                   <li className="nav-item">
-                    <Link className="nav-link" to="/user">
-                      User
-                    </Link>
-                  </li>
-                  <li className="nav-item">
                     <button
                       className="btn btn-link nav-link"
                       onClick={handleLogout}
@@ -139,22 +128,22 @@ function App() {
           </div>
         </div>
       </nav>
+
       <Routes>
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/setting" element={<Setting />} />
-        <Route path="/payment" element={<Payment />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/user" element={<User />} />
 
         {isAuthenticated && <Route path="/room" element={<Room />} />}
-        {isAuthenticated && <Route path="/resident" element={<Resident/>} />}
-        {isAuthenticated && <Route path="/add" element={<AddResidentPage/>} />}
-        {isAuthenticated && <Route path="/inactive" element={<InactiveResidentsPage/>} />}
-        {isAuthenticated && <Route path="/active" element={<ActiveResident/>} />}
-        {isAuthenticated && <Route path="/edit/:id" element={<EditResidentPage/>} />}
-        {isAuthenticated && <Route path="/invoice/:id" element={<PrintInvoicePage/>} />}
+        {isAuthenticated && <Route path="/setting" element={<Setting />} />}
+        {isAuthenticated && <Route path="/payment" element={<Payment />} />}
+        {isAuthenticated && <Route path="/resident" element={<Resident />} />}
+        {isAuthenticated && <Route path="/add" element={<AddResidentPage />} />}
+        {isAuthenticated && <Route path="/inactive" element={<InactiveResidentsPage />} />}
+        {isAuthenticated && <Route path="/active" element={<ActiveResident />} />}
+        {isAuthenticated && <Route path="/edit/:id" element={<EditResidentPage />} />}
+        {isAuthenticated && <Route path="/invoice/:id" element={<PrintInvoicePage />} />}
       </Routes>
     </div>
   );
