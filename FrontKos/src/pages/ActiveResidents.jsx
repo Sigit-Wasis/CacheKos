@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './ActiveResidents.css';
 
 const ActiveResidents = () => {
   const [residents, setResidents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(''); // State for search term
+  const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,7 +26,6 @@ const ActiveResidents = () => {
           },
         });
 
-        // Filter hanya data dengan status_sewa Nonaktif
         const inactiveResidents = response.data.data.filter(
           (resident) => resident.status_sewa === 1
         );
@@ -42,113 +42,107 @@ const ActiveResidents = () => {
     fetchResidents();
   }, [navigate]);
 
-  // Filter residents based on search term
   const filteredResidents = residents.filter((resident) =>
     resident.nama_penghuni.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  if (loading) {
-    return <p>Loading data...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
+  if (loading) return <p>Loading data...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="container mt-5">
-      <h1 className="mb-4">Penghuni Aktif</h1>
-      
-      {/* Search input */}
+    <div className="active-residents-container">
+      <h1 className="title">Penghuni Aktif</h1>
+
       <input
         type="text"
-        placeholder="Cari Nama Penghuni "
+        placeholder="Cari Nama Penghuni"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="form-control mb-4"
+        className="search-input"
       />
 
-      {filteredResidents.length > 0 ? (
-        <div className="row">
+      <table className="residents-table">
+        <thead>
+          <tr>
+            
+            <th>Data Penghuni</th>
+            <th>Tanggal</th>
+            <th>Harga</th>
+            <th>Keterangan</th>
+          </tr>
+        </thead>
+        <tbody>
           {filteredResidents.map((resident) => (
-            <div className="col-md-4 mb-4" key={resident.id}>
-              <div className="card h-100">
-                <div className="card-body">
-                  <h5 className="card-title">{resident.nama_penghuni}</h5>
-                  <p className="card-text"><strong>Id Kamar:</strong> {resident.id_kamar}</p>
-                  <p className="card-text"><strong>No_Handphone:</strong> {resident.no_handphone}</p>
-                  <p className="card-text"><strong>Gender:</strong> {resident.jenis_kelamin === 1 ? 'Pria' : 'Wanita'}</p>
-                  <p className="card-text"><strong>No_KTP:</strong> {resident.no_ktp}</p>
-                  <p className="card-text">
-                    <strong>Jenis Kamar:</strong> {
-                      (() => {
-                        switch (resident.jenis_sewa_kamar) {
-                          case 1: return 'Harian';
-                          case 2: return 'Mingguan';
-                          case 3: return 'Bulanan';
-                          case 4: return 'Tahunan';
-                          default: return 'Lainnya';
-                        }
-                      })()
-                    }
-                  </p>
-                  <p className="card-text">
-                    <strong>Status Penghuni:</strong> {
-                      (() => {
-                        switch (resident.status_penghuni) {
-                          case 1: return 'Belum Menikah';
-                          case 2: return 'Menikah';
-                          case 3: return 'Janda';
-                          case 4: return 'Duda';
-                          case 5: return 'Cerai Mati';
-                          default: return 'Lainnya';
-                        }
-                      })()
-                    }
-                  </p>
-                  <p className="card-text">
-                    <strong>Pekerjaan:</strong> {
-                      (() => {
-                        switch (resident.pekerjaan) {
-                          case 1: return 'Mahasiswa';
-                          case 2: return 'Guru';
-                          case 3: return 'Dokter';
-                          case 4: return 'Karyawan';
-                          case 5: return 'Wiraswasta';
-                          case 6: return 'PNS';
-                          default: return 'Lainnya';
-                        }
-                      })()
-                    }
-                  </p>
-                  <p className="card-text"><strong>Jumlah Penghuni:</strong> {resident.jumlah_penghuni}</p>
-                  <p className="card-text"><strong>Lama Sewa:</strong> {resident.lama_sewa}</p>
-                  <p className="card-text"><strong>Tanggal Masuk:</strong> {resident.tanggal_masuk}</p>
-                  <p className="card-text"><strong>Keterangan:</strong> {resident.keterangan}</p>
-                  <p className="card-text">
-                    <strong>Status Sewa:</strong> {
-                      (() => {
-                        switch (resident.status_sewa) {
-                          case 1: return 'Aktif';
-                          case 2: return 'Nonaktif';
-                          default: return 'Tidak Diketahui';
-                        }
-                      })()
-                    }
-                  </p>
-                </div>
-                <div className="card-footer">
-                  <small className="text-muted">Last updated on {new Date().toLocaleDateString()}</small>
-                </div>
-              </div>
-            </div>
+            <tr key={resident.id}>
+              <td>
+                <p><strong>Nama:</strong> {resident.nama_penghuni}</p>
+                <p><strong>Kelamin:</strong> {resident.jenis_kelamin === 1 ? 'Pria' : 'Wanita'}</p>
+                <p><strong>No. HP:</strong> {resident.no_handphone}</p>
+                <p><strong>Jenis Kamar:</strong> {getStatusSewa(resident.jenis_sewa_kamar)}</p>
+                <p><strong>Status Penghuni:</strong> {getStatusPenghuni(resident.status_penghuni)}</p>
+                <p><strong>Pekerjaan:</strong> {getPekerjaan(resident.pekerjaan)}</p>
+                <p><strong>Penghuni:</strong> {resident.jumlah_penghuni} Orang</p>
+                <p><strong>Status Sewa:</strong> {resident.status_sewa === 1 ? 'Aktif' : 'Nonaktif'}</p>
+              </td>
+              <td>
+                <p><strong>Masuk:</strong> {resident.tanggal_masuk}</p>
+                <p><strong>Perpanjang:</strong> {resident.tanggal_perpanjang}</p>
+                <p className={resident.status_sewa === 2 ? "expired" : ""}><strong>Habis:</strong> {resident.tanggal_habis}</p>
+              </td>
+              <td>
+                <p><strong>Harga Kamar:</strong> Rp. {resident.harga_kamar}</p>
+                <p><strong>Tambah 1 Penghuni:</strong> Rp. {resident.harga_tambahan}</p>
+                <p><strong>Lama Sewa:</strong> {resident.lama_sewa} Bulan</p>
+                <p><strong>Total:</strong> Rp. {resident.total}</p>
+                <p><strong>Status Pembayaran:</strong> <span className="payment-status">Lunas</span></p>
+              </td>
+              <td>
+                {resident.status_sewa === 2 ? (
+                  <p className="expired-text">Masa Sewa Telah Habis! Lewat {resident.hari_terlambat} hari<br/>Denda Rp. {resident.denda}</p>
+                ) : (
+                  <p className="on-time">[Lunas]</p>
+                )}
+              </td>
+            </tr>
           ))}
-        </div>
-      ) : (
-        <p className="text-center">No inactive residents found</p>
-      )}
+        </tbody>
+      </table>
     </div>
   );
+};
+
+// Helper functions to get status labels
+const getStatusPenghuni = (status) => {
+  switch (status) {
+    case 1: return 'Belum Menikah';
+    case 2: return 'Menikah';
+    case 3: return 'Janda';
+    case 4: return 'Duda';
+    case 5: return 'Cerai Mati';
+    default: return 'Lainnya';
+  }
+};
+
+const getStatusSewa = (status) => {
+  switch (status) {
+    case 1: return 'Harian';
+    case 2: return 'Mingguan';
+    case 3: return 'Bulanan';
+    case 4: return 'Tahunan';
+    default: return 'Lainnya';
+  }
+};
+
+const getPekerjaan = (job) => {
+  switch (job) {
+    case 1: return 'Mahasiswa';
+    case 2: return 'Guru';
+    case 3: return 'Dokter';
+    case 4: return 'Karyawan';
+    case 5: return 'Wiraswasta';
+    case 6: return 'PNS';
+    default: return 'Lainnya';
+  }
 };
 
 export default ActiveResidents;
