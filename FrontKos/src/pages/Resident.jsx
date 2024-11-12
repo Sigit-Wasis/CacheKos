@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import './Resident.css';
 
 const ResidentPage = () => {
   const [residents, setResidents] = useState([]);
@@ -164,13 +165,14 @@ const ResidentPage = () => {
                           case 4: return 'Karyawan';
                           case 5: return 'Wiraswasta';
                           case 6: return 'PNS';
+                          case 7: return 'Programmer';
                           default: return 'Lainnya';
                         }
                       })()
                     }
                   </p>
                   <p className="card-text"><strong>Jumlah Penghuni:</strong> {resident.jumlah_penghuni}</p>
-                  <p className="card-text"><strong>Lama Sewa:</strong> {resident.lama_sewa} Hari</p>
+                  <p className="card-text"><strong>Lama Sewa:</strong> {resident.lama_sewa} </p>
                   <p className="card-text"><strong>Tanggal Masuk:</strong> {resident.tanggal_masuk}</p>
                   <p className="card-text"><strong>Keterangan:</strong> {resident.keterangan}</p>
                   <p className="card-text">
