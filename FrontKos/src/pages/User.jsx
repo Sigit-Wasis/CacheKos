@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './User.css';
+import Swal from 'sweetalert2';
 
 const User = () => {
   const [users, setUsers] = useState([]);
@@ -79,19 +80,50 @@ const User = () => {
 
   const handleDeleteUser = async (id) => {
     const token = localStorage.getItem('token');
-    try {
-      await axios.delete(`http://127.0.0.1:8000/api/users/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      // Menghapus pengguna dari state `users`
-      setUsers(users.filter(user => user.id !== id));
-    } catch (error) {
-      console.error("Error deleting user:", error);
-      setError("Gagal menghapus pengguna. Silakan coba lagi.");
-    }
+  
+    // Tampilkan SweetAlert untuk konfirmasi
+    Swal.fire({
+      title: 'Apakah Anda yakin?',
+      text: "Data ini akan dihapus secara permanen!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, hapus data ini!',
+      cancelButtonText: 'Batal'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          // Jika konfirmasi, lanjutkan penghapusan
+          await axios.delete(`http://127.0.0.1:8000/api/users/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          // Menghapus pengguna dari state `users`
+          setUsers(users.filter(user => user.id !== id));
+  
+          // Tampilkan notifikasi sukses
+          Swal.fire(
+            'Terhapus!',
+            'Data pengguna telah berhasil dihapus.',
+            'success'
+          );
+        } catch (error) {
+          console.error("Error deleting user:", error);
+          setError("Gagal menghapus pengguna. Silakan coba lagi.");
+  
+          // Tampilkan notifikasi error
+          Swal.fire(
+            'Gagal!',
+            'Data pengguna gagal dihapus.',
+            'error'
+          );
+        }
+      }
+    });
   };
+  
 
   const openEditModal = (user) => {
     setCurrentUserId(user.id);
