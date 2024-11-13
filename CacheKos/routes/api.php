@@ -75,6 +75,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', [ExpenseController::class, 'store']); // Membuat expense baru
         Route::get('/{id}', [ExpenseController::class, 'show']); // Mendapatkan expense berdasarkan ID
         Route::put('/{id}', [ExpenseController::class, 'update']); // Memperbarui expense berdasarkan ID
-        Route::delete('/{id}', [ExpenseController::class, 'destroy']); // Menghapus expense berdasarkan ID
+        Route::delete('/{id}', [ExpenseController::class, 'delete']); // Menghapus expense berdasarkan ID
     });
 });
