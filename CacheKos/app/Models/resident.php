@@ -31,10 +31,10 @@ class Resident extends Model
     //     'created_by',
     //     'updated_by',
     // ];
-
-    const BULANAN = 1;
-    const HARIAN = 2;
-    const TAHUNAN = 3;
+    const HARIAN = 1;
+    const MINGGUAN = 2;
+    const BULANAN = 3;
+    const TAHUNAN = 4;
 
     public static function jenisSewaKamarString()
 
@@ -42,6 +42,7 @@ class Resident extends Model
         return [
             self::BULANAN => 'Bulanan',
             self::HARIAN => 'Harian',
+            self::MINGGUAN => 'Mingguan',
             self::TAHUNAN => 'Tahunan',
         ];
     }

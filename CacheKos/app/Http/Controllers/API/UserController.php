@@ -23,13 +23,14 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
+        // dd($request->all());
         // Validasi data yang diterima
         $request->validate([
             'username' => 'required|string|max:255|unique:users',
             'nama_lengkap' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
+            // 'password' => 'required|string|min:6',
         ]);
 
         // Menyimpan data pengguna baru ke dalam tabel users
@@ -38,7 +39,7 @@ class UserController extends Controller
             'nama_lengkap' => $request->nama_lengkap,
             'alamat' => $request->alamat,
             'email' => $request->email,
-            'password' => bcrypt($request->password), // Mengenkripsi password
+            'password' => bcrypt("12345"), // Mengenkripsi password
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -120,6 +121,27 @@ class UserController extends Controller
             'message' => 'Pengguna berhasil diperbarui',
             'code' => 200,
             'data' => $updatedData,
+        ], 200); // Kode status HTTP
+    }
+
+    public function delete($id)
+    {
+        // Cek apakah pengguna ada
+        $user = DB::table('users')->where('id', $id)->first();
+        if (!$user) {
+            return response()->json([
+                'message' => 'Pengguna tidak ditemukan',
+                'code' => 404,
+            ], 404); // Kode status HTTP untuk not found
+        }
+
+        // Hapus pengguna dari database
+        DB::table('users')->where('id', $id)->delete();
+
+        // Mengembalikan respons JSON setelah pengguna berhasil dihapus
+        return response()->json([
+            'message' => 'Pengguna berhasil dihapus',
+            'code' => 200,
         ], 200); // Kode status HTTP
     }
 }

@@ -33,16 +33,50 @@ const Payment = () => {
 
     if (loading) {
         return (
-            <div className="container text-center mt-5">
-                {/* Loading Table Placeholder */}
-                <div className="loading-placeholder-table">
-                    <div className="loading-placeholder-item"></div>
-                    <div className="loading-placeholder-item"></div>
-                    <div className="loading-placeholder-item"></div>
-                    <div className="loading-placeholder-item"></div>
-                    <div className="loading-placeholder-item"></div>
-                    <div className="loading-placeholder-item"></div>
-                    <div className="loading-placeholder-item"></div>
+            <div className="container py-5">
+                <h2 className="text-center my-4 display-6 custom-font-weight">Daftar Pemasukkan</h2>
+                <div className="table-responsive shadow-lg rounded bg-white p-4 mt-4">
+                    <table className="table table-hover table-bordered">
+                        <thead className="table-primary text-center">
+                            <tr>
+                                <th scope="col">Invoice</th>
+                                <th scope="col">Tanggal</th>
+                                <th scope="col">Jumlah Bayar</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Kurang Bayar</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {/* Loading placeholders */}
+                            {[...Array(5)].map((_, index) => (
+                                <tr key={index}>
+                                    <td>
+                                        <div className="loading-placeholder-item"></div>
+                                    </td>
+                                    <td>
+                                        <div className="loading-placeholder-item"></div>
+                                    </td>
+                                    <td>
+                                        <div className="loading-placeholder-item"></div>
+                                    </td>
+                                    <td>
+                                        <div className="loading-placeholder-item"></div>
+                                    </td>
+                                    <td>
+                                        <div className="loading-placeholder-item"></div>
+                                    </td>
+                                    <td>
+                                        <div className="loading-placeholder-item"></div>
+                                    </td>
+                                    <td>
+                                        <div className="loading-placeholder-item"></div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         );

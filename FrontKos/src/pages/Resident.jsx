@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import './Resident.css';
 
 const ResidentPage = () => {
   const [residents, setResidents] = useState([]);
@@ -28,7 +31,7 @@ const ResidentPage = () => {
         });
 
         setResidents(response.data.data);
-        setFilteredResidents(response.data.data); // Set initial filtered data
+        setFilteredResidents(response.data.data);
       } catch (error) {
         console.error("Error fetching residents:", error);
         setError("Failed to fetch residents. Please try again.");
@@ -40,12 +43,10 @@ const ResidentPage = () => {
     fetchResidents();
   }, [navigate]);
 
-  // Fungsi untuk menangani perubahan teks pencarian
   const handleSearchChange = (event) => {
     const value = event.target.value;
     setSearchText(value);
 
-    // Filter data residents berdasarkan teks pencarian
     const filteredData = residents.filter(resident =>
       resident.nama_penghuni.toLowerCase().includes(value.toLowerCase())
     );
@@ -65,14 +66,37 @@ const ResidentPage = () => {
 
       setResidents(residents.filter((resident) => resident.id !== id));
       setFilteredResidents(filteredResidents.filter((resident) => resident.id !== id));
-    } catch (error) {
+    } catch (error) {cd 
       console.error("Error deleting resident:", error);
       setError("Failed to delete resident. Please try again.");
     }
   };
 
   if (loading) {
-    return <p>Loading data...</p>;
+    return (
+      <div className="container mt-5">
+        <h1 className="mb-4"><Skeleton width={200} /></h1>
+        <div className="mb-3">
+          <Skeleton height={40} />
+        </div>
+        <div className="row">
+          {Array(6).fill().map((_, index) => (
+            <div className="col-md-4 mb-4" key={index}>
+              <div className="card h-100">
+                <div className="card-body">
+                  <h5 className="card-title"><Skeleton width={`100%`} /></h5>
+                  <p className="card-text"><Skeleton count={7} /></p>
+                </div>
+                <div className="card-footer">
+                  <Skeleton width={`60%`} />
+                  <Skeleton height={30} width={`20%`} className="float-end" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   if (error) {
@@ -96,6 +120,7 @@ const ResidentPage = () => {
         {filteredResidents.length > 0 ? (
           filteredResidents.map((resident) => (
             <div className="col-md-4 mb-4" key={resident.id}>
+               <small className="text-muted">Last updated on {new Date().toLocaleDateString()}</small>
               <div className="card h-100">
                 <div className="card-body">
                   <h5 className="card-title">{resident.nama_penghuni}</h5>
@@ -140,13 +165,14 @@ const ResidentPage = () => {
                           case 4: return 'Karyawan';
                           case 5: return 'Wiraswasta';
                           case 6: return 'PNS';
+                          case 7: return 'Programmer';
                           default: return 'Lainnya';
                         }
                       })()
                     }
                   </p>
                   <p className="card-text"><strong>Jumlah Penghuni:</strong> {resident.jumlah_penghuni}</p>
-                  <p className="card-text"><strong>Lama Sewa:</strong> {resident.lama_sewa}</p>
+                  <p className="card-text"><strong>Lama Sewa:</strong> {resident.lama_sewa} </p>
                   <p className="card-text"><strong>Tanggal Masuk:</strong> {resident.tanggal_masuk}</p>
                   <p className="card-text"><strong>Keterangan:</strong> {resident.keterangan}</p>
                   <p className="card-text">
@@ -161,14 +187,27 @@ const ResidentPage = () => {
                     }
                   </p>
                 </div>
+                
                 <div className="card-footer">
-                  <small className="text-muted">Last updated on {new Date().toLocaleDateString()}</small>
+                <button 
+                    className="btn btn-primary btn-sm float-end"
+                    onClick={() => navigate(`/invoice/${resident.id}`)}
+                  >
+                    Print Invoice
+                  </button>
+                   <button 
+                    className="btn btn-warning btn-sm float-end"
+                    onClick={() => navigate(`/edit/${resident.id}`)}
+                  >
+                    Edit
+                  </button>
                   <button 
-                    className="btn btn-danger btn-sm float-end"
+                    className="btn btn-danger btn-sm float-start"
                     onClick={() => handleDelete(resident.id)}
                   >
                     Delete
                   </button>
+                 
                 </div>
               </div>
             </div>

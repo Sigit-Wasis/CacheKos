@@ -47,9 +47,10 @@ function App() {
             <ul className="navbar-nav me-auto">
               <li className="nav-item">
                 <Link className="nav-link" to="/">
-                  Home
+                  Dashboard
                 </Link>
               </li>
+
               {!isAuthenticated ? (
                 <li className="nav-item">
                   <Link className="nav-link" to="/login">
@@ -122,13 +123,12 @@ function App() {
                     </ul>
                   </li>
                   <li className="nav-item">
-                    <Link
-                      className="nav-link btn btn-link"
-                      to="/login"
+                    <button
+                      className="btn btn-link nav-link"
                       onClick={handleLogout}
                     >
                       Logout
-                    </Link>
+                    </button>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link" to="/expense">
@@ -141,6 +141,7 @@ function App() {
           </div>
         </div>
       </nav>
+
       <Routes>
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />

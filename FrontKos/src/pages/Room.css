@@ -1,0 +1,70 @@
+.card-body {
+  padding: 1.25rem;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Hover effect untuk card-body */
+.card-body:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Judul kamar */
+.card-title-room {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0f13b9;
+  border-bottom: 2px solid blue;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.card-title-room:hover {
+  color: #0056b3;
+}
+
+/* Text untuk informasi kamar */
+.card-text {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.card-text strong {
+  color: #0f13b9; /* Warna untuk label seperti Fasilitas, Kelengkapan, dll */
+}
+
+.search {
+  width: 500px;
+}
+.rdt_TableCol {
+    word-wrap: break-word;  /* Membuat teks terpotong dan melanjutkan ke baris berikutnya jika panjang */
+    white-space: normal;  /* Menghindari teks yang dipaksa tetap dalam satu baris */
+    text-overflow: ellipsis;  /* Menambahkan '...' jika teks terlalu panjang */
+  }
+  .table-container {
+    overflow-x: auto; /* Allow horizontal scroll if needed */
+  }
+  
+  .table {
+    table-layout: fixed; /* Use fixed layout for consistent column widths */
+  }
+  
+  .table td, .table th {
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide overflow content */
+    text-overflow: ellipsis; /* Show ellipsis for overflowed text */
+  }
+  .modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.7); /* Warna gelap dengan transparansi */
+  }
+  
+  .modal-content {
+    background-color: #ffffff; /* Latar belakang modal yang lebih terang */
+    border-radius: 0.5rem; /* Sudut melengkung */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bayangan */
+    z-index:9999;
+  }
