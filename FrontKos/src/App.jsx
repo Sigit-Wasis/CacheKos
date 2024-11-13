@@ -15,6 +15,7 @@ import ActiveResident from "./pages/ActiveResidents";
 import EditResidentPage from "./pages/EditResidentPage";
 import PrintInvoicePage from "./pages/PrintInvoicePage";
 import Dashboard from "./pages/Dashboard";
+import User from "./pages/User";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -132,6 +133,8 @@ function App() {
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/user" element={<User />} />
+
         {isAuthenticated && <Route path="/room" element={<Room />} />}
         {isAuthenticated && <Route path="/setting" element={<Setting />} />}
         {isAuthenticated && <Route path="/payment" element={<Payment />} />}
