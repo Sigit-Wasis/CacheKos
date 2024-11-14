@@ -86,6 +86,11 @@ function App() {
                       Payment
                     </Link>
                   </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/user">
+                      User
+                    </Link>
+                  </li>
 
                   {/* Dropdown for Resident */}
                   <li className="nav-item dropdown">
@@ -150,6 +155,7 @@ function App() {
         {isAuthenticated && <Route path="/active" element={<ActiveResident />} />}
         {isAuthenticated && <Route path="/edit/:id" element={<EditResidentPage />} />}
         {isAuthenticated && <Route path="/invoice/:id" element={<PrintInvoicePage />} />}
+        {isAuthenticated && <Route path="/user" element={<User />} />}
       </Routes>
     </div>
   );

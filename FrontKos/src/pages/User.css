@@ -174,3 +174,16 @@
     transform: translateY(0);
   }
 }
+
+.user-table td:first-child {
+  text-align: left; /* Aligns the first column to the right */
+  padding-right: 15px; /* Adds space between columns */
+  font-weight: bold; /* Optional: make the label bold */
+  color: rgb(98, 98, 98);
+}
+
+.user-table td:last-child {
+  text-align: right; /* Aligns the second column to the left */
+  font-weight: normal;
+  font-weight: bold; /* Makes the data normal weight */
+}

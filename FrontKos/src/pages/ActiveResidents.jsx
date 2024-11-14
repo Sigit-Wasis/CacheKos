@@ -60,9 +60,9 @@ const ActiveResidentPage = () => {
 
   const handleDelete = async (id) => {
     const token = localStorage.getItem('token');
-
+    
     const confirmDelete = window.confirm('Are you sure you want to delete this resident?');
-
+    
     if (!confirmDelete) {
       return;
     }
