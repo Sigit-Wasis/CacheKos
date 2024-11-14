@@ -11,17 +11,11 @@ const Setting = () => {
 
     // Fetch settings from the API
     useEffect(() => {
-        const token = localStorage.getItem("token");
-
         const fetchSettings = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/settings', {
-                    headers: {
-                      Authorization: `Bearer ${token}`,
-                    },
-                  });
+                const response = await axios.get('http://localhost:8000/api/settings');
                 setSettings(response.data.data[0]);
-                setFormData(response.data.data[0]); // Populate formData initially
+                setFormData(response.data.data[0]);
             } catch (err) {
                 console.error("Error fetching data:", err);
                 setError("Could not load settings. Please try again later.");
@@ -67,37 +61,9 @@ const Setting = () => {
 
     return (
         <div className="settings-container">
-            <h1 className="settings-title">Pengaturan Kost</h1>
+            <h1 className="settings-title">Pengaturan</h1>
 
-            <div className="settings-grid">
-                <div className="settings-card">
-                    <h2 className="card-title">Informasi Umum</h2>
-                    <table className="settings-table">
-                        <tbody>
-                            <tr>
-                                <td className="label">Nama Kost</td>
-                                <td>{settings.nama_kost}</td>
-                            </tr>
-                            <tr>
-                                <td className="label">Alamat</td>
-                                <td>{settings.alamat}</td>
-                            </tr>
-                            <tr>
-                                <td className="label">Telepon</td>
-                                <td>{settings.telepon}</td>
-                            </tr>
-                            <tr>
-                                <td className="label">Email</td>
-                                <td>{settings.email}</td>
-                            </tr>
-                            <tr>
-                                <td className="label">Deskripsi</td>
-                                <td>{settings.deskripsi}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
+            <div className="settings-wrapper">
                 {/* Card Profil Kost */}
                 <div className="settings-card">
                     <h2 className="card-title">Profil Kost</h2>
@@ -117,19 +83,36 @@ const Setting = () => {
                         <p><strong>Email Kost:</strong> {isEditing ? (
                             <input name="email" value={formData.email || ""} onChange={handleInputChange} />
                         ) : settings.email}</p>
+
+                <h2 className="card-title">Social Media</h2>
+                        <p><strong>Tiktok Kost:</strong> {isEditing ? (
+                            <input name="tiktok" value={formData.tiktok || ""} onChange={handleInputChange} />
+                        ) : settings.tiktok}</p>
+                        <p><strong>Instagram Kost:</strong> {isEditing ? (
+                            <input name="instagram" value={formData.instagram || ""} onChange={handleInputChange} />
+                        ) : settings.instagram}</p>
+
                     </div>
                 </div>
 
-                {/* Card Pengaturan Pembayaran */}
+                {/* Card Pengaturan Kost */}
                 <div className="settings-card">
-                    <h2 className="card-title">Pengaturan Pembayaran</h2>
+                    <h2 className="card-title">Pengaturan Kost</h2>
                     <div className="settings-details">
                         <p><strong>Tenggang Waktu Keterlambatan:</strong> {isEditing ? (
-                            <input name="tenggang_waktu" value={formData.tenggang_waktu || ""} onChange={handleInputChange} />
+                            <input 
+                                name="tenggang_waktu" 
+                                value={formData.tenggang_waktu || ""} 
+                                onChange={handleInputChange} 
+                            />
                         ) : `${settings?.tenggang_waktu || 0} Hari`}</p>
 
                         <p><strong>Biaya Keterlambatan per Hari:</strong> {isEditing ? (
-                            <input name="biaya_terlambat" value={formData.biaya_terlambat || ""} onChange={handleInputChange} />
+                            <input 
+                                name="biaya_terlambat" 
+                                value={formData.biaya_terlambat || ""} 
+                                onChange={handleInputChange} 
+                            />
                         ) : `Rp ${parseFloat(settings?.biaya_terlambat || 0).toLocaleString('id-ID')}`}</p>
 
                         <div className="buttons">
@@ -141,38 +124,6 @@ const Setting = () => {
                     </div>
                 </div>
 
-                {/* Card Media Sosial */}
-                <div className="settings-card">
-                    <h2 className="card-title">Media Sosial</h2>
-                    <table className="settings-table">
-                        <tbody>
-                            <tr>
-                                <td className="label">Facebook</td>
-                                <td>
-                                    <a href={settings.facebook} target="_blank" rel="noopener noreferrer">
-                                        {settings.facebook}
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="label">Instagram</td>
-                                <td>
-                                    <a href={settings.instagram} target="_blank" rel="noopener noreferrer">
-                                        {settings.instagram}
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="label">TikTok</td>
-                                <td>
-                                    <a href={settings.tiktok} target="_blank" rel="noopener noreferrer">
-                                        {settings.tiktok}
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
     );
