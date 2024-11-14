@@ -11,9 +11,15 @@ const Setting = () => {
 
     // Fetch settings from the API
     useEffect(() => {
+        const token = localStorage.getItem("token");
+
         const fetchSettings = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/settings');
+                const response = await axios.get('http://localhost:8000/api/settings', {
+                    headers: {
+                      Authorization: `Bearer ${token}`,
+                    },
+                  });
                 setSettings(response.data.data[0]);
                 setFormData(response.data.data[0]); // Populate formData initially
             } catch (err) {

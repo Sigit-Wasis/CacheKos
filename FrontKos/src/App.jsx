@@ -64,30 +64,6 @@ function App() {
                       Room
                     </Link>
                   </li>
-                  <li className="nav-item dropdown">
-                    <Link
-                      className="nav-link dropdown-toggle"
-                      to="#"
-                      id="residentDropdown"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      Resident
-                    </Link>
-                    <ul className="dropdown-menu" aria-labelledby="residentDropdown">
-                      <li>
-                        <Link className="dropdown-item" to="/resident">
-                          Resident
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item" to="/inactiveresident">
-                          Inactive Resident
-                        </Link>
-                      </li>
-                    </ul>
-                  </li>
                   <li className="nav-item">
                     <Link className="nav-link" to="/setting">
                       Setting
@@ -149,7 +125,7 @@ function App() {
         {isAuthenticated && <Route path="/room" element={<Room />} />}
         {isAuthenticated && <Route path="/resident" element={<Resident />} />}
         {isAuthenticated && <Route path="/add" element={<AddResidentPage />} />}
-        <Route path="/setting" element={<Setting />} />
+        {isAuthenticated && <Route path="/setting" element={<Setting />} />}
         {isAuthenticated && <Route path="/expense" element={<Expense />} />}
       </Routes>
     </div>

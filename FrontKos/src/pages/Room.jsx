@@ -77,7 +77,7 @@ const Room = () => {
             .put(`http://localhost:8000/api/rooms/${editRoom.id}`, newRoom, {
               headers: { Authorization: `Bearer ${token}` },
             })
-            .then((response) => {
+            .then(() => {
               setRooms(
                 rooms.map((room) =>
                   room.id === editRoom.id ? { ...room, ...newRoom } : room
@@ -188,32 +188,19 @@ const Room = () => {
   );
 
   const formatRupiah = (value) => {
-    return `RP ${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`;
+    if (value === undefined || value === null) {
+      return "Rp 0";
+    }
+    return `Rp ${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`;
   };
 
   const columns = [
-    {
-      name: "Nama Kamar",
-      selector: (row) => row.nama_kamar,
-      style: { width: "400px" },
-    },
+    { name: "Nama Kamar", selector: (row) => row.nama_kamar },
     { name: "Nomor Kamar", selector: (row) => row.nomor_kamar },
-    {
-      name: "Harga per Hari",
-      selector: (row) => formatRupiah(row.harga_per_hari),
-    },
-    {
-      name: "Harga per Minggu",
-      selector: (row) => formatRupiah(row.harga_per_minggu),
-    },
-    {
-      name: "Harga per Bulan",
-      selector: (row) => formatRupiah(row.harga_per_bulan),
-    },
-    {
-      name: "Harga per Tahun",
-      selector: (row) => formatRupiah(row.harga_per_tahun),
-    },
+    { name: "Harga per Hari", selector: (row) => formatRupiah(row.harga_per_hari) },
+    { name: "Harga per Minggu", selector: (row) => formatRupiah(row.harga_per_minggu) },
+    { name: "Harga per Bulan", selector: (row) => formatRupiah(row.harga_per_bulan) },
+    { name: "Harga per Tahun", selector: (row) => formatRupiah(row.harga_per_tahun) },
     { name: "Fasilitas", selector: (row) => row.fasilitas },
     { name: "Kelengkapan Lain", selector: (row) => row.kelengkapan_lain },
     { name: "Catatan", selector: (row) => row.catatan_kamar },
@@ -221,24 +208,9 @@ const Room = () => {
       name: "Aksi",
       cell: (row) => (
         <div className="d-flex">
-          <button
-            className="btn btn-warning btn-sm"
-            onClick={() => handleEdit(row)}
-          >
-            <FaEdit />
-          </button>
-          <button
-            className="btn btn-danger btn-sm ml-2"
-            onClick={() => handleDelete(row.id)}
-          >
-            <FaTrash />
-          </button>
-          <button
-            className="btn btn-info btn-sm ml-2"
-            onClick={() => handleDetail(row)}
-          >
-            <FaEye />
-          </button>
+          <button className="btn btn-warning btn-sm" onClick={() => handleEdit(row)}><FaEdit /></button>
+          <button className="btn btn-danger btn-sm ml-2" onClick={() => handleDelete(row.id)}><FaTrash /></button>
+          <button className="btn btn-info btn-sm ml-2" onClick={() => handleDetail(row)}><FaEye /></button>
         </div>
       ),
     },
@@ -247,7 +219,6 @@ const Room = () => {
   return (
     <div className="container">
       <h2 className="text-center mt-5 mb-5">Daftar Kamar</h2>
-
       <div className="mb-4">
         <input
           type="text"
@@ -257,145 +228,40 @@ const Room = () => {
           onChange={handleSearch}
         />
       </div>
-
-      <button className="btn btn-primary mb-4" onClick={toggleModal}>
-        Tambah Kamar
-      </button>
-
+      <button className="btn btn-primary mb-4" onClick={toggleModal}>Tambah Kamar</button>
+      
       {isModalOpen && (
         <div className="modal fade show d-block" tabIndex="-1" aria-hidden="true">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">
-                  {isEditMode ? "Edit Kamar" : "Tambah Kamar Baru"}
-                </h5>
+                <h5 className="modal-title">{isEditMode ? "Edit Kamar" : "Tambah Kamar Baru"}</h5>
                 <button type="button" className="btn-close" onClick={toggleModal}></button>
               </div>
-              <form onSubmit={handleSubmit}>
-                <div className="modal-body ">
-                  <div className="form-group">
-                    <label htmlFor="nama_kamar">Nama Kamar</label>
-                    <input
-                      type="text"
-                      id="nama_kamar"
-                      className="form-control"
-                      name="nama_kamar"
-                      value={newRoom.nama_kamar}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="nomor_kamar">Nomor Kamar</label>
-                    <input
-                      type="text"
-                      id="nomor_kamar"
-                      className="form-control"
-                      name="nomor_kamar"
-                      value={newRoom.nomor_kamar}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="harga_per_hari">Harga per Hari</label>
-                    <input
-                      type="number"
-                      id="harga_per_hari"
-                      className="form-control"
-                      name="harga_per_hari"
-                      value={newRoom.harga_per_hari}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="harga_per_minggu">Harga per Minggu</label>
-                    <input
-                      type="number"
-                      id="harga_per_minggu"
-                      className="form-control"
-                      name="harga_per_minggu"
-                      value={newRoom.harga_per_minggu}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="harga_per_bulan">Harga per Bulan</label>
-                    <input
-                      type="number"
-                      id="harga_per_bulan"
-                      className="form-control"
-                      name="harga_per_bulan"
-                      value={newRoom.harga_per_bulan}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="harga_per_tahun">Harga per Tahun</label>
-                    <input
-                      type="number"
-                      id="harga_per_tahun"
-                      className="form-control"
-                      name="harga_per_tahun"
-                      value={newRoom.harga_per_tahun}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="fasilitas">Fasilitas</label>
-                    <input
-                      type="text"
-                      id="fasilitas"
-                      className="form-control"
-                      name="fasilitas"
-                      value={newRoom.fasilitas}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="kelengkapan_lain">Kelengkapan Lain</label>
-                    <input
-                      type="text"
-                      id="kelengkapan_lain"
-                      className="form-control"
-                      name="kelengkapan_lain"
-                      value={newRoom.kelengkapan_lain}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="catatan_kamar">Catatan Kamar</label>
-                    <textarea
-                      id="catatan_kamar"
-                      className="form-control"
-                      name="catatan_kamar"
-                      value={newRoom.catatan_kamar}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-secondary" onClick={toggleModal}>
-                    Tutup
-                  </button>
-                  <button type="submit" className="btn btn-primary">
-                    {isEditMode ? "Perbarui Kamar" : "Tambah Kamar"}
-                  </button>
-                </div>
-              </form>
+              <div className="modal-body">
+                <form onSubmit={handleSubmit}>
+                  {Object.keys(newRoom).map((field) => (
+                    <div className="mb-3" key={field}>
+                      <label htmlFor={field} className="form-label">{field.replace('_', ' ').toUpperCase()}</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name={field}
+                        value={newRoom[field]}
+                        onChange={handleChange}
+                        placeholder={`Masukkan ${field.replace('_', ' ')}`}
+                      />
+                    </div>
+                  ))}
+                  <button type="submit" className="btn btn-primary">Simpan</button>
+                </form>
+              </div>
             </div>
           </div>
-          <div className="modal-backdrop fade show" style={{ display: 'block' }}></div>
         </div>
       )}
 
-      {isDetailModalOpen && detailRoom && (
+      {isDetailModalOpen && (
         <div className="modal fade show d-block" tabIndex="-1" aria-hidden="true">
           <div className="modal-dialog">
             <div className="modal-content">
@@ -404,39 +270,20 @@ const Room = () => {
                 <button type="button" className="btn-close" onClick={toggleDetailModal}></button>
               </div>
               <div className="modal-body">
-                <p><strong>Nama Kamar:</strong> {detailRoom.nama_kamar}</p>
-                <p><strong>Nomor Kamar:</strong> {detailRoom.nomor_kamar}</p>
-                <p><strong>Harga per Hari:</strong> {formatRupiah(detailRoom.harga_per_hari)}</p>
-                <p><strong>Harga per Minggu:</strong> {formatRupiah(detailRoom.harga_per_minggu)}</p>
-                <p><strong>Harga per Bulan:</strong> {formatRupiah(detailRoom.harga_per_bulan)}</p>
-                <p><strong>Harga per Tahun:</strong> {formatRupiah(detailRoom.harga_per_tahun)}</p>
-                <p><strong>Fasilitas:</strong> {detailRoom.fasilitas}</p>
-                <p><strong>Kelengkapan Lain:</strong> {detailRoom.kelengkapan_lain}</p>
-                <p><strong>Catatan:</strong> {detailRoom.catatan_kamar}</p>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={toggleDetailModal}>
-                  Tutup
-                </button>
+                {detailRoom && (
+                  <>
+                    {Object.keys(detailRoom).map((field) => (
+                      <p key={field}><strong>{field.replace('_', ' ').toUpperCase()}:</strong> {detailRoom[field]}</p>
+                    ))}
+                  </>
+                )}
               </div>
             </div>
           </div>
-          <div className="modal-backdrop fade show" style={{ display: 'block' }}></div>
         </div>
       )}
 
-      {error && <div className="alert alert-danger">{error}</div>}
-      {success && <div className="alert alert-success">{success}</div>}
-
-      <div className="table-container">
-        <DataTable
-          columns={columns}
-          data={filteredRooms}
-          pagination
-          highlightOnHover
-          striped
-        />
-      </div>
+      <DataTable columns={columns} data={filteredRooms} pagination />
     </div>
   );
 };
