@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\ResidentController; // Mengimpor ResidentController
 use App\Http\Controllers\Api\SettingController; // Mengimpor SettingController
 use App\Http\Controllers\Api\PaymentController; // Mengimpor PaymentController
 use App\Http\Controllers\API\DashboardController;
+use App\Http\Controllers\API\UserController;
+
 
 /*
 |---------------------------------------------------------------------------|

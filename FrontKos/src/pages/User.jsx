@@ -124,7 +124,7 @@ const User = () => {
       <div className="row">
         {users.map((user) => (
           <div className="col-md-4 mb-4" key={user.id}>
-            <div className="card h-100">
+            
               <div className="card-body">
                 <h5 className="card-title"><strong>Username:</strong> {user.username}</h5>
                 <p className="card-text"><strong>Nama Lengkap:</strong> {user.nama_lengkap}</p>
@@ -136,7 +136,7 @@ const User = () => {
                 <button className="btn btn-danger delete-btn" onClick={() => handleDeleteUser(user.id)}>Delete</button>
               </div>
             </div>
-          </div>
+          
         ))}
       </div>
 
