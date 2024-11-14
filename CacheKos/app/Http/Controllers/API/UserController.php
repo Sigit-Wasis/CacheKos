@@ -124,7 +124,7 @@ class UserController extends Controller
         ], 200); // Kode status HTTP
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         // Cek apakah pengguna ada
         $user = DB::table('users')->where('id', $id)->first();

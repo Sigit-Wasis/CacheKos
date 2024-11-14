@@ -106,4 +106,58 @@ class AuthController extends Controller
             'message' => 'Logout berhasil.'
         ]);
     }
+
+    //function register 
+    public function register(Request $request)
+    {
+        // Validasi input yang diterima
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|string|unique:users',
+            'password' => 'required|string',
+            'nama_lengkap' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'alamat' => 'required|string',          
+
+        ], [
+            'username.required' => 'Username wajib diisi.',
+            'username.string' => 'Username harus berupa teks.',
+            'username.unique' => 'Username sudah digunakan.',
+            'password.required' => 'Password wajib diisi.',
+            'password.string' => 'Password harus berupa teks.',
+            'nama_lengkap.required' => 'Nama lengkap wajib diisi.',
+            'nama_lengkap.string' => 'Nama lengkap harus berupa teks.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah digunakan.',
+            'alamat.required' => 'Alamat wajib diisi.',
+            'alamat.string' => 'Alamat harus berupa teks.',
+        ]);
+
+        // Jika validasi gagal, kembalikan error
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }    
+
+        // Buat pengguna baru
+        $user = User::create([
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+            'nama_lengkap' => $request->nama_lengkap,
+            'email' => $request->email,
+            'alamat' => $request->alamat
+        ]);
+
+        return response()->json([
+            'message' => 'Register berhasil.',
+            'user' => [
+                'id' => $user->id,
+                'username' => $user->username,
+                'nama_lengkap' => $user->nama_lengkap,
+                'email' => $user->email,
+                'alamat' => $user->alamat,
+                // Tambahkan atribut lain sesuai yang diperlukan
+            ]
+        ]);
+    }
+
 }

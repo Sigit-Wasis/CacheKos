@@ -121,7 +121,7 @@ const AddResidentPage = () => {
         </div>
         <div className="form-group">
           <label>No Handphone</label>
-          <input type="text" name="no_handphone" value={residentData.no_handphone} onChange={handleInputChange} className="form-control" required />
+          <input type="text" name="no_handphone" value={residentData.no_handphone} onChange={handleInputChange} placeholder='Maksimal 12 Angka...(089123456789)' className="form-control" required />
         </div>
         <div className="form-group">
           <label>Jenis Kelamin</label>
@@ -133,7 +133,7 @@ const AddResidentPage = () => {
         </div>
         <div className="form-group">
           <label>No KTP</label>
-          <input type="text" name="no_ktp" value={residentData.no_ktp} onChange={handleInputChange} className="form-control" required />
+          <input type="text" name="no_ktp" value={residentData.no_ktp} onChange={handleInputChange} placeholder='Maksimal 16 Angka...(1810012345678901)' className="form-control" required />
         </div>
         <div className="form-group">
           <label>Foto KTP</label>
@@ -179,7 +179,7 @@ const AddResidentPage = () => {
         </div>
         <div className="form-group">
           <label>Lama Sewa </label>
-          <input type="number" name="lama_sewa" value={residentData.lama_sewa} onChange={handleInputChange} placeholder='Hari...' className="form-control" required />
+          <input type="number" name="lama_sewa" value={residentData.lama_sewa} onChange={handleInputChange} placeholder='Input Angka' className="form-control" required />
         </div>
         <div className="form-group">
           <label>Tanggal Masuk</label>
@@ -187,7 +187,7 @@ const AddResidentPage = () => {
         </div>
         <div className="form-group">
           <label>Keterangan</label>
-          <textarea name="keterangan" value={residentData.keterangan} onChange={handleInputChange} className="form-control"></textarea>
+          <textarea name="keterangan" value={residentData.keterangan} onChange={handleInputChange} placeholder='Boleh diisi Boleh Kosongin Aja ' className="form-control"></textarea>
         </div>
         <div className="form-group">
           <label>Status Sewa</label>

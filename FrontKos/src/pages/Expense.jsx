@@ -129,6 +129,15 @@ const Expense = () => {
     justifyContent: "flex-end",
   };
 
+  const deleteModalStyles = {
+    padding: "30px",
+    maxWidth: "500px",
+    margin: "0 auto",
+    backgroundColor: "#f8f9fa",
+    borderRadius: "8px",
+    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+  };
+
   return (
     <div style={{ margin: "20px auto", maxWidth: "1200px" }}>
       <h2 className="text-center mt-5">Daftar Pengeluaran</h2>
@@ -202,19 +211,31 @@ const Expense = () => {
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
         <div className="modal" style={{ display: "block" }}>
-          <div className="modal-content" style={modalStyles}>
-            <h3>Konfirmasi Penghapusan</h3>
-            <p>Apakah kamu yakin ingin menghapus pengeluaran ini?</p>
+          <div className="modal-content" style={deleteModalStyles}>
+            <h3 style={{ textAlign: "center" }}>Konfirmasi Penghapusan</h3>
+            <p style={{ textAlign: "center" }}>Apakah kamu yakin ingin menghapus pengeluaran ini?</p>
             <div style={buttonContainerStyles}>
               <button
                 onClick={handleDeleteExpense}
-                style={{ backgroundColor: "#f44336" }}
+                style={{
+                  backgroundColor: "#e74c3c",
+                  color: "#fff",
+                  padding: "10px 20px",
+                  border: "none",
+                  borderRadius: "5px",
+                }}
               >
                 Ya, Hapus
               </button>
               <button
                 onClick={() => setShowDeleteModal(false)}
-                style={{ backgroundColor: "#6c757d" }}
+                style={{
+                  backgroundColor: "#95a5a6",
+                  color: "#fff",
+                  padding: "10px 20px",
+                  border: "none",
+                  borderRadius: "5px",
+                }}
               >
                 Batal
               </button>
@@ -238,7 +259,7 @@ const Expense = () => {
       </button>
 
       {/* Tabel Daftar Pengeluaran */}
-      <table className="table table-bordered">
+      <table className="table table-borderless">
         <thead>
           <tr>
             <th>Nama Pengeluaran</th>
@@ -261,14 +282,7 @@ const Expense = () => {
                     setEditExpense(expense);
                     setShowModal(true);
                   }}
-                  style={{
-                    backgroundColor: "#ffc107",
-                    padding: "5px 10px",
-                    border: "none",
-                    color: "white",
-                    borderRadius: "5px",
-                    marginRight: "10px",
-                  }}
+                  style={{ backgroundColor: "#f39c12", color: "white", border: "none", padding: "5px 10px", borderRadius: "5px" }}
                 >
                   Edit
                 </button>
@@ -277,13 +291,7 @@ const Expense = () => {
                     setExpenseToDelete(expense);
                     setShowDeleteModal(true);
                   }}
-                  style={{
-                    backgroundColor: "#dc3545",
-                    padding: "5px 10px",
-                    border: "none",
-                    color: "white",
-                    borderRadius: "5px",
-                  }}
+                  style={{ backgroundColor: "#e74c3c", color: "white", border: "none", padding: "5px 10px", borderRadius: "5px", marginLeft: "10px" }}
                 >
                   Hapus
                 </button>

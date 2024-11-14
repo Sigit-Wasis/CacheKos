@@ -7,6 +7,7 @@ import DataTable from "react-data-table-component";
 import "./Room.css";
 
 const Room = () => {
+  
   const [rooms, setRooms] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [newRoom, setNewRoom] = useState({
@@ -30,6 +31,7 @@ const Room = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     if (!token) {
       setError("Anda harus login untuk melihat daftar kamar.");
@@ -37,7 +39,7 @@ const Room = () => {
     }
 
     axios
-      .get("http://localhost:8000/api/rooms", {
+      .get(apiUrl+"/api/rooms", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
