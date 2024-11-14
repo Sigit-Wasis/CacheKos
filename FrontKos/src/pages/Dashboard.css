@@ -1,0 +1,73 @@
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.card {
+    position: relative;
+    padding: 1.5rem;
+    border-radius: 8px;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: left;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.card-content {
+    z-index: 1;
+}
+
+.purple { 
+    background: linear-gradient(135deg, #6a1b9a, #8e24aa, #ba68c8); 
+}
+
+.yellow { 
+    background: linear-gradient(135deg, #fbc02d, #ffb300, #ffca28); 
+}
+
+.green { 
+    background: linear-gradient(135deg, #43a047, #66bb6a, #81c784); 
+}
+
+.red { 
+    background: linear-gradient(135deg, #e53935, #f44336, #ef5350); 
+}
+
+.card h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.card p {
+    font-size: 2rem;
+    margin: 0.5rem 0;
+    font-weight: bold;
+}
+
+.card span {
+    font-size: 0.9rem;
+}
+
+.icon {
+    font-size: 4rem;
+    position: absolute;
+    right: 1rem;
+    opacity: 0.5;
+    transform: rotate(-3deg);  /* Memiringkan ikon 45 derajat ke kiri */
+}
+
+
+.bed-icon:before { content: "\1F6CF"; } /* Use emoji or icon library */
+.door-icon:before { content: "\1F6AA"; }
+.income-icon:before { content: "\1F4B0"; }
+.expense-icon:before { content: "\1F4B8"; }

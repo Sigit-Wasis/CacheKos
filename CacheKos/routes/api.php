@@ -38,8 +38,6 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logo
 
 
 
-
-
 // Route untuk RoomController
 Route::prefix('rooms')->middleware('auth:sanctum')->group(function () {
     Route::get('/', [RoomController::class, 'index']); // Menampilkan semua data kamar
@@ -66,20 +64,25 @@ Route::prefix('residents')->middleware('auth:sanctum')->group(function () {
     Route::delete('/{id}', [ResidentController::class, 'destroy']); // Menghapus resident berdasarkan ID
 });
 
-//route setting
-Route:: prefix ('settings')->group(function () {
-Route:: get ('/', [SettingController::class, 'index']);
-Route:: post ('/', [SettingController::class, 'store']);
-Route:: get ('/{id}', [SettingController::class, 'show']);
-Route:: put ('/{id}', [SettingController::class, 'edit']);
-Route:: delete ('/{id}', [SettingController::class, 'destroy']);
+Route::prefix('dashboard')->middleware('auth:sanctum')->group(function () {
+    Route::get('/kamar-terisi', [DashboardController::class, 'index']); // Mendapatkan semua resident
 });
 
-//route payment
-Route:: prefix ('payments')->group(function () {
-Route:: get ('/', [PaymentController::class, 'index']);
-Route:: post ('/', [PaymentController::class, 'store']);
-Route:: get ('/{id}', [PaymentController::class, 'show']);
-Route:: put ('/{id}', [PaymentController::class, 'update']);
-Route:: delete ('/{id}', [PaymentController::class, 'destroy']);
+// Route untuk SettingController
+Route::prefix('settings')->group(function () {
+    Route::get('/', [SettingController::class, 'index']);
+    Route::post('/', [SettingController::class, 'store']);
+    Route::get('/{id}', [SettingController::class, 'show']);
+    Route::put('/{id}', [SettingController::class, 'update']);
+    Route::delete('/{id}', [SettingController::class, 'destroy']);
 });
+
+// Route untuk PaymentController
+Route::prefix('payments')->group(function () {
+    Route::get('/', [PaymentController::class, 'index']);
+    Route::post('/', [PaymentController::class, 'store']);
+    Route::get('/{id}', [PaymentController::class, 'show']);
+    Route::put('/{id}', [PaymentController::class, 'update']);
+    Route::delete('/{id}', [PaymentController::class, 'destroy']);
+});
+

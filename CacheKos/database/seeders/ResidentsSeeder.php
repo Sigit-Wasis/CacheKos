@@ -26,7 +26,7 @@ class ResidentsSeeder extends Seeder
             'status_penghuni' => 1, // contoh status 1: aktif, 0: tidak aktif
             'pekerjaan' => 2, // contoh pekerjaan 2: pegawai
             'jumlah_penghuni' => 1,
-            'lama_sewa' => '1 tahun',
+            'lama_sewa' => '365',
             'tanggal_masuk' => '2024-01-15',
             'keterangan' => 'Penghuni baru',
             'status_sewa' => 1, // contoh status sewa 1: aktif

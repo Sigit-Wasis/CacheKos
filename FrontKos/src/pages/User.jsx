@@ -16,7 +16,6 @@ const User = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-
     if (!token) {
       navigate('/login');
       return;
@@ -29,15 +28,13 @@ const User = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setUsers(response.data.data); // Menyesuaikan respons
+        setUsers(response.data.data);
       } catch (error) {
-        console.error("Error fetching users:", error);
         setError("Gagal mengambil data pengguna. Silakan coba lagi.");
       } finally {
         setLoading(false);
       }
     };
-
     fetchUsers();
   }, [navigate]);
 
@@ -53,7 +50,6 @@ const User = () => {
       setShowModal(false);
       setNewUser({ nama_lengkap: '', username: '', email: '', alamat: '' });
     } catch (error) {
-      console.error("Error adding user:", error);
       setError("Gagal menambahkan pengguna. Silakan coba lagi.");
     }
   };
@@ -66,22 +62,18 @@ const User = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      // Update pengguna yang telah diedit di state `users`
       setUsers(users.map(user => (user.id === currentUserId ? response.data.data : user)));
       setShowModal(false);
       setIsEditing(false);
       setNewUser({ nama_lengkap: '', username: '', email: '', alamat: '' });
       setCurrentUserId(null);
     } catch (error) {
-      console.error("Error updating user:", error);
       setError("Gagal memperbarui pengguna. Silakan coba lagi.");
     }
   };
 
   const handleDeleteUser = async (id) => {
     const token = localStorage.getItem('token');
-  
-    // Tampilkan SweetAlert untuk konfirmasi
     Swal.fire({
       title: 'Apakah Anda yakin?',
       text: "Data ini akan dihapus secara permanen!",
@@ -94,36 +86,20 @@ const User = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          // Jika konfirmasi, lanjutkan penghapusan
           await axios.delete(`http://127.0.0.1:8000/api/users/${id}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
-          // Menghapus pengguna dari state `users`
           setUsers(users.filter(user => user.id !== id));
-  
-          // Tampilkan notifikasi sukses
-          Swal.fire(
-            'Terhapus!',
-            'Data pengguna telah berhasil dihapus.',
-            'success'
-          );
+          Swal.fire('Terhapus!', 'Data pengguna telah berhasil dihapus.', 'success');
         } catch (error) {
-          console.error("Error deleting user:", error);
           setError("Gagal menghapus pengguna. Silakan coba lagi.");
-  
-          // Tampilkan notifikasi error
-          Swal.fire(
-            'Gagal!',
-            'Data pengguna gagal dihapus.',
-            'error'
-          );
+          Swal.fire('Gagal!', 'Data pengguna gagal dihapus.', 'error');
         }
       }
     });
   };
-  
 
   const openEditModal = (user) => {
     setCurrentUserId(user.id);
@@ -132,19 +108,14 @@ const User = () => {
     setShowModal(true);
   };
 
-  if (loading) {
-    return <p>Loading data...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
+  if (loading) return <p>Loading data...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="container mt-5">
-      <div className="header">
-        <h1 className="title">Daftar Pengguna</h1>
-        <button className="btn btn-primary add-user-btn" onClick={() => {
+    <div className="user-container mt-5">
+      <div className="user-header">
+        <h1 className="user-title">Daftar Pengguna</h1>
+        <button className="user-add-user-btn" onClick={() => {
           setShowModal(true);
           setIsEditing(false);
           setNewUser({ nama_lengkap: '', username: '', email: '', alamat: '' });
@@ -152,69 +123,41 @@ const User = () => {
           Tambah User
         </button>
       </div>
-
-      <div className="row">
+      <div className="user-row">
         {users.map((user) => (
-          <div className="col-md-4 mb-4" key={user.id}>
-            <div className="card h-100">
-              <div className="card-body">
-                <h5 className="card-title"><strong>Username:</strong> {user.username}</h5>
-                <p className="card-text"><strong>Nama Lengkap:</strong> {user.nama_lengkap}</p>
-                <p className="card-text"><strong>Email:</strong> {user.email}</p>
-                <p className="card-text"><strong>Alamat:</strong> {user.alamat}</p>
+          <div className="user-col-md-4 mb-4" key={user.id}>
+            <div className="user-card h-100">
+              <div className="user-card-body">
+                <h5 className="user-card-title"><strong>Username:</strong> {user.username}</h5>
+                <p className="user-card-text"><strong>Nama Lengkap:</strong> {user.nama_lengkap}</p>
+                <p className="user-card-text"><strong>Email:</strong> {user.email}</p>
+                <p className="user-card-text"><strong>Alamat:</strong> {user.alamat}</p>
               </div>
-              <div className="card-footer">
-                <button className="btn btn-warning me-2 edit-btn" onClick={() => openEditModal(user)}>Edit</button>
-                <button className="btn btn-danger delete-btn" onClick={() => handleDeleteUser(user.id)}>Delete</button>
+              <div className="user-card-footer">
+                <button className="user-btn user-btn-warning me-2" onClick={() => openEditModal(user)}>Edit</button>
+                <button className="user-btn user-btn-danger" onClick={() => handleDeleteUser(user.id)}>Delete</button>
               </div>
             </div>
           </div>
         ))}
       </div>
-
       {showModal && (
-        <div className="modal" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">{isEditing ? 'Edit Pengguna' : 'Tambah Pengguna'}</h5>
-                <button type="button" className="close" onClick={() => setShowModal(false)}>
-                  &times;
-                </button>
+        <div className="user-modal" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+          <div className="user-modal-dialog">
+            <div className="user-modal-content">
+              <div className="user-modal-header">
+                <h5 className="user-modal-title">{isEditing ? 'Edit Pengguna' : 'Tambah Pengguna'}</h5>
+                <button type="button" className="close" onClick={() => setShowModal(false)}>&times;</button>
               </div>
-              <div className="modal-body">
-                <input
-                  type="text"
-                  placeholder="Nama Lengkap"
-                  className="form-control mb-2"
-                  value={newUser.nama_lengkap}
-                  onChange={(e) => setNewUser({ ...newUser, nama_lengkap: e.target.value })}
-                />
-                <input
-                  type="text"
-                  placeholder="Username"
-                  className="form-control mb-2"
-                  value={newUser.username}
-                  onChange={(e) => setNewUser({ ...newUser, username: e.target.value })}
-                />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="form-control mb-2"
-                  value={newUser.email}
-                  onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-                />
-                <input
-                  type="text"
-                  placeholder="Alamat"
-                  className="form-control mb-2"
-                  value={newUser.alamat}
-                  onChange={(e) => setNewUser({ ...newUser, alamat: e.target.value })}
-                />
+              <div className="user-modal-body">
+                <input type="text" placeholder="Nama Lengkap" className="form-control mb-2" value={newUser.nama_lengkap} onChange={(e) => setNewUser({ ...newUser, nama_lengkap: e.target.value })} />
+                <input type="text" placeholder="Username" className="form-control mb-2" value={newUser.username} onChange={(e) => setNewUser({ ...newUser, username: e.target.value })} />
+                <input type="email" placeholder="Email" className="form-control mb-2" value={newUser.email} onChange={(e) => setNewUser({ ...newUser, email: e.target.value })} />
+                <input type="text" placeholder="Alamat" className="form-control mb-2" value={newUser.alamat} onChange={(e) => setNewUser({ ...newUser, alamat: e.target.value })} />
               </div>
-              <div className="modal-footer">
-                <button className="btn btn-secondary" onClick={() => setShowModal(false)}>Batal</button>
-                <button className="btn btn-primary" onClick={isEditing ? handleEditUser : handleAddUser}>
+              <div className="user-modal-footer">
+                <button className="user-btn user-btn-secondary" onClick={() => setShowModal(false)}>Batal</button>
+                <button className="user-btn user-btn-primary" onClick={isEditing ? handleEditUser : handleAddUser}>
                   {isEditing ? 'Simpan Perubahan' : 'Simpan'}
                 </button>
               </div>

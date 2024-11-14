@@ -14,6 +14,9 @@ import InactiveResidentsPage from "./pages/InactiveResidentsPage";
 import ActiveResident from "./pages/ActiveResidents";
 import EditResidentPage from "./pages/EditResidentPage";
 import User from "./pages/User"; // Import halaman User
+import PrintInvoicePage from "./pages/PrintInvoicePage";
+import Dashboard from "./pages/Dashboard";
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -26,7 +29,7 @@ function App() {
     } else {
       navigate('/login'); // Jika tidak ada token, arahkan ke halaman login
     }
-  }, []);
+  }, [navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -56,7 +59,7 @@ function App() {
             <ul className="navbar-nav me-auto">
               <li className="nav-item">
                 <Link className="nav-link" to="/">
-                  Home
+                  Dashboard
                 </Link>
               </li>
               {!isAuthenticated ? (
@@ -83,7 +86,7 @@ function App() {
                     </Link>
                   </li>
 
-                  {/* Dropdown Resident */}
+                  {/* Dropdown for Resident */}
                   <li className="nav-item dropdown">
                     <a
                       className="nav-link dropdown-toggle"
@@ -133,21 +136,21 @@ function App() {
           </div>
         </div>
       </nav>
+
       <Routes>
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/setting" element={<Setting />} />
-        <Route path="/payment" element={<Payment />} />
-        
-        {/* Rute yang membutuhkan autentikasi */}
+        <Route path="/dashboard" element={<Dashboard />} />
         {isAuthenticated && <Route path="/room" element={<Room />} />}
+        {isAuthenticated && <Route path="/setting" element={<Setting />} />}
+        {isAuthenticated && <Route path="/payment" element={<Payment />} />}
         {isAuthenticated && <Route path="/resident" element={<Resident />} />}
         {isAuthenticated && <Route path="/add" element={<AddResidentPage />} />}
         {isAuthenticated && <Route path="/inactive" element={<InactiveResidentsPage />} />}
         {isAuthenticated && <Route path="/active" element={<ActiveResident />} />}
         {isAuthenticated && <Route path="/edit/:id" element={<EditResidentPage />} />}
         {isAuthenticated && <Route path="/user" element={<User />} />}
+        {isAuthenticated && <Route path="/invoice/:id" element={<PrintInvoicePage />} />}
       </Routes>
     </div>
   );
