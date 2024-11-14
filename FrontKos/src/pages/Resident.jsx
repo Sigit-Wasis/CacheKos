@@ -13,10 +13,12 @@ const ResidentPage = () => {
   const [error, setError] = useState(null);
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
+ 
+
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-
+    const apiUrl = import.meta.env.VITE_API_URL;
     if (!token) {
       navigate('/login');
       return;
@@ -24,7 +26,7 @@ const ResidentPage = () => {
 
     const fetchResidents = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/residents', {
+        const response = await axios.get(apiUrl+'/api/residents', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -64,7 +66,7 @@ const ResidentPage = () => {
     }
   
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/residents/${id}`, {
+      await axios.delete(apiUrl+`/api/residents/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

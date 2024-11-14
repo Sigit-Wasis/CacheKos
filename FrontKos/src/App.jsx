@@ -138,6 +138,8 @@ function App() {
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/user" element={<User />} />
+
         {isAuthenticated && <Route path="/room" element={<Room />} />}
         {isAuthenticated && <Route path="/setting" element={<Setting />} />}
         {isAuthenticated && <Route path="/payment" element={<Payment />} />}
