@@ -1,0 +1,84 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Container styling */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #fdfdfd, #ece9ef);
+}
+
+/* Card styling */
+.register-card {
+    background: #fff;
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Form heading */
+.register-card h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+/* Input group styling */
+.input-group {
+    margin-bottom: 1rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
+
+/* Submit button styling */
+.submit-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background: #4a90e2;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.submit-btn:hover {
+    background: #9013fe;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .register-card {
+        padding: 1.5rem;
+    }
+
+    .input-group input {
+        font-size: 0.9rem;
+    }
+
+    .submit-btn {
+        font-size: 0.9rem;
+    }
+}

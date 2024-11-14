@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from "react-router-dom";
-
+import Register from "./components/Register/Register";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import Room from "./pages/Room";
@@ -58,11 +58,15 @@ function App() {
                   Dashboard
                 </Link>
               </li>
+              
 
-              {!isAuthenticated ? (
+              {!isAuthenticated ? ( 
                 <li className="nav-item">
                   <Link className="nav-link" to="/login">
                     Login
+                  </Link>
+                  <Link className="nav-link" to="/register">
+                    Register
                   </Link>
                 </li>
               ) : (
@@ -135,6 +139,8 @@ function App() {
       </nav>
 
       <Routes>
+        {/* //register */}
+        <Route path="/register" element={<Register setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/dashboard" element={<Dashboard />} />
