@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\RoomController; // Mengimpor RoomController
 use App\Http\Controllers\Api\ResidentController; // Mengimpor ResidentController jika diperlukan
 use App\Http\Controllers\Api\SettingController; // Mengimpor SettingController
 use App\Http\Controllers\Api\PaymentController; // Mengimpor PaymentController
+use App\Http\Controllers\API\DashboardController;
 
 /*
 |---------------------------------------------------------------------------|
@@ -37,6 +38,8 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logo
 
 
 
+
+
 // Route untuk RoomController
 Route::prefix('rooms')->middleware('auth:sanctum')->group(function () {
     Route::get('/', [RoomController::class, 'index']); // Menampilkan semua data kamar
@@ -44,6 +47,14 @@ Route::prefix('rooms')->middleware('auth:sanctum')->group(function () {
     Route::put('/{id}', [RoomController::class, 'edit']); // Memperbarui data kamar berdasarkan ID
     Route::get('/{id}', [RoomController::class, 'show']); // Mengambil data kamar berdasarkan ID
     Route::delete('/{id}', [RoomController::class, 'destroy']); // Menghapus data kamar berdasarkan ID
+});
+
+Route::prefix('users')->middleware('auth:sanctum')->group(function () {
+    Route::get('/', [UserController::class, 'index']); // Menampilkan semua data user
+    Route::post('/', [UserController::class, 'create']); // Menambahkan data user baru
+    Route::put('/{id}', [UserController::class, 'edit']); // Memperbarui data user berdasarkan ID
+    Route::get('/{id}', [UserController::class, 'show']); // Mengambil data user berdasarkan ID
+    Route::delete('/{id}', [UserController::class, 'destroy']); // Menghapus data user berdasarkan ID
 });
 
 // Rute untuk ResidentController (jika diperlukan)
@@ -55,20 +66,25 @@ Route::prefix('residents')->middleware('auth:sanctum')->group(function () {
     Route::delete('/{id}', [ResidentController::class, 'destroy']); // Menghapus resident berdasarkan ID
 });
 
-//route setting
-Route:: prefix ('settings')->group(function () {
-Route:: get ('/', [SettingController::class, 'index']);
-Route:: post ('/', [SettingController::class, 'store']);
-Route:: get ('/{id}', [SettingController::class, 'show']);
-Route:: put ('/{id}', [SettingController::class, 'edit']);
-Route:: delete ('/{id}', [SettingController::class, 'destroy']);
+Route::prefix('dashboard')->middleware('auth:sanctum')->group(function () {
+    Route::get('/kamar-terisi', [DashboardController::class, 'index']); // Mendapatkan semua resident
 });
 
-//route payment
-Route:: prefix ('payments')->group(function () {
-Route:: get ('/', [PaymentController::class, 'index']);
-Route:: post ('/', [PaymentController::class, 'store']);
-Route:: get ('/{id}', [PaymentController::class, 'show']);
-Route:: put ('/{id}', [PaymentController::class, 'update']);
-Route:: delete ('/{id}', [PaymentController::class, 'destroy']);
+// Route untuk SettingController
+Route::prefix('settings')->group(function () {
+    Route::get('/', [SettingController::class, 'index']);
+    Route::post('/', [SettingController::class, 'store']);
+    Route::get('/{id}', [SettingController::class, 'show']);
+    Route::put('/{id}', [SettingController::class, 'update']);
+    Route::delete('/{id}', [SettingController::class, 'destroy']);
 });
+
+// Route untuk PaymentController
+Route::prefix('payments')->group(function () {
+    Route::get('/', [PaymentController::class, 'index']);
+    Route::post('/', [PaymentController::class, 'store']);
+    Route::get('/{id}', [PaymentController::class, 'show']);
+    Route::put('/{id}', [PaymentController::class, 'update']);
+    Route::delete('/{id}', [PaymentController::class, 'destroy']);
+});
+

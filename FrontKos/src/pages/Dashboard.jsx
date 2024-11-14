@@ -1,49 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './Dashboard.css';
+import './Dashboard.css';  // Gaya khusus untuk dashboard
 
 const Dashboard = () => {
-    const [dashboardCount, setDashboardCount] = useState({});
+    const [residentCount, setResidentCount] = useState(0);
     const [totalRooms, setTotalRooms] = useState(0);
+    const [occupiedRooms, setOccupiedRooms] = useState(0);
     const [income, setIncome] = useState(0);
-    const [todayDate, setTodayDate] = useState('');
+    const [expenses, setExpenses] = useState(0);
     const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
 
     useEffect(() => {
         setLoading(true);
-
-        // Set tanggal hari ini
-        const currentDate = new Date().toLocaleDateString('id-ID', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-        });
-        setTodayDate(currentDate);
-
+        
         const fetchData = async () => {
             try {
-                const token = localStorage.getItem("token");
+                const token = localStorage.getItem("token"); // Ambil token dari storage
                 const config = {
                     headers: { Authorization: `Bearer ${token}` }
                 };
-
-                const dashboardResponse = await axios.get('http://127.0.0.1:8000/api/dashboard/kamar-terisi', config);
+        
+                const residentsResponse = await axios.get('http://127.0.0.1:8000/api/residents', config);
                 const roomsResponse = await axios.get('http://127.0.0.1:8000/api/residents', config);
-                const incomeResponse = await axios.get('http://127.0.0.1:8000/api/payments', config);
-
-                setDashboardCount(dashboardResponse.data.data);
+                const paymentsResponse = await axios.get('http://localhost:8000/api/payments', config);
+                const expensesResponse = await axios.get('http://localhost:8000/api/expenses', config);
+        
+                // Cek respons data
+                console.log("Residents:", residentsResponse.data);
+                console.log("Rooms:", roomsResponse.data);
+                console.log("Payments:", paymentsResponse.data);
+                console.log("Expenses:", expensesResponse.data);
+        
+                setResidentCount(residentsResponse.data.data.length);
                 const rooms = roomsResponse.data.data;
-                setTotalRooms(rooms.length);
-                setIncome(incomeResponse.data.data?.reduce((sum, payment) => sum + payment.jumlah_bayar, 0) || 0);
-
+                setTotalRooms(rooms.length); 
+                setOccupiedRooms(rooms.filter(room => room.occupied).length);  // Jika data kamar ada status terisi
+                setIncome(paymentsResponse.data.data.total_income);
+                setExpenses(expensesResponse.data.data.total_expenses);
+        
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching data", error);
                 setLoading(false);
             }
         };
+        
 
         fetchData();
     }, []);
@@ -54,35 +55,35 @@ const Dashboard = () => {
 
     return (
         <div className="dashboard">
-            <div className="card purple" onClick={() => navigate('/resident')}>
+            <div className="card purple">
                 <div className="card-content">
                     <h3>Kamar Terisi</h3>
-                    <p>{dashboardCount.total_kamar_terisi || 0}</p>
-                    <span>Penghuni</span>
+                    <p>{occupiedRooms}</p>
+                    <span>Penghuni: {residentCount}</span>
                 </div>
                 <i className="icon bed-icon"></i>
             </div>
-            <div className="card yellow" onClick={() => navigate('/room')}>
+            <div className="card yellow">
                 <div className="card-content">
                     <h3>Kamar Kosong</h3>
-                    <p>{dashboardCount.total_kamar_kosong || 0}</p>
+                    <p>{totalRooms - occupiedRooms}</p>
                     <span>dari {totalRooms} Kamar</span>
                 </div>
                 <i className="icon door-icon"></i>
             </div>
-            <div className="card green" onClick={() => navigate('/payment')}>
+            <div className="card green">
                 <div className="card-content">
                     <h3>Pemasukan</h3>
                     <p>Rp. {income.toLocaleString()}</p>
-                    <span>{todayDate}</span>
+                    <span>November 2024</span>
                 </div>
                 <i className="icon income-icon"></i>
             </div>
             <div className="card red">
                 <div className="card-content">
                     <h3>Pengeluaran</h3>
-                    <p>Rp. -</p>
-                    <span>{todayDate}</span>
+                    <p>Rp. {expenses.toLocaleString()}</p>
+                    <span>November 2024</span>
                 </div>
                 <i className="icon expense-icon"></i>
             </div>

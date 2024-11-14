@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const InactiveResidentsPage = () => {
+const ActiveResidents = () => {
   const [residents, setResidents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -27,7 +27,7 @@ const InactiveResidentsPage = () => {
 
         // Filter hanya data dengan status_sewa Nonaktif
         const inactiveResidents = response.data.data.filter(
-          (resident) => resident.status_sewa === 2
+          (resident) => resident.status_sewa === 1
         );
 
         setResidents(inactiveResidents);
@@ -57,7 +57,7 @@ const InactiveResidentsPage = () => {
 
   return (
     <div className="container mt-5">
-      <h1 className="mb-4">Penghuni Selesai</h1>
+      <h1 className="mb-4">Penghuni Aktif</h1>
       
       {/* Search input */}
       <input
@@ -151,4 +151,4 @@ const InactiveResidentsPage = () => {
   );
 };
 
-export default InactiveResidentsPage;
+export default ActiveResidents;
