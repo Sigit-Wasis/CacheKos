@@ -19,7 +19,8 @@ use App\Http\Controllers\API\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!        |
 |---------------------------------------------------------------------------|
 */
-
+//route register
+Route::post('/register', [AuthController::class, 'register']);
 // Rute untuk autentikasi
 Route::post('/login', [AuthController::class, 'login']);
 
