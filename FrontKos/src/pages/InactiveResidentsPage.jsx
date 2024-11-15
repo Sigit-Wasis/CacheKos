@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import './Resident.css';
 
 const InactiveResidentsPage = () => {
   const [residents, setResidents] = useState([]);
+  const [filteredResidents, setFilteredResidents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(''); // State for search term
+  const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,15 +29,16 @@ const InactiveResidentsPage = () => {
           },
         });
 
-        // Filter hanya data dengan status_sewa Nonaktif
-        const inactiveResidents = response.data.data.filter(
+        // Filter active residents where status_sewa is 'Aktif' (1)
+        const activeResidents = response.data.data.filter(
           (resident) => resident.status_sewa === 2
         );
 
-        setResidents(inactiveResidents);
+        setResidents(activeResidents);
+        setFilteredResidents(activeResidents);
       } catch (error) {
-        console.error("Error fetching residents:", error);
-        setError("Failed to fetch residents. Please try again.");
+        console.error('Error fetching residents:', error);
+        setError('Failed to fetch residents. Please try again.');
       } finally {
         setLoading(false);
       }
@@ -42,13 +47,66 @@ const InactiveResidentsPage = () => {
     fetchResidents();
   }, [navigate]);
 
-  // Filter residents based on search term
-  const filteredResidents = residents.filter((resident) =>
-    resident.nama_penghuni.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleSearchChange = (event) => {
+    const value = event.target.value;
+    setSearchText(value);
+
+    const filteredData = residents.filter((resident) =>
+      resident.nama_penghuni.toLowerCase().includes(value.toLowerCase())
+    );
+
+    setFilteredResidents(filteredData);
+  };
+
+  const handleDelete = async (id) => {
+    const token = localStorage.getItem('token');
+    
+    const confirmDelete = window.confirm('Are you sure you want to delete this resident?');
+    
+    if (!confirmDelete) {
+      return;
+    }
+
+    try {
+      await axios.delete(`http://127.0.0.1:8000/api/residents/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setResidents(residents.filter((resident) => resident.id !== id));
+      setFilteredResidents(filteredResidents.filter((resident) => resident.id !== id));
+    } catch (error) {
+      console.error('Error deleting resident:', error);
+      setError('Failed to delete resident. Please try again.');
+    }
+  };
 
   if (loading) {
-    return <p>Loading data...</p>;
+    return (
+      <div className="container mt-5">
+        <h1 className="mb-4"><Skeleton width={200} /></h1>
+        <div className="mb-3">
+          <Skeleton height={40} />
+        </div>
+        <div className="row">
+          {Array(6).fill().map((_, index) => (
+            <div className="col-md-4 col-sm-6 mb-4" key={index}>
+              <div className="card h-100">
+                <div className="card-body">
+                  <h5 className="card-title"><Skeleton width={`100%`} /></h5>
+                  <p className="card-text"><Skeleton count={7} /></p>
+                </div>
+                <div className="card-footer">
+                  <Skeleton width={`60%`} />
+                  <Skeleton height={30} width={`20%`} className="float-end" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   if (error) {
@@ -58,95 +116,110 @@ const InactiveResidentsPage = () => {
   return (
     <div className="container mt-5">
       <h1 className="mb-4">Penghuni Selesai</h1>
-      
-      {/* Search input */}
-      <input
-        type="text"
-        placeholder="Cari Nama Penghuni "
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="form-control mb-4"
-      />
-
-      {filteredResidents.length > 0 ? (
-        <div className="row">
-          {filteredResidents.map((resident) => (
-            <div className="col-md-4 mb-4" key={resident.id}>
+      <div className="mb-2">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search active residents by name"
+          value={searchText}
+          onChange={handleSearchChange}
+        />
+      </div>
+      <div className="row">
+        {filteredResidents.length > 0 ? (
+          filteredResidents.map((resident) => (
+            <div className="col-md-4 col-sm-6 mb-4" key={resident.id}>
               <div className="card h-100">
-                <div className="card-body">
-                  <h5 className="card-title">{resident.nama_penghuni}</h5>
-                  <p className="card-text"><strong>Id Kamar:</strong> {resident.id_kamar}</p>
-                  <p className="card-text"><strong>No_Handphone:</strong> {resident.no_handphone}</p>
-                  <p className="card-text"><strong>Gender:</strong> {resident.jenis_kelamin === 1 ? 'Pria' : 'Wanita'}</p>
-                  <p className="card-text"><strong>No_KTP:</strong> {resident.no_ktp}</p>
-                  <p className="card-text">
-                    <strong>Jenis Kamar:</strong> {
-                      (() => {
-                        switch (resident.jenis_sewa_kamar) {
-                          case 1: return 'Harian';
-                          case 2: return 'Mingguan';
-                          case 3: return 'Bulanan';
-                          case 4: return 'Tahunan';
-                          default: return 'Lainnya';
-                        }
-                      })()
-                    }
-                  </p>
-                  <p className="card-text">
-                    <strong>Status Penghuni:</strong> {
-                      (() => {
-                        switch (resident.status_penghuni) {
-                          case 1: return 'Belum Menikah';
-                          case 2: return 'Menikah';
-                          case 3: return 'Janda';
-                          case 4: return 'Duda';
-                          case 5: return 'Cerai Mati';
-                          default: return 'Lainnya';
-                        }
-                      })()
-                    }
-                  </p>
-                  <p className="card-text">
-                    <strong>Pekerjaan:</strong> {
-                      (() => {
-                        switch (resident.pekerjaan) {
-                          case 1: return 'Mahasiswa';
-                          case 2: return 'Guru';
-                          case 3: return 'Dokter';
-                          case 4: return 'Karyawan';
-                          case 5: return 'Wiraswasta';
-                          case 6: return 'PNS';
-                          default: return 'Lainnya';
-                        }
-                      })()
-                    }
-                  </p>
-                  <p className="card-text"><strong>Jumlah Penghuni:</strong> {resident.jumlah_penghuni}</p>
-                  <p className="card-text"><strong>Lama Sewa:</strong> {resident.lama_sewa}</p>
-                  <p className="card-text"><strong>Tanggal Masuk:</strong> {resident.tanggal_masuk}</p>
-                  <p className="card-text"><strong>Keterangan:</strong> {resident.keterangan}</p>
-                  <p className="card-text">
-                    <strong>Status Sewa:</strong> {
-                      (() => {
-                        switch (resident.status_sewa) {
-                          case 1: return 'Aktif';
-                          case 2: return 'Nonaktif';
-                          default: return 'Tidak Diketahui';
-                        }
-                      })()
-                    }
-                  </p>
+                <div className="card-body d-flex align-items-center">
+                  <img 
+                    src={resident.profile_picture || '/default-profile.png'}
+                    alt="Profile" 
+                    className="profile-img"
+                  />
+                  <div className="ms-3">
+                    <h5 className="card-title">{resident.nama_penghuni}</h5>
+                    <small className="text-muted">Last updated on {new Date().toLocaleDateString()}</small>
+                  </div>
                 </div>
-                <div className="card-footer">
-                  <small className="text-muted">Last updated on {new Date().toLocaleDateString()}</small>
+                <table className="table table-borderless resident-table">
+                  <tbody>
+                    <tr>
+                      <td>Id Kamar</td>
+                      <td><strong>{resident.id_kamar}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>No Handphone</td>
+                      <td><strong>{resident.no_handphone}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Gender</td>
+                      <td><strong>{resident.jenis_kelamin === 1 ? 'Pria' : 'Wanita'}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>No KTP</td>
+                      <td><strong>{resident.no_ktp}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Jenis Sewa</td>
+                      <td><strong>{["Harian", "Mingguan", "Bulanan", "Tahunan"][resident.jenis_sewa_kamar - 1] || "Lainnya"}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Status Penghuni</td>
+                      <td><strong>{["Belum Menikah", "Menikah", "Janda", "Duda", "Cerai Mati"][resident.status_penghuni - 1] || "Lainnya"}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Pekerjaan</td>
+                      <td><strong>{["Mahasiswa", "Guru", "Dokter", "Karyawan", "Wiraswasta", "PNS", "Programmer"][resident.pekerjaan - 1] || "Lainnya"}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Jumlah Penghuni</td>
+                      <td><strong>{resident.jumlah_penghuni} Orang</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Lama Sewa</td>
+                      <td><strong>{`${resident.lama_sewa} ${["Hari", "Minggu", "Bulan", "Tahun"][resident.jenis_sewa_kamar - 1] || "Lainnya"}`}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Tanggal Masuk</td>
+                      <td><strong>{resident.tanggal_masuk}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Keterangan</td>
+                      <td><strong>{resident.keterangan}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Status Sewa</td>
+                      <td><strong>{resident.status_sewa === 1 ? 'Aktif' : 'Nonaktif'}</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div className="card-footer d-flex justify-content-between">
+                  <button 
+                    className="btn btn-primary btn-sm"
+                    onClick={() => navigate(`/invoice/${resident.id}`)}
+                  >
+                    Print Invoice
+                  </button>
+                  <button 
+                    className="btn btn-warning btn-sm"
+                    onClick={() => navigate(`/edit/${resident.id}`)}
+                  >
+                    Edit
+                  </button>
+                  <button 
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleDelete(resident.id)}
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-      ) : (
-        <p className="text-center">No inactive residents found</p>
-      )}
+          ))
+        ) : (
+          <p className="text-center">No active residents found</p>
+        )}
+      </div>
     </div>
   );
 };

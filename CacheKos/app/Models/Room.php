@@ -21,4 +21,6 @@ class Room extends Model
         'created_by',
         'updated_by'
     ];
+    
+  
 }

@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\ResidentController; // Mengimpor ResidentController
 use App\Http\Controllers\Api\SettingController; // Mengimpor SettingController
 use App\Http\Controllers\Api\PaymentController; // Mengimpor PaymentController
 use App\Http\Controllers\API\DashboardController;
+use App\Http\Controllers\API\ExpenseController;
+use App\Http\Controllers\API\UserController;
 
 /*
 |---------------------------------------------------------------------------|
@@ -18,7 +20,8 @@ use App\Http\Controllers\API\DashboardController;
 | is assigned the "api" middleware group. Enjoy building your API!        |
 |---------------------------------------------------------------------------|
 */
-
+//route register
+Route::post('/register', [AuthController::class, 'register']);
 // Rute untuk autentikasi
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -52,7 +55,7 @@ Route::prefix('rooms')->middleware('auth:sanctum')->group(function () {
 Route::prefix('users')->middleware('auth:sanctum')->group(function () {
     Route::get('/', [UserController::class, 'index']); // Menampilkan semua data user
     Route::post('/', [UserController::class, 'create']); // Menambahkan data user baru
-    Route::put('/{id}', [UserController::class, 'edit']); // Memperbarui data user berdasarkan ID
+    Route::put('/{id}', [UserController::class, 'update']); // Memperbarui data user berdasarkan ID
     Route::get('/{id}', [UserController::class, 'show']); // Mengambil data user berdasarkan ID
     Route::delete('/{id}', [UserController::class, 'destroy']); // Menghapus data user berdasarkan ID
 });
@@ -88,3 +91,20 @@ Route::prefix('payments')->group(function () {
     Route::delete('/{id}', [PaymentController::class, 'destroy']);
 });
 
+
+Route::middleware('auth:api')->group(function () {
+    // Get all expenses
+    Route::get('/expenses', [ExpenseController::class, 'index']);
+    
+    // Get expense by ID
+    Route::get('/expenses/{id}', [ExpenseController::class, 'getExpenseById']);
+    
+    // Store new expense
+    Route::post('/expenses', [ExpenseController::class, 'store']);
+    
+    // Update existing expense
+    Route::put('/expenses/{id}', [ExpenseController::class, 'update']);
+    
+    // Delete expense by ID
+    Route::delete('/expenses/{id}', [ExpenseController::class, 'delete']);
+});
