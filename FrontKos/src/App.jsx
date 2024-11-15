@@ -117,6 +117,11 @@ function App() {
                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                       <li>
                         <Link className="dropdown-item" to="/resident">
+                          Penghuni
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" to="/active">
                           Penghuni Aktif
                         </Link>
                       </li>
