@@ -109,13 +109,13 @@
     .settings-container {
         padding: 1rem;
     }
-    
+
     .settings-details p {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.5rem;
     }
-    
+
     .settings-details strong {
         min-width: unset;
     }

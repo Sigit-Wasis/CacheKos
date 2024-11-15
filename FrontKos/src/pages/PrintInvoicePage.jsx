@@ -8,7 +8,10 @@ const PrintInvoicePage = () => {
   const navigate = useNavigate();
   const [resident, setResident] = useState(null);
   const [roomName, setRoomName] = useState('');
-  const [roomPricePerDay, setRoomPricePerDay] = useState(0); // state for room price per day
+  const [roomPricePerDay, setRoomPricePerDay] = useState(0);
+  const [roomPricePerWeek, setRoomPricePerWeek] = useState(0);
+  const [roomPricePerMonth, setRoomPricePerMonth] = useState(0);
+  const [roomPricePerYear, setRoomPricePerYear] = useState(0);
   const [error, setError] = useState(null);
   const [totalAmount, setTotalAmount] = useState(0);
 
@@ -30,7 +33,7 @@ const PrintInvoicePage = () => {
         const residentData = response.data.data;
         setResident(residentData);
 
-        // Fetch room name and price based on resident's room ID
+        // Fetch room name and prices based on resident's room ID
         fetchRoomDetails(residentData.id_kamar);
       } catch (error) {
         console.error("Error fetching resident details:", error);
@@ -47,7 +50,6 @@ const PrintInvoicePage = () => {
         });
         const rooms = response.data.data;
 
-        // Ensure rooms data is an array and the roomId is valid
         if (!Array.isArray(rooms)) {
           throw new Error("Rooms data is not in the expected format.");
         }
@@ -56,7 +58,10 @@ const PrintInvoicePage = () => {
         
         if (room) {
           setRoomName(room.nama_kamar);
-          setRoomPricePerDay(room.harga_per_hari); // Get price per day
+          setRoomPricePerDay(room.harga_per_hari);
+          setRoomPricePerWeek(room.harga_per_minggu);
+          setRoomPricePerMonth(room.harga_per_bulan);
+          setRoomPricePerYear(room.harga_per_tahun);
         } else {
           setError("Room not found with the given ID.");
         }
@@ -72,22 +77,19 @@ const PrintInvoicePage = () => {
   const calculateTotalAmount = (residentData) => {
     const { lama_sewa, jenis_sewa_kamar } = residentData;
 
-    if (!roomPricePerDay) {
-      console.error("Room price per day not found.");
-      return 0; // Early return if room price is not available
-    }
-
-    let rate = roomPricePerDay; // Use room's daily rate
+    let rate = 0;
     switch (jenis_sewa_kamar) {
-      
+      case 1: // Daily
+        rate = roomPricePerDay;
+        break;
       case 2: // Weekly
-        rate *= 7;
+        rate = roomPricePerWeek;
         break;
       case 3: // Monthly
-        rate *= 30;
+        rate = roomPricePerMonth;
         break;
       case 4: // Yearly
-        rate *= 365;
+        rate = roomPricePerYear;
         break;
       default:
         break;
@@ -97,16 +99,16 @@ const PrintInvoicePage = () => {
   };
 
   useEffect(() => {
-    if (resident && roomPricePerDay) {
+    if (resident && roomPricePerDay !== 0) {
       const total = calculateTotalAmount(resident);
       setTotalAmount(total);
     }
-  }, [resident, roomPricePerDay]);
+  }, [resident, roomPricePerDay, roomPricePerWeek, roomPricePerMonth, roomPricePerYear]);
 
   const handleGenerateInvoice = async () => {
     const invoiceData = {
       "documentTitle": "Invoice", 
-      "currency": "IDR", // Change currency to Rupiah
+      "currency": "IDR",
       "taxNotation": "VAT",
       "marginTop": 25,
       "marginRight": 25,
@@ -129,8 +131,8 @@ const PrintInvoicePage = () => {
       "invoiceDate": new Date().toLocaleDateString(),
       "products": [
         {
-          "quantity": resident.lama_sewa,
-          "description": `Room Type: ${
+          "Lama Sewa ": resident.lama_sewa,
+          "description": `Type Sewa: ${
             resident.jenis_sewa_kamar === 1 ? 'Harian' : 
             resident.jenis_sewa_kamar === 2 ? 'Mingguan' : 
             resident.jenis_sewa_kamar === 3 ? 'Bulanan' : 
@@ -151,7 +153,6 @@ const PrintInvoicePage = () => {
     }
   };
 
-  // Format the total amount with Rupiah currency symbol
   const formatRupiah = (amount) => {
     return `Rp ${amount.toLocaleString('id-ID')}`;
   };
@@ -171,7 +172,12 @@ const PrintInvoicePage = () => {
         <p><strong>Room:</strong> {roomName}</p>
         <p><strong>Phone Number:</strong> {resident.no_handphone}</p>
         <p><strong>Gender:</strong> {resident.jenis_kelamin === 1 ? 'Pria' : 'Wanita'}</p>
-        <p><strong>Rental Duration:</strong> {resident.lama_sewa}</p>
+        <p><strong>Rental Duration:</strong> {`${resident.lama_sewa} ${
+          resident.jenis_sewa_kamar === 1 ? 'Hari' : 
+          resident.jenis_sewa_kamar === 2 ? 'Minggu' : 
+          resident.jenis_sewa_kamar === 3 ? 'Bulan' : 
+          resident.jenis_sewa_kamar === 4 ? 'Tahun' : 'Other'
+        }`}</p>
         <p><strong>Room Type:</strong> {
           (() => {
             switch (resident.jenis_sewa_kamar) {

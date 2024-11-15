@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from "react-router-dom";
-
+import Register from "./components/Register/Register";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import Room from "./pages/Room";
-import Setting from "./pages/Setting";
-import Payment from "./pages/Payment";
+import Setting from "./pages/Setting";  // Pastikan komponen Setting ada
+import Payment from "./pages/Payment";  // Pastikan komponen Payment ada
 import Resident from "./pages/Resident";
+import Expense from "./pages/Expense";  // Pastikan komponen Expense ada
 import AddResidentPage from "./pages/AddResidentPage";
 import InactiveResidentsPage from "./pages/InactiveResidentsPage";
 import ActiveResident from "./pages/ActiveResidents";
-import EditResidentPage from "./pages/EditResidentPage";
 import PrintInvoicePage from "./pages/PrintInvoicePage";
+import EditResidentPage from "./pages/EditResidentPage";
+import User from "./pages/User";
 import Dashboard from "./pages/Dashboard";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -27,7 +29,6 @@ function App() {
     }
   }, [navigate]);
 
-  
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
@@ -53,17 +54,19 @@ function App() {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav me-auto">
-
-            <li className="nav-item">
-                    <Link className="nav-link" to="/">
-                      Home
-                    </Link>
-                  </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/">
+                  Home
+                </Link>
+              </li>
 
               {!isAuthenticated ? (
                 <li className="nav-item">
                   <Link className="nav-link" to="/login">
                     Login
+                  </Link>
+                  <Link className="nav-link" to="/register">
+                    Register
                   </Link>
                 </li>
               ) : (
@@ -88,8 +91,18 @@ function App() {
                       Dashboard
                     </Link>
                   </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/user">
+                      User
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/expense">
+                      Expense
+                    </Link>
+                  </li>
 
-                  {/* dropdown resident  */}
+                  {/* Dropdown for Resident */}
                   <li className="nav-item dropdown">
                     <a
                       className="nav-link dropdown-toggle"
@@ -104,26 +117,15 @@ function App() {
                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                       <li>
                         <Link className="dropdown-item" to="/resident">
-                          Penghuni
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item" to="/active">
                           Penghuni Aktif
                         </Link>
                       </li>
                       <li>
-                        <Link className="dropdown-item" to="/inactive">
+                        <Link className="dropdown-item" to="/selesai">
                           Penghuni Selesai
                         </Link>
                       </li>
                     </ul>
-                  </li>
-
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/user">
-                      User
-                    </Link>
                   </li>
                   <li className="nav-item">
                     <button
@@ -133,26 +135,33 @@ function App() {
                       Logout
                     </button>
                   </li>
+                 
                 </>
               )}
             </ul>
           </div>
         </div>
       </nav>
+
       <Routes>
+        {/* //register */}
+        <Route path="/register" element={<Register setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/setting" element={<Setting />} />
-        <Route path="/payment" element={<Payment />} />
-        {isAuthenticated && <Route path="/dashboard" element={<Dashboard />} />}
         {isAuthenticated && <Route path="/room" element={<Room />} />}
-        {isAuthenticated && <Route path="/resident" element={<Resident/>} />}
-        {isAuthenticated && <Route path="/add" element={<AddResidentPage/>} />}
-        {isAuthenticated && <Route path="/inactive" element={<InactiveResidentsPage/>} />}
-        {isAuthenticated && <Route path="/active" element={<ActiveResident/>} />}
-        {isAuthenticated && <Route path="/edit/:id" element={<EditResidentPage/>} />}
-        {isAuthenticated && <Route path="/invoice/:id" element={<PrintInvoicePage/>} />}
+        {isAuthenticated && <Route path="/setting" element={<Setting />} />}
+        {isAuthenticated && <Route path="/payment" element={<Payment />} />}
+        {isAuthenticated && <Route path="/dashboard" element={<Dashboard />} />}
+        {isAuthenticated && <Route path="/expense" element={<Expense />} />}
+        {isAuthenticated && <Route path="/resident" element={<Resident />} />}
+        {isAuthenticated && <Route path="/add" element={<AddResidentPage />} />}
+        {isAuthenticated && <Route path="/selesai" element={<InactiveResidentsPage />} />}
+        {isAuthenticated && <Route path="/active" element={<ActiveResident />} />}
+        
+        {isAuthenticated && <Route path="/edit/:id" element={<EditResidentPage />} />}
+        {isAuthenticated && <Route path="/invoice/:id" element={<PrintInvoicePage />} />}
+        {isAuthenticated && <Route path="/user" element={<User />} />}
       </Routes>
     </div>
   );

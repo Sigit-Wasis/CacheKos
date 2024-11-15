@@ -17,6 +17,7 @@ const AddResidentPage = () => {
     tanggal_masuk: '',
     keterangan: '',
     status_sewa: '',
+    foto_ktp: null,  // Add foto_ktp field to store the uploaded file
   });
   const [rooms, setRooms] = useState([]);
   const [error, setError] = useState(null);
@@ -45,7 +46,6 @@ const AddResidentPage = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    // Set default values for 'lama_sewa' based on 'jenis_sewa_kamar'
     if (name === 'jenis_sewa_kamar') {
       let lamaSewaDefault = '';
       switch (value) {
@@ -53,13 +53,13 @@ const AddResidentPage = () => {
           lamaSewaDefault = '1';
           break;
         case '2': // Mingguan
-          lamaSewaDefault = '7';
+          lamaSewaDefault = '1';
           break;
         case '3': // Bulanan
-          lamaSewaDefault = '30';
+          lamaSewaDefault = '1';
           break;
         case '4': // Tahunan
-          lamaSewaDefault = '365';
+          lamaSewaDefault = '1';
           break;
         default:
           lamaSewaDefault = '';
@@ -70,21 +70,31 @@ const AddResidentPage = () => {
     }
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setResidentData({ ...residentData, foto_ktp: file });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
 
+    const formData = new FormData();
+    // Append form data from residentData
+    for (let key in residentData) {
+      if (residentData[key]) {
+        formData.append(key, residentData[key]);
+      }
+    }
+
     try {
-      await axios.post(
-        'http://127.0.0.1:8000/api/residents',
-        residentData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      navigate('/residents');
+      await axios.post('http://127.0.0.1:8000/api/residents', formData, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',  // Ensure the request is sent as multipart
+        },
+      });
+      navigate('/resident');
     } catch (error) {
       console.error("Error adding resident:", error.response ? error.response.data : error.message);
       setError("Failed to add resident. Please check your data and try again.");
@@ -95,7 +105,7 @@ const AddResidentPage = () => {
     <div className="container mt-5">
       <h2>Add New Resident</h2>
       {error && <p className="text-danger">{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="form-group">
           <label>Nama Penghuni</label>
           <input type="text" name="nama_penghuni" value={residentData.nama_penghuni} onChange={handleInputChange} className="form-control" required />
@@ -111,7 +121,7 @@ const AddResidentPage = () => {
         </div>
         <div className="form-group">
           <label>No Handphone</label>
-          <input type="text" name="no_handphone" value={residentData.no_handphone} onChange={handleInputChange} className="form-control" required />
+          <input type="text" name="no_handphone" value={residentData.no_handphone} onChange={handleInputChange} placeholder='Maksimal 12 Angka...(089123456789)' className="form-control" required />
         </div>
         <div className="form-group">
           <label>Jenis Kelamin</label>
@@ -123,7 +133,11 @@ const AddResidentPage = () => {
         </div>
         <div className="form-group">
           <label>No KTP</label>
-          <input type="text" name="no_ktp" value={residentData.no_ktp} onChange={handleInputChange} className="form-control" required />
+          <input type="text" name="no_ktp" value={residentData.no_ktp} onChange={handleInputChange} placeholder='Maksimal 16 Angka...(1810012345678901)' className="form-control" required />
+        </div>
+        <div className="form-group">
+          <label>Foto KTP</label>
+          <input type="file" name="foto_ktp" onChange={handleFileChange} className="form-control" required />
         </div>
         <div className="form-group">
           <label>Jenis Sewa Kamar</label>
@@ -164,8 +178,8 @@ const AddResidentPage = () => {
           <input type="number" name="jumlah_penghuni" value={residentData.jumlah_penghuni} onChange={handleInputChange} className="form-control" required />
         </div>
         <div className="form-group">
-          <label>Lama Sewa</label>
-          <input type="text" name="lama_sewa" value={residentData.lama_sewa} onChange={handleInputChange} placeholder='Hari...' className="form-control" required />
+          <label>Lama Sewa </label>
+          <input type="number" name="lama_sewa" value={residentData.lama_sewa} onChange={handleInputChange} placeholder='Input Angka' className="form-control" required />
         </div>
         <div className="form-group">
           <label>Tanggal Masuk</label>
@@ -173,7 +187,7 @@ const AddResidentPage = () => {
         </div>
         <div className="form-group">
           <label>Keterangan</label>
-          <textarea name="keterangan" value={residentData.keterangan} onChange={handleInputChange} className="form-control"></textarea>
+          <textarea name="keterangan" value={residentData.keterangan} onChange={handleInputChange} placeholder='Boleh diisi Boleh Kosongin Aja ' className="form-control"></textarea>
         </div>
         <div className="form-group">
           <label>Status Sewa</label>
