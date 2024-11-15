@@ -1,10 +1,47 @@
+/* Dashboard layout */
 .dashboard {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
     padding: 2rem;
+    position: relative;
+    padding-top: 60px; /* Space for alert */
+    transition: padding-top 0.3s ease; /* Smooth transition for alert visibility */
 }
 
+/* Notification container */
+.alert-container {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    z-index: 1000; /* Ensures alert is on top of other elements */
+    transition: top 0.3s ease;
+}
+
+.alert {
+    background-color: #ffcc00;
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Close button for alert */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: black;
+}
+
+/* Cards */
 .card {
     position: relative;
     padding: 1.5rem;
@@ -27,20 +64,23 @@
     z-index: 1;
 }
 
-.purple { 
-    background: linear-gradient(135deg, #6a1b9a, #8e24aa, #ba68c8); 
+/* Card colors */
+.purple {
+    background: linear-gradient(135deg, #6a1b9a, #8e24aa, #ba68c8);
+    margin-top: 20px;
 }
 
-.yellow { 
-    background: linear-gradient(135deg, #fbc02d, #ffb300, #ffca28); 
+.yellow {
+    background: linear-gradient(135deg, #fbc02d, #ffb300, #ffca28);
+    margin-top: 20px;
 }
 
-.green { 
-    background: linear-gradient(135deg, #43a047, #66bb6a, #81c784); 
+.green {
+    background: linear-gradient(135deg, #43a047, #66bb6a, #81c784);
 }
 
-.red { 
-    background: linear-gradient(135deg, #e53935, #f44336, #ef5350); 
+.red {
+    background: linear-gradient(135deg, #e53935, #f44336, #ef5350);
 }
 
 .card h3 {
@@ -58,16 +98,85 @@
     font-size: 0.9rem;
 }
 
+/* Icon styles */
 .icon {
     font-size: 4rem;
     position: absolute;
     right: 1rem;
     opacity: 0.5;
-    transform: rotate(-3deg);  /* Memiringkan ikon 45 derajat ke kiri */
+    transform: rotate(-3deg);
 }
 
+.bed-icon:before {
+    content: "\1F6CF"; /* Bed emoji */
+}
 
-.bed-icon:before { content: "\1F6CF"; } /* Use emoji or icon library */
-.door-icon:before { content: "\1F6AA"; }
-.income-icon:before { content: "\1F4B0"; }
-.expense-icon:before { content: "\1F4B8"; }
+.door-icon:before {
+    content: "\1F6AA"; /* Door emoji */
+}
+
+.income-icon:before {
+    content: "\1F4B0"; /* Income emoji */
+}
+
+.expense-icon:before {
+    content: "\1F4B8"; /* Expense emoji */
+}
+
+/* Chart container */
+.chart-container {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container .chart {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+}
+
+/* Notification container style */
+.notification-container {
+    grid-column: span 2;
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+.notification-container h4 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.notification-container ul {
+    padding-left: 1rem;
+    margin: 0.5rem 0 0;
+}
+
+.notification-container li {
+    list-style-type: disc;
+    margin-bottom: 0.5rem;
+}
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Adjusting padding when notification is visible */
+.dashboard.notification-visible {
+    padding-top: 120px; /* Add extra padding to make space for alert */
+}

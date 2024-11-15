@@ -14,6 +14,7 @@ import ActiveResident from "./pages/ActiveResidents";
 import PrintInvoicePage from "./pages/PrintInvoicePage";
 import EditResidentPage from "./pages/EditResidentPage";
 import User from "./pages/User";
+import Dashboard from "./pages/Dashboard";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
@@ -55,7 +56,7 @@ function App() {
             <ul className="navbar-nav me-auto">
               <li className="nav-item">
                 <Link className="nav-link" to="/">
-                  Dashboard
+                  Home
                 </Link>
               </li>
 
@@ -83,6 +84,11 @@ function App() {
                   <li className="nav-item">
                     <Link className="nav-link" to="/payment">
                       Payment
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/dashboard">
+                      Dashboard
                     </Link>
                   </li>
                   <li className="nav-item">
@@ -151,6 +157,7 @@ function App() {
         {isAuthenticated && <Route path="/room" element={<Room />} />}
         {isAuthenticated && <Route path="/setting" element={<Setting />} />}
         {isAuthenticated && <Route path="/payment" element={<Payment />} />}
+        {isAuthenticated && <Route path="/dashboard" element={<Dashboard />} />}
         {isAuthenticated && <Route path="/expense" element={<Expense />} />}
         {isAuthenticated && <Route path="/resident" element={<Resident />} />}
         {isAuthenticated && <Route path="/add" element={<AddResidentPage />} />}
