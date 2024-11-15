@@ -92,12 +92,12 @@ Route::prefix('payments')->group(function () {
 });
 
 
-Route::middleware('auth:api')->group(function () {
+Route::prefix('auth:api')->group(function () {
     // Get all expenses
-    Route::get('/expenses', [ExpenseController::class, 'index']);
+    Route::get('/', [ExpenseController::class, 'index']);
     
     // Get expense by ID
-    Route::get('/expenses/{id}', [ExpenseController::class, 'getExpenseById']);
+    Route::get('/{id}', [ExpenseController::class, 'getExpenseById']);
     
     // Store new expense
     Route::post('/expenses', [ExpenseController::class, 'store']);

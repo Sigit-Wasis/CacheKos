@@ -90,6 +90,11 @@ function App() {
                       User
                     </Link>
                   </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/expense">
+                      Expense
+                    </Link>
+                  </li>
 
                   {/* Dropdown for Resident */}
                   <li className="nav-item dropdown">
@@ -124,11 +129,7 @@ function App() {
                       Logout
                     </button>
                   </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/expense">
-                      Expense
-                    </Link>
-                  </li>
+                 
                 </>
               )}
             </ul>
