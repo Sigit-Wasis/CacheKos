@@ -78,7 +78,7 @@ Route::prefix('settings')->group(function () {
     Route::get('/', [SettingController::class, 'index']);
     Route::post('/', [SettingController::class, 'store']);
     Route::get('/{id}', [SettingController::class, 'show']);
-    Route::put('/{id}', [SettingController::class, 'edit']);
+    Route::put('/{id}', [SettingController::class, 'update']);
     Route::delete('/{id}', [SettingController::class, 'destroy']);
 });
 
@@ -92,12 +92,12 @@ Route::prefix('payments')->group(function () {
 });
 
 
-Route::prefix('auth:api')->group(function () {
+Route::middleware('auth:api')->group(function () {
     // Get all expenses
-    Route::get('/', [ExpenseController::class, 'index']);
+    Route::get('/expenses', [ExpenseController::class, 'index']);
     
     // Get expense by ID
-    Route::get('/{id}', [ExpenseController::class, 'getExpenseById']);
+    Route::get('/expenses/{id}', [ExpenseController::class, 'getExpenseById']);
     
     // Store new expense
     Route::post('/expenses', [ExpenseController::class, 'store']);
