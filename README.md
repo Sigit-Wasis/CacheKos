@@ -1,15 +1,46 @@
-## CacheKOS
+# CacheKOS
 
-- Clone Project di https://github.com/Sigit-Wasis/CacheKos.git
-- Jalankan composer install
-- Jalankan php artisan serve
-- Akses http://localhost:8000 di Browser
+CacheKOS adalah aplikasi untuk memudahkan pencarian dan pemesanan kos-kosan secara online. Proyek ini terdiri dari dua bagian: **Backend** dan **Frontend**. Bagian backend dibangun menggunakan Laravel, sedangkan frontend menggunakan framework [sebutkan framework frontend, seperti React atau Vue.js].
 
+## Daftar Isi
 
-## Clone FrontKos
+- [Fitur](#fitur)
+- [Prasyarat](#prasyarat)
+- [Instalasi](#instalasi)
+  - [Backend (CacheKOS)](#backend-cachekos)
+  - [Frontend (FrontKos)](#frontend-frontkos)
+- [Penggunaan](#penggunaan)
+- [Struktur Proyek](#struktur-proyek)
+- [Kontribusi](#kontribusi)
+- [Lisensi](#lisensi)
 
-- Clone Seperti Command Diatas
-- Masuk ke dalam folder FrontKos 
-- Kemudian Jalankan npm install
-- Jalankan npm run dev 
-- Buka Di browser dengan URL yang muncul setelah menjalankan npm run dev
+---
+
+## Fitur
+
+- Pencarian kos-kosan berdasarkan lokasi dan fasilitas.
+- Sistem pemesanan kos dengan notifikasi.
+- Manajemen data pengguna, pemilik kos, dan pelanggan.
+- Dashboard administrasi untuk pemilik kos.
+
+---
+
+## Prasyarat
+
+Pastikan perangkat Anda telah memenuhi prasyarat berikut:
+
+- **PHP** 8.0 atau lebih baru
+- **Composer** versi terbaru
+- **Node.js** dan **npm** (untuk frontend)
+- **MySQL** atau **PostgreSQL** untuk database
+
+---
+
+## Instalasi
+
+### Backend (CacheKOS)
+
+1. **Clone repositori backend:**
+   ```bash
+   git clone https://github.com/Sigit-Wasis/CacheKos.git
+   ```
