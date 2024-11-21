@@ -7,7 +7,7 @@ const Footer = () => {
             <div className="footer-container">
                 {/* Logo */}
                 <div className="footer-logo">
-                    <h2>KostKu</h2>
+                    <h2>CacheKos</h2>
                     <p>Temukan kenyamanan di setiap sudut.</p>
                 </div>
 
@@ -41,7 +41,7 @@ const Footer = () => {
 
             {/* Copyright */}
             <div className="footer-copyright">
-                <p>&copy; 2024 KostKu. All Rights Reserved.</p>
+                <p>&copy; 2024 CacheKos. All Rights Reserved.</p>
             </div>
         </footer>
     );
