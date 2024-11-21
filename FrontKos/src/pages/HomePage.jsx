@@ -7,7 +7,7 @@ import Contact from '../components/Contact/Contact';
 import Footer from '../components/Footer/Footer';
 
 const LandingPage = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate(); 
 
     return (
         <div className="landing-page">
@@ -15,8 +15,8 @@ const LandingPage = () => {
             <header className="header">
                 <div className="logo">Cache Kos</div>
                 <nav className="nav">
-                    <a href="#furniture">Kamar</a>
-                    <a href="#about">About Us</a>
+                    <a href="#fasilitas">Fasilitas</a>
+                    <a href="#kamar"> Kamar</a>
                     <a href="#contact">Contact</a>
                 </nav>
             </header>
@@ -37,10 +37,23 @@ const LandingPage = () => {
             </section>
 
             {/* New Section for Kost Details */}
-           <Fasilitas />
-           <Kamar />
-           <Contact />
-           <Footer />
+           {/* Section Fasilitas */}
+           <section id="fasilitas">
+                <Fasilitas />
+            </section>
+
+            {/* Section Kamar */}
+            <section id="kamar">
+                <Kamar />
+            </section>
+
+            {/* Section Contact */}
+            <section id="contact">
+                <Contact />
+            </section>
+
+            {/* Footer */}
+            <Footer />
         </div>
     );
 };
