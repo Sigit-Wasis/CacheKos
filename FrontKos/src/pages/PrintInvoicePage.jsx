@@ -131,8 +131,8 @@ const PrintInvoicePage = () => {
       "invoiceDate": new Date().toLocaleDateString(),
       "products": [
         {
-          "quantity": resident.lama_sewa,
-          "description": `Room Type: ${
+          "Lama Sewa ": resident.lama_sewa,
+          "description": `Type Sewa: ${
             resident.jenis_sewa_kamar === 1 ? 'Harian' : 
             resident.jenis_sewa_kamar === 2 ? 'Mingguan' : 
             resident.jenis_sewa_kamar === 3 ? 'Bulanan' : 
@@ -172,7 +172,12 @@ const PrintInvoicePage = () => {
         <p><strong>Room:</strong> {roomName}</p>
         <p><strong>Phone Number:</strong> {resident.no_handphone}</p>
         <p><strong>Gender:</strong> {resident.jenis_kelamin === 1 ? 'Pria' : 'Wanita'}</p>
-        <p><strong>Rental Duration:</strong> {resident.lama_sewa}</p>
+        <p><strong>Rental Duration:</strong> {`${resident.lama_sewa} ${
+          resident.jenis_sewa_kamar === 1 ? 'Hari' : 
+          resident.jenis_sewa_kamar === 2 ? 'Minggu' : 
+          resident.jenis_sewa_kamar === 3 ? 'Bulan' : 
+          resident.jenis_sewa_kamar === 4 ? 'Tahun' : 'Other'
+        }`}</p>
         <p><strong>Room Type:</strong> {
           (() => {
             switch (resident.jenis_sewa_kamar) {

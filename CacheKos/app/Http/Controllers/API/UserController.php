@@ -8,18 +8,28 @@ use DB;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        // Mengambil semua data di tabel users
-        $users = DB::table('users')->get();
+    public function index(Request $request)
+{
+    // Menentukan jumlah data per halaman, default 10
+    $perPage = $request->input('per_page', 10);
 
-        // Mengembalikan respons JSON dengan data pengguna
-        return response()->json([
-            'message' => 'Data pengguna berhasil diambil', // Pesan sukses
-            'code' => 200, // Kode status HTTP
-            'data' => $users // Data pengguna yang diambil
-        ], 200); // Kode status HTTP
-    }
+    // Mengambil data pengguna dengan pagination
+    $users = DB::table('users')->paginate($perPage);
+
+    // Mengembalikan respons JSON dengan data pengguna
+    return response()->json([
+        'message' => 'Data pengguna berhasil diambil',
+        'code' => 200,
+        'data' => $users->items(), // Data pada halaman saat ini
+        'pagination' => [
+            'total' => $users->total(), // Total data
+            'per_page' => $users->perPage(), // Data per halaman
+            'current_page' => $users->currentPage(), // Halaman saat ini
+            'last_page' => $users->lastPage(), // Halaman terakhir
+        ],
+    ], 200);
+}
+
 
     public function create(Request $request)
     {
@@ -124,7 +134,7 @@ class UserController extends Controller
         ], 200); // Kode status HTTP
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         // Cek apakah pengguna ada
         $user = DB::table('users')->where('id', $id)->first();

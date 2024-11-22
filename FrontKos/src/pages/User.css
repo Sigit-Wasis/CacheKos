@@ -1,11 +1,11 @@
-/* User.css */
-
+/* Container utama */
 .user-container {
   padding: 20px;
   max-width: 1200px;
   margin: auto;
 }
 
+/* Header */
 .user-header {
   display: flex;
   justify-content: space-between;
@@ -33,12 +33,7 @@
   background-color: #0056b3;
 }
 
-.user-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
+/* Card pengguna */
 .user-card {
   background-color: #fff;
   border: 2px solid #007bff;
@@ -46,151 +41,60 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
+  margin-bottom: 20px; /* Tambahkan jarak antar kartu */
+  padding: 10px; /* Memberi ruang pada isi kartu */
 }
 
 .user-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.user-card-body {
-  padding: 20px;
-}
-
-.user-card-title {
-  font-size: 20px;
+.user-card .card-title {
+  font-size: 18px;
+  font-weight: bold;
   color: #007bff;
+  margin-bottom: 10px;
 }
 
-.user-card-text {
-  margin: 8px 0;
-  color: #555;
-}
-
-.user-card-footer {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 20px;
-  background-color: #f8f9fa;
-  border-top: 1px solid #e9ecef;
-}
-
-.user-btn {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.user-card .card-content {
   font-size: 14px;
-  transition: background-color 0.3s ease;
+  color: #333;
+  margin-bottom: 15px;
 }
 
-.user-btn-warning {
-  background-color: #ffc107;
-  color: white;
-}
-
-.user-btn-warning:hover {
-  background-color: #e0a800;
-}
-
-.user-btn-danger {
-  background-color: #dc3545;
-  color: white;
-}
-
-.user-btn-danger:hover {
-  background-color: #c82333;
-}
-
+/* Modal */
 .user-modal {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
 }
 
-.user-modal-dialog {
-  background-color: white;
-  width: 90%;
-  max-width: 500px;
-  border-radius: 8px;
-  overflow: hidden;
-  animation: fadeIn 0.3s ease;
-}
-
 .user-modal-content {
+  background: #fff;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
   padding: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  animation: modalShow 0.3s ease-out;
+  transform: translate(0, 0); /* Pastikan tidak ada translate di sini */
 }
 
-.user-modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #e9ecef;
-}
-
-.user-modal-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-}
-
-.close {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.user-modal-body input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  transition: border-color 0.3s ease;
-}
-
-.user-modal-body input:focus {
-  border-color: #007bff;
-}
-
-.user-modal-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.user-btn-secondary {
-  background-color: #6c757d;
-  color: white;
-}
-
-.user-btn-secondary:hover {
-  background-color: #5a6268;
-}
-
-.user-btn-primary {
-  background-color: #007bff;
-  color: white;
-}
-
-.user-btn-primary:hover {
-  background-color: #0056b3;
-}
-
-@keyframes fadeIn {
+@keyframes modalShow {
   from {
+    transform: scale(0.9);
     opacity: 0;
   }
   to {
+    transform: scale(1);
     opacity: 1;
   }
 }

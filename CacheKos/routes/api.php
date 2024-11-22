@@ -7,7 +7,8 @@ use App\Http\Controllers\Api\RoomController; // Mengimpor RoomController
 use App\Http\Controllers\Api\ResidentController; // Mengimpor ResidentController jika diperlukan
 use App\Http\Controllers\Api\SettingController; // Mengimpor SettingController
 use App\Http\Controllers\Api\PaymentController; // Mengimpor PaymentController
-use App\Http\Controllers\Api\UserController; 
+use App\Http\Controllers\API\DashboardController;
+use App\Http\Controllers\API\UserController;
 
 /*
 |---------------------------------------------------------------------------|
@@ -18,7 +19,8 @@ use App\Http\Controllers\Api\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!        |
 |---------------------------------------------------------------------------|
 */
-
+//route register
+Route::post('/register', [AuthController::class, 'register']);
 // Rute untuk autentikasi
 Route::post('/login', [AuthController::class, 'login']);
 

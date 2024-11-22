@@ -13,10 +13,12 @@ const ResidentPage = () => {
   const [error, setError] = useState(null);
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
+ 
+
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-
+    const apiUrl = import.meta.env.VITE_API_URL;
     if (!token) {
       navigate('/login');
       return;
@@ -24,7 +26,7 @@ const ResidentPage = () => {
 
     const fetchResidents = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/residents', {
+        const response = await axios.get(apiUrl+'/api/residents', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -56,22 +58,28 @@ const ResidentPage = () => {
 
   const handleDelete = async (id) => {
     const token = localStorage.getItem('token');
-
+    
+    const confirmDelete = window.confirm("Are you sure you want to delete this resident?");
+    
+    if (!confirmDelete) {
+      return;
+    }
+  
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/residents/${id}`, {
+      await axios.delete(apiUrl+`/api/residents/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
+  
       setResidents(residents.filter((resident) => resident.id !== id));
       setFilteredResidents(filteredResidents.filter((resident) => resident.id !== id));
-    } catch (error) {cd 
+    } catch (error) {
       console.error("Error deleting resident:", error);
       setError("Failed to delete resident. Please try again.");
     }
   };
-
+  
   if (loading) {
     return (
       <div className="container mt-5">
@@ -81,7 +89,7 @@ const ResidentPage = () => {
         </div>
         <div className="row">
           {Array(6).fill().map((_, index) => (
-            <div className="col-md-4 mb-4" key={index}>
+            <div className="col-md-4 col-sm-6 mb-4" key={index}>
               <div className="card h-100">
                 <div className="card-body">
                   <h5 className="card-title"><Skeleton width={`100%`} /></h5>
@@ -107,7 +115,7 @@ const ResidentPage = () => {
     <div className="container mt-5">
       <h1 className="mb-4">Residents</h1>
       <Link to="/add" className="btn btn-primary mb-4">Add New Resident</Link>
-      <div className="mb-3">
+      <div className="mb-2">
         <input 
           type="text"
           className="form-control"
@@ -119,95 +127,90 @@ const ResidentPage = () => {
       <div className="row">
         {filteredResidents.length > 0 ? (
           filteredResidents.map((resident) => (
-            <div className="col-md-4 mb-4" key={resident.id}>
-               <small className="text-muted">Last updated on {new Date().toLocaleDateString()}</small>
+            <div className="col-md-4 col-sm-6 mb-4" key={resident.id}>
               <div className="card h-100">
-                <div className="card-body">
-                  <h5 className="card-title">{resident.nama_penghuni}</h5>
-                  <p className="card-text"><strong>Id Kamar:</strong> {resident.id_kamar}</p>
-                  <p className="card-text"><strong>No_Handphone:</strong> {resident.no_handphone}</p>
-                  <p className="card-text"><strong>Gender:</strong> {resident.jenis_kelamin === 1 ? 'Pria' : 'Wanita'}</p>
-                  <p className="card-text"><strong>No_KTP:</strong> {resident.no_ktp}</p>
-                  <p className="card-text">
-                    <strong>Jenis Kamar:</strong> {
-                      (() => {
-                        switch (resident.jenis_sewa_kamar) {
-                          case 1: return 'Harian';
-                          case 2: return 'Mingguan';
-                          case 3: return 'Bulanan';
-                          case 4: return 'Tahunan';
-                          default: return 'Lainnya';
-                        }
-                      })()
-                    }
-                  </p>
-                  <p className="card-text">
-                    <strong>Status Penghuni:</strong> {
-                      (() => {
-                        switch (resident.status_penghuni) {
-                          case 1: return 'Belum Menikah';
-                          case 2: return 'Menikah';
-                          case 3: return 'Janda';
-                          case 4: return 'Duda';
-                          case 5: return 'Cerai Mati';
-                          default: return 'Lainnya';
-                        }
-                      })()
-                    }
-                  </p>
-                  <p className="card-text">
-                    <strong>Pekerjaan:</strong> {
-                      (() => {
-                        switch (resident.pekerjaan) {
-                          case 1: return 'Mahasiswa';
-                          case 2: return 'Guru';
-                          case 3: return 'Dokter';
-                          case 4: return 'Karyawan';
-                          case 5: return 'Wiraswasta';
-                          case 6: return 'PNS';
-                          case 7: return 'Programmer';
-                          default: return 'Lainnya';
-                        }
-                      })()
-                    }
-                  </p>
-                  <p className="card-text"><strong>Jumlah Penghuni:</strong> {resident.jumlah_penghuni}</p>
-                  <p className="card-text"><strong>Lama Sewa:</strong> {resident.lama_sewa} </p>
-                  <p className="card-text"><strong>Tanggal Masuk:</strong> {resident.tanggal_masuk}</p>
-                  <p className="card-text"><strong>Keterangan:</strong> {resident.keterangan}</p>
-                  <p className="card-text">
-                    <strong>Status Sewa:</strong> {
-                      (() => {
-                        switch (resident.status_sewa) {
-                          case 1: return 'Aktif';
-                          case 2: return 'Nonaktif';
-                          default: return 'Tidak Diketahui';
-                        }
-                      })()
-                    }
-                  </p>
+                <div className="card-body d-flex align-items-center">
+                <img 
+                    src={resident.profile_picture ? resident.profile_picture : 'https://www.freepik.com/free-photo/3d-illustration-boy-with-camera-his-hand_69444508.htm#fromView=search&page=1&position=0&uuid=813551ba-0249-4f39-839e-f00b1aad59dchttps://www.freepik.com/free-photo/3d-illustration-boy-with-camera-his-hand_69444508.htm#fromView=search&page=1&position=0&uuid=813551ba-0249-4f39-839e-f00b1aad59dc'} 
+                    alt="Profile" 
+                    className="profile-img" 
+                  />
+                  <div className="ms-3">
+                    <h5 className="card-title">{resident.nama_penghuni}</h5>
+                    <small className="text-muted">Last updated on {new Date().toLocaleDateString()}</small>
+                  </div>
                 </div>
-                
-                <div className="card-footer">
-                <button 
-                    className="btn btn-primary btn-sm float-end"
+                <table className="table table-borderless resident-table">
+                  <tbody>
+                    <tr>
+                      <td>Id Kamar</td>
+                      <td><strong>{resident.id_kamar}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>No Handphone</td>
+                      <td><strong>{resident.no_handphone}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Gender</td>
+                      <td><strong>{resident.jenis_kelamin === 1 ? 'Pria' : 'Wanita'}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>No KTP</td>
+                      <td><strong>{resident.no_ktp}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Jenis Sewa</td>
+                      <td><strong>{["Harian", "Mingguan", "Bulanan", "Tahunan"][resident.jenis_sewa_kamar - 1] || "Lainnya"}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Status Penghuni</td>
+                      <td><strong>{["Belum Menikah", "Menikah", "Janda", "Duda", "Cerai Mati"][resident.status_penghuni - 1] || "Lainnya"}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Pekerjaan</td>
+                      <td><strong>{["Mahasiswa", "Guru", "Dokter", "Karyawan", "Wiraswasta", "PNS", "Programmer"][resident.pekerjaan - 1] || "Lainnya"}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Jumlah Penghuni</td>
+                      <td><strong>{resident.jumlah_penghuni} Orang</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Lama Sewa</td>
+                      <td><strong>{`${resident.lama_sewa} ${["Hari", "Minggu", "Bulan", "Tahun"][resident.jenis_sewa_kamar - 1] || "Lainnya"}`}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Tanggal Masuk</td>
+                      <td><strong>{resident.tanggal_masuk}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Keterangan</td>
+                      <td><strong>{resident.keterangan}</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Status Sewa</td>
+                      <td><strong>{resident.status_sewa === 1 ? 'Aktif' : 'Nonaktif'}</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div className="card-footer d-flex justify-content-between">
+                  <button 
+                    className="btn btn-primary btn-sm"
                     onClick={() => navigate(`/invoice/${resident.id}`)}
                   >
                     Print Invoice
                   </button>
-                   <button 
-                    className="btn btn-warning btn-sm float-end"
+                  <button 
+                    className="btn btn-warning btn-sm"
                     onClick={() => navigate(`/edit/${resident.id}`)}
                   >
                     Edit
                   </button>
                   <button 
-                    className="btn btn-danger btn-sm float-start"
+                    className="btn btn-danger btn-sm"
                     onClick={() => handleDelete(resident.id)}
                   >
                     Delete
                   </button>
-                 
                 </div>
               </div>
             </div>

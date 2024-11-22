@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from "react-router-dom";
-
+import Register from "./components/Register/Register";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import Room from "./pages/Room";
@@ -16,6 +16,7 @@ import EditResidentPage from "./pages/EditResidentPage";
 import User from "./pages/User"; // Import halaman User
 import PrintInvoicePage from "./pages/PrintInvoicePage";
 import Dashboard from "./pages/Dashboard";
+
 
 
 function App() {
@@ -62,10 +63,15 @@ function App() {
                   Dashboard
                 </Link>
               </li>
-              {!isAuthenticated ? (
+              
+
+              {!isAuthenticated ? ( 
                 <li className="nav-item">
                   <Link className="nav-link" to="/login">
                     Login
+                  </Link>
+                  <Link className="nav-link" to="/register">
+                    Register
                   </Link>
                 </li>
               ) : (
@@ -83,6 +89,11 @@ function App() {
                   <li className="nav-item">
                     <Link className="nav-link" to="/payment">
                       Payment
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/user">
+                      User
                     </Link>
                   </li>
 
@@ -117,11 +128,7 @@ function App() {
                     </ul>
                   </li>
 
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/user">
-                      User
-                    </Link>
-                  </li>
+                  
                   <li className="nav-item">
                     <button
                       className="btn btn-link nav-link"
@@ -138,9 +145,13 @@ function App() {
       </nav>
 
       <Routes>
+        {/* //register */}
+        <Route path="/register" element={<Register setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/user" element={<User />} />
+
         {isAuthenticated && <Route path="/room" element={<Room />} />}
         {isAuthenticated && <Route path="/setting" element={<Setting />} />}
         {isAuthenticated && <Route path="/payment" element={<Payment />} />}
@@ -151,6 +162,7 @@ function App() {
         {isAuthenticated && <Route path="/edit/:id" element={<EditResidentPage />} />}
         {isAuthenticated && <Route path="/user" element={<User />} />}
         {isAuthenticated && <Route path="/invoice/:id" element={<PrintInvoicePage />} />}
+        
       </Routes>
     </div>
   );
