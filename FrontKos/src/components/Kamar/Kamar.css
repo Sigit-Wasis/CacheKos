@@ -1,0 +1,54 @@
+.kamar {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    background-color: #f9f9f9;
+    padding: 60px 30px; 
+}
+
+.kamar-title {
+    font-size: 2.8rem; 
+    font-weight: 700; 
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.kamar-description {
+    font-size: 1.2rem; 
+    color: #7f8c8d;
+    margin-bottom: 50px;
+}
+
+.kamar-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px; 
+    flex-wrap: wrap;
+}
+
+.kamar-card {
+    background: #fff;
+    border-radius: 12px; 
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1); 
+    overflow: hidden;
+    width: 350px; 
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.kamar-card:hover {
+    transform: scale(1.08); 
+    box-shadow: 0 10px 14px rgba(0, 0, 0, 0.3); 
+}
+
+.kamar-image {
+    width: 100%;
+    height: 350px; 
+    object-fit: cover;
+}
+
+.kamar-text {
+    font-size: 1.2rem; 
+    font-weight: 600; 
+    color: #34495e;
+    margin: 20px 0;
+}

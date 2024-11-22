@@ -63,7 +63,6 @@ class RoomController extends Controller
     }
 
     // FUNCTION EDIT
-    // FUNCTION EDIT
 public function edit(Request $request, $id)
 {
     try {
