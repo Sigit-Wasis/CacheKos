@@ -12,8 +12,6 @@ use App\Http\Controllers\API\ExpenseController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\LaporanController;
 
-<<<<<<< HEAD
-=======
 /*
 |---------------------------------------------------------------------------|
 | API Routes                                                                |
@@ -26,7 +24,6 @@ use App\Http\Controllers\API\LaporanController;
 //route register
 Route::post('/register', [AuthController::class, 'register']);
 // Rute untuk autentikasi
->>>>>>> e6a85371f890356d74528d282b612a0618b9a554
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -55,19 +52,11 @@ Route::prefix('rooms')->middleware('auth:sanctum')->group(function () {
 });
 
 Route::prefix('users')->middleware('auth:sanctum')->group(function () {
-<<<<<<< HEAD
-    Route::get('/', [UserController::class, 'index']);
-    Route::post('/', [UserController::class, 'create']);
-    Route::put('/{id}', [UserController::class, 'edit']);
-    Route::get('/{id}', [UserController::class, 'show']);
-    Route::delete('/{id}', [UserController::class, 'destroy']);
-=======
     Route::get('/', [UserController::class, 'index']); // Menampilkan semua data user
     Route::post('/', [UserController::class, 'create']); // Menambahkan data user baru
     Route::put('/{id}', [UserController::class, 'update']); // Memperbarui data user berdasarkan ID
     Route::get('/{id}', [UserController::class, 'show']); // Mengambil data user berdasarkan ID
     Route::delete('/{id}', [UserController::class, 'destroy']); // Menghapus data user berdasarkan ID
->>>>>>> e6a85371f890356d74528d282b612a0618b9a554
 });
 
 Route::prefix('residents')->middleware('auth:sanctum')->group(function () {

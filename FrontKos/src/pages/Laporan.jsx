@@ -171,7 +171,6 @@ function MyDocument({
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.subheader}>{laporanType}</Text>
           <View style={styles.table}>
             <View style={styles.tableHeader}>
               <Text style={styles.tableHeaderCell}>Keterangan</Text>

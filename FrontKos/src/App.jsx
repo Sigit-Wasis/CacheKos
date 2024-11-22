@@ -18,6 +18,7 @@ import ActiveResident from "./pages/ActiveResidents";
 import PrintInvoicePage from "./pages/PrintInvoicePage";
 import EditResidentPage from "./pages/EditResidentPage";
 import User from "./pages/User";
+import Laporan from "./pages/Laporan";
 import Dashboard from "./pages/Dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -91,6 +92,11 @@ function App() {
                     Expense
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/laporan">
+                    Laporan
+                  </Link>
+                </li>
 
                 {/* Dropdown for Resident */}
                 <li className="nav-item dropdown">
@@ -157,6 +163,7 @@ function App() {
         {isAuthenticated && <Route path="/payment" element={<Payment />} />}
         {isAuthenticated && <Route path="/dashboard" element={<Dashboard />} />}
         {isAuthenticated && <Route path="/expense" element={<Expense />} />}
+        {isAuthenticated && <Route path="/laporan" element={<Laporan />} />}
         {isAuthenticated && <Route path="/resident" element={<Resident />} />}
         {isAuthenticated && <Route path="/add" element={<AddResidentPage />} />}
         {isAuthenticated && (
