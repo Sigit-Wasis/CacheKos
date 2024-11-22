@@ -58,7 +58,7 @@ const ResidentPage = () => {
 
   const handleDelete = async (id) => {
     const token = localStorage.getItem('token');
-    
+    const apiUrl = import.meta.env.VITE_API_URL;
     const confirmDelete = window.confirm("Are you sure you want to delete this resident?");
     
     if (!confirmDelete) {
@@ -66,7 +66,7 @@ const ResidentPage = () => {
     }
   
     try {
-      await axios.delete(apiUrl+`/api/residents/${id}`, {
+      await axios.delete(`${apiUrl}/api/residents/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

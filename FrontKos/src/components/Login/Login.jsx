@@ -24,7 +24,7 @@ const Login = () => {
       if (response.data.message === "Login berhasil") {
         localStorage.setItem("token", response.data.data.access_token); // Simpan token
         alert("Login berhasil!");
-        navigate("/home"); 
+        navigate("/dashboard"); // Navigasi ke halaman dashboard
       } else {
         setError("Username atau password salah");
       }
