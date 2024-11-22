@@ -10,11 +10,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-pdf/renderer": "^4.0.0",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
+<<<<<<< HEAD
+    "downloadjs": "^1.4.7",
+    "easyinvoice": "^1.0.67",
+    "html2pdf.js": "^0.10.2",
+    "jspdf": "^2.5.2",
+    "pdf-lib": "^1.17.1",
+=======
     "chart.js": "^4.4.6",
     "dotenv": "^16.4.5",
     "easyinvoice": "^3.0.11",
+>>>>>>> e6a85371f890356d74528d282b612a0618b9a554
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
     "react-data-table-component": "^7.6.2",
