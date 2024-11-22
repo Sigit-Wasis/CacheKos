@@ -72,6 +72,11 @@ function App() {
               ) : (
                 <>
                   <li className="nav-item">
+                    <Link className="nav-link" to="/dashboard">
+                      Dashboard
+                    </Link>
+                  </li>
+                  <li className="nav-item">
                     <Link className="nav-link" to="/room">
                       Room
                     </Link>
@@ -84,11 +89,6 @@ function App() {
                   <li className="nav-item">
                     <Link className="nav-link" to="/payment">
                       Payment
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/dashboard">
-                      Dashboard
                     </Link>
                   </li>
                   <li className="nav-item">

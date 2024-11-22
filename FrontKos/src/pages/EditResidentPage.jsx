@@ -188,13 +188,13 @@ const EditResidentPage = () => {
             value={residentData.pekerjaan}
             onChange={handleChange}
           >
-            <option value={1}>Mahasiswa</option>
-            <option value={2}>Guru</option>
-            <option value={3}>Dokter</option>
-            <option value={4}>Karyawan</option>
-            <option value={5}>Wiraswasta</option>
-            <option value={6}>PNS</option>
-            <option value={7}>Programmer</option>
+            <option value="">Pilih Pekerjaan</option>
+            <option value="1">Mahasiswa</option>
+            <option value="2">Guru</option>
+            <option value="3">Polisi</option>
+            <option value="4">Dokter</option>
+            <option value="5">Perawat</option>
+            <option value="6">Programmer</option>
           </select>
         </div>
         <div className="mb-3">
