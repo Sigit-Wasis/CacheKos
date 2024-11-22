@@ -31,6 +31,8 @@ function App() {
     const token = localStorage.getItem("token");
     if (token) {
       setIsAuthenticated(true);
+    } else {
+      navigate('/login'); // Jika tidak ada token, arahkan ke halaman login
     }
   }, [navigate]);
 
@@ -177,6 +179,8 @@ function App() {
           <Route path="/invoice/:id" element={<PrintInvoicePage />} />
         )}
         {isAuthenticated && <Route path="/user" element={<User />} />}
+        {isAuthenticated && <Route path="/invoice/:id" element={<PrintInvoicePage />} />}
+        
       </Routes>
     </div>
   );

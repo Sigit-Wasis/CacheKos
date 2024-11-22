@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import DataTable from "react-data-table-component";
+import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 
 const Expense = () => {
   const [expenses, setExpenses] = useState([]);
@@ -13,10 +15,12 @@ const Expense = () => {
   });
   const [editExpense, setEditExpense] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [expenseToDelete, setExpenseToDelete] = useState(null);
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const [selectedExpense, setSelectedExpense] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
+  // Fetch data from API on component mount
+  const fetchExpenses = () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -32,274 +36,270 @@ const Expense = () => {
       })
       .then((response) => {
         setExpenses(response.data.data);
+        setError("");
       })
       .catch((error) => {
         setError("Gagal mengambil data pengeluaran. Silakan coba lagi.");
         console.error(error);
       });
+  };
+
+  useEffect(() => {
+    fetchExpenses();
   }, []);
 
   const handleAddExpense = () => {
     const token = localStorage.getItem("token");
+
+    if (!newExpense.nama_pengeluaran || !newExpense.nominal || !newExpense.tanggal) {
+      setError("Semua kolom wajib diisi.");
+      return;
+    }
+
     axios
       .post("http://localhost:8000/api/expenses", newExpense, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => {
-        setExpenses([...expenses, response.data.expense]);
-        setNewExpense({
-          nama_pengeluaran: "",
-          keterangan: "",
-          nominal: "",
-          tanggal: "",
-        });
+      .then(() => {
+        setNewExpense({ nama_pengeluaran: "", keterangan: "", nominal: "", tanggal: "" });
         setShowModal(false);
         setSuccessMessage("Pengeluaran berhasil ditambahkan!");
-        window.location.reload();
+        setError("");
+        fetchExpenses(); // Refresh data
       })
       .catch((error) => {
         setError("Gagal menambah pengeluaran.");
+        console.error(error);
       });
   };
 
-  const handleEditExpense = () => {
+  const handleUpdateExpense = () => {
     const token = localStorage.getItem("token");
-    axios
-      .put(
-        `http://localhost:8000/api/expenses/${editExpense.id}`,
-        editExpense,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((response) => {
-        const updatedExpenses = expenses.map((expense) =>
-          expense.id === editExpense.id ? response.data.data : expense
-        );
-        setExpenses(updatedExpenses);
-        setEditExpense(null);
-        setSuccessMessage("Pengeluaran berhasil diperbarui!");
-        window.location.reload();
-      })
-      .catch((error) => {
-        setError("Gagal memperbarui pengeluaran.");
-      });
-  };
 
-  const handleDeleteExpense = () => {
-    const token = localStorage.getItem("token");
+    if (!editExpense.nama_pengeluaran || !editExpense.nominal || !editExpense.tanggal) {
+      setError("Semua kolom wajib diisi.");
+      return;
+    }
+
     axios
-      .delete(`http://localhost:8000/api/expenses/${expenseToDelete.id}`, {
+      .put(`http://localhost:8000/api/expenses/${editExpense.id}`, editExpense, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then(() => {
-        setExpenses(expenses.filter((expense) => expense.id !== expenseToDelete.id));
-        setShowDeleteModal(false);
-        setSuccessMessage("Pengeluaran berhasil dihapus!");
-        window.location.reload();
+        setEditExpense(null);
+        setShowModal(false);
+        setSuccessMessage("Pengeluaran berhasil diperbarui!");
+        setError("");
+        fetchExpenses(); // Refresh data
       })
       .catch((error) => {
-        setError("Gagal menghapus pengeluaran.");
+        setError("Gagal memperbarui pengeluaran.");
+        console.error(error);
       });
   };
 
-  const modalStyles = {
-    padding: "20px",
-    maxWidth: "500px",
-    margin: "0 auto",
-    backgroundColor: "#fff",
-    borderRadius: "8px",
+  const handleDeleteExpense = (id) => {
+    const confirmDelete = window.confirm("Apakah Anda yakin ingin menghapus pengeluaran ini?");
+    if (!confirmDelete) return;
+
+    const token = localStorage.getItem("token");
+    axios
+      .delete(`http://localhost:8000/api/expenses/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        setSuccessMessage("Pengeluaran berhasil dihapus!");
+        setError("");
+        fetchExpenses(); // Refresh data
+      })
+      .catch((error) => {
+        setError("Gagal menghapus pengeluaran.");
+        console.error(error);
+      });
   };
 
-  const formStyles = {
-    display: "flex",
-    flexDirection: "column",
-    gap: "15px",
-  };
+  const columns = [
+    {
+      name: "Nama Pengeluaran",
+      selector: (row) => row.nama_pengeluaran,
+      sortable: true,
+    },
+    {
+      name: "Keterangan",
+      selector: (row) => row.keterangan,
+      sortable: true,
+    },
+    {
+      name: "Nominal",
+      selector: (row) => `Rp. ${row.nominal.toLocaleString()}`,
+      sortable: true,
+    },
+    {
+      name: "Tanggal",
+      selector: (row) => new Date(row.tanggal).toLocaleDateString(),
+      sortable: true,
+    },
+    {
+      name: "Aksi",
+      cell: (row) => (
+        <div>
+          <button
+            onClick={() => {
+              setSelectedExpense(row);
+              setShowDetailModal(true);
+            }}
+            className="btn btn-info me-2"
+          >
+            <FaEye />
+          </button>
+          <button
+            onClick={() => {
+              setEditExpense(row);
+              setShowModal(true);
+            }}
+            className="btn btn-warning me-2"
+          >
+            <FaEdit />
+          </button>
+          <button onClick={() => handleDeleteExpense(row.id)} className="btn btn-danger">
+            <FaTrash />
+          </button>
+        </div>
+      ),
+    },
+  ];
 
-  const buttonContainerStyles = {
-    display: "flex",
-    gap: "10px",
-    justifyContent: "flex-end",
-  };
-
-  const deleteModalStyles = {
-    padding: "30px",
-    maxWidth: "500px",
-    margin: "0 auto",
-    backgroundColor: "#f8f9fa",
-    borderRadius: "8px",
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-  };
+  const filteredExpenses = expenses.filter((expense) =>
+    expense.nama_pengeluaran.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
-    <div style={{ margin: "20px auto", maxWidth: "1200px" }}>
-      <h2 className="text-center mt-5">Daftar Pengeluaran</h2>
+    <div className="container mt-5">
+      <h2 className="text-center mb-4">Daftar Pengeluaran</h2>
       {error && <div className="alert alert-danger">{error}</div>}
       {successMessage && <div className="alert alert-success">{successMessage}</div>}
 
-      {/* Add/Edit Modal */}
-      {showModal && (
-        <div className="modal" style={{ display: "block" }}>
-          <div className="modal-content" style={modalStyles}>
-            <h3>{editExpense ? "Edit Pengeluaran" : "Tambah Pengeluaran"}</h3>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (editExpense) {
-                  handleEditExpense();
-                } else {
-                  handleAddExpense();
-                }
-              }}
-              style={formStyles}
-            >
-              <input
-                type="text"
-                placeholder="Nama Pengeluaran"
-                value={editExpense ? editExpense.nama_pengeluaran : newExpense.nama_pengeluaran}
-                onChange={(e) =>
-                  editExpense
-                    ? setEditExpense({ ...editExpense, nama_pengeluaran: e.target.value })
-                    : setNewExpense({ ...newExpense, nama_pengeluaran: e.target.value })
-                }
-              />
-              <input
-                type="text"
-                placeholder="Keterangan"
-                value={editExpense ? editExpense.keterangan : newExpense.keterangan}
-                onChange={(e) =>
-                  editExpense
-                    ? setEditExpense({ ...editExpense, keterangan: e.target.value })
-                    : setNewExpense({ ...newExpense, keterangan: e.target.value })
-                }
-              />
-              <input
-                type="number"
-                placeholder="Nominal"
-                value={editExpense ? editExpense.nominal : newExpense.nominal}
-                onChange={(e) =>
-                  editExpense
-                    ? setEditExpense({ ...editExpense, nominal: e.target.value })
-                    : setNewExpense({ ...newExpense, nominal: e.target.value })
-                }
-              />
-              <input
-                type="date"
-                value={editExpense ? editExpense.tanggal : newExpense.tanggal}
-                onChange={(e) =>
-                  editExpense
-                    ? setEditExpense({ ...editExpense, tanggal: e.target.value })
-                    : setNewExpense({ ...newExpense, tanggal: e.target.value })
-                }
-              />
-              <div style={buttonContainerStyles}>
-                <button type="submit">{editExpense ? "Perbarui" : "Tambah"}</button>
-                <button type="button" onClick={() => setShowModal(false)}>Tutup</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+      <input
+        type="text"
+        placeholder="Cari berdasarkan Nama Pengeluaran"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="form-control mb-3"
+      />
 
-      {/* Delete Confirmation Modal */}
-      {showDeleteModal && (
-        <div className="modal" style={{ display: "block" }}>
-          <div className="modal-content" style={deleteModalStyles}>
-            <h3 style={{ textAlign: "center" }}>Konfirmasi Penghapusan</h3>
-            <p style={{ textAlign: "center" }}>Apakah kamu yakin ingin menghapus pengeluaran ini?</p>
-            <div style={buttonContainerStyles}>
-              <button
-                onClick={handleDeleteExpense}
-                style={{
-                  backgroundColor: "#e74c3c",
-                  color: "#fff",
-                  padding: "10px 20px",
-                  border: "none",
-                  borderRadius: "5px",
-                }}
-              >
-                Ya, Hapus
-              </button>
-              <button
-                onClick={() => setShowDeleteModal(false)}
-                style={{
-                  backgroundColor: "#95a5a6",
-                  color: "#fff",
-                  padding: "10px 20px",
-                  border: "none",
-                  borderRadius: "5px",
-                }}
-              >
-                Batal
-              </button>
+      <button
+        onClick={() => {
+          setNewExpense({ nama_pengeluaran: "", keterangan: "", nominal: "", tanggal: "" });
+          setEditExpense(null);
+          setShowModal(true);
+        }}
+        className="btn btn-primary mb-3"
+      >
+        Tambah Pengeluaran
+      </button>
+
+      <DataTable columns={columns} data={filteredExpenses} pagination highlightOnHover />
+
+      {/* Modal Tambah/Edit Pengeluaran */}
+      {showModal && (
+        <div className="modal fade show d-block">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">
+                  {editExpense ? "Edit Pengeluaran" : "Tambah Pengeluaran"}
+                </h5>
+                <button className="btn-close" onClick={() => setShowModal(false)}></button>
+              </div>
+              <div className="modal-body">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (editExpense) handleUpdateExpense();
+                    else handleAddExpense();
+                  }}
+                >
+                  <input
+                    type="text"
+                    className="form-control mb-3"
+                    placeholder="Nama Pengeluaran"
+                    value={editExpense ? editExpense.nama_pengeluaran : newExpense.nama_pengeluaran}
+                    onChange={(e) =>
+                      editExpense
+                        ? setEditExpense({ ...editExpense, nama_pengeluaran: e.target.value })
+                        : setNewExpense({ ...newExpense, nama_pengeluaran: e.target.value })
+                    }
+                    required
+                  />
+                  <input
+                    type="text"
+                    className="form-control mb-3"
+                    placeholder="Keterangan"
+                    value={editExpense ? editExpense.keterangan : newExpense.keterangan}
+                    onChange={(e) =>
+                      editExpense
+                        ? setEditExpense({ ...editExpense, keterangan: e.target.value })
+                        : setNewExpense({ ...newExpense, keterangan: e.target.value })
+                    }
+                  />
+                  <input
+                    type="number"
+                    className="form-control mb-3"
+                    placeholder="Nominal"
+                    value={editExpense ? editExpense.nominal : newExpense.nominal}
+                    onChange={(e) =>
+                      editExpense
+                        ? setEditExpense({ ...editExpense, nominal: e.target.value })
+                        : setNewExpense({ ...newExpense, nominal: e.target.value })
+                    }
+                    required
+                  />
+                  <input
+                    type="date"
+                    className="form-control mb-3"
+                    value={editExpense ? editExpense.tanggal : newExpense.tanggal}
+                    onChange={(e) =>
+                      editExpense
+                        ? setEditExpense({ ...editExpense, tanggal: e.target.value })
+                        : setNewExpense({ ...newExpense, tanggal: e.target.value })
+                    }
+                    required
+                  />
+                  <button type="submit" className="btn btn-success">
+                    Simpan
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      <button
-        onClick={() => setShowModal(true)}
-        style={{
-          padding: "10px 15px",
-          marginBottom: "20px",
-          border: "none",
-          backgroundColor: "#007bff",
-          color: "white",
-          borderRadius: "5px",
-        }}
-      >
-        Tambah Pengeluaran
-      </button>
-
-      {/* Tabel Daftar Pengeluaran */}
-      <table className="table table-borderless">
-        <thead>
-          <tr>
-            <th>Nama Pengeluaran</th>
-            <th>Keterangan</th>
-            <th>Nominal</th>
-            <th>Tanggal</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          {expenses.map((expense) => (
-            <tr key={expense.id}>
-              <td>{expense.nama_pengeluaran}</td>
-              <td>{expense.keterangan}</td>
-              <td>Rp. {expense.nominal.toLocaleString()}</td>
-              <td>{new Date(expense.tanggal).toLocaleDateString()}</td>
-              <td>
-                <button
-                  onClick={() => {
-                    setEditExpense(expense);
-                    setShowModal(true);
-                  }}
-                  style={{ backgroundColor: "#f39c12", color: "white", border: "none", padding: "5px 10px", borderRadius: "5px" }}
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => {
-                    setExpenseToDelete(expense);
-                    setShowDeleteModal(true);
-                  }}
-                  style={{ backgroundColor: "#e74c3c", color: "white", border: "none", padding: "5px 10px", borderRadius: "5px", marginLeft: "10px" }}
-                >
-                  Hapus
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {/* Modal Detail Pengeluaran */}
+      {showDetailModal && selectedExpense && (
+        <div className="modal fade show d-block">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Detail Pengeluaran</h5>
+                <button className="btn-close" onClick={() => setShowDetailModal(false)}></button>
+              </div>
+              <div className="modal-body">
+                <p><strong>Nama Pengeluaran:</strong> {selectedExpense.nama_pengeluaran}</p>
+                <p><strong>Keterangan:</strong> {selectedExpense.keterangan}</p>
+                <p><strong>Nominal:</strong> Rp. {selectedExpense.nominal.toLocaleString()}</p>
+                <p><strong>Tanggal:</strong> {new Date(selectedExpense.tanggal).toLocaleDateString()}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

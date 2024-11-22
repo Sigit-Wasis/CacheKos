@@ -52,6 +52,13 @@ Route::prefix('rooms')->middleware('auth:sanctum')->group(function () {
 });
 
 Route::prefix('users')->middleware('auth:sanctum')->group(function () {
+
+    Route::get('/', [UserController::class, 'index']);
+    Route::post('/', [UserController::class, 'create']);
+    Route::put('/{id}', [UserController::class, 'edit']);
+    Route::get('/{id}', [UserController::class, 'show']);
+    Route::delete('/{id}', [UserController::class, 'destroy']);
+
     Route::get('/', [UserController::class, 'index']); // Menampilkan semua data user
     Route::post('/', [UserController::class, 'create']); // Menambahkan data user baru
     Route::put('/{id}', [UserController::class, 'update']); // Memperbarui data user berdasarkan ID
