@@ -117,6 +117,11 @@ function App() {
                     </ul>
                   </li>
                   <li className="nav-item">
+                    <Link className="nav-link" to="/expense">
+                      Expense
+                    </Link>
+                  </li>
+                  <li className="nav-item">
                     <button
                       className="btn btn-link nav-link"
                       onClick={handleLogout}
@@ -124,11 +129,7 @@ function App() {
                       Logout
                     </button>
                   </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/expense">
-                      Expense
-                    </Link>
-                  </li>
+                  
                 </>
               )}
             </ul>
