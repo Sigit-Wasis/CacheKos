@@ -14,6 +14,7 @@ import InactiveResidentsPage from "./pages/InactiveResidentsPage";
 import ActiveResident from "./pages/ActiveResidents";
 import EditResidentPage from "./pages/EditResidentPage";
 import PrintInvoicePage from "./pages/PrintInvoicePage";
+import Laporan from "./pages/Laporan";
 import Dashboard from "./pages/Dashboard";
 import User from "./pages/User";
 
@@ -82,6 +83,12 @@ function App() {
                       Payment
                     </Link>
                   </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/laporan-bulanan">
+                      Laporan
+                    </Link>
+                  </li>
+                  
 
                   {/* Dropdown for Resident */}
                   <li className="nav-item dropdown">
@@ -111,6 +118,7 @@ function App() {
                           Penghuni Selesai
                         </Link>
                       </li>
+                     
                     </ul>
                   </li>
 
@@ -144,6 +152,7 @@ function App() {
         {isAuthenticated && <Route path="/active" element={<ActiveResident />} />}
         {isAuthenticated && <Route path="/edit/:id" element={<EditResidentPage />} />}
         {isAuthenticated && <Route path="/invoice/:id" element={<PrintInvoicePage />} />}
+        {isAuthenticated && <Route path="/laporan-bulanan" element={<Laporan />} />}
       </Routes>
     </div>
   );

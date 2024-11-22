@@ -225,19 +225,19 @@ const Room = () => {
             className="btn btn-warning btn-sm"
             onClick={() => handleEdit(row)}
           >
-            <FaEdit />
+            <FaEdit className="edit" />
           </button>
           <button
             className="btn btn-danger btn-sm ml-2"
             onClick={() => handleDelete(row.id)}
           >
-            <FaTrash />
+            <FaTrash  />
           </button>
           <button
             className="btn btn-info btn-sm ml-2"
             onClick={() => handleDetail(row)}
           >
-            <FaEye />
+            <FaEye className="eye" />
           </button>
         </div>
       ),
