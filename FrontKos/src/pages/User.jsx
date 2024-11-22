@@ -14,8 +14,9 @@ const User = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+   
     const token = localStorage.getItem('token');
-
+    const apiUrl = import.meta.env.VITE_API_URL;
     if (!token) {
       navigate('/login');
       return;
@@ -23,7 +24,7 @@ const User = () => {
 
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/users', {
+        const response = await axios.get(apiUrl+'/api/users', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -120,25 +121,53 @@ const User = () => {
           Tambah User
         </button>
       </div>
-
+      
       <div className="row">
         {users.map((user) => (
           <div className="col-md-4 mb-4" key={user.id}>
-            <div className="card h-100">
-              <div className="card-body">
-                <h5 className="card-title"><strong>Username:</strong> {user.username}</h5>
-                <p className="card-text"><strong>Nama Lengkap:</strong> {user.nama_lengkap}</p>
-                <p className="card-text"><strong>Email:</strong> {user.email}</p>
-                <p className="card-text"><strong>Alamat:</strong> {user.alamat}</p>
+            <div className="card">
+              
+                <table className="table table-borderless user-table">
+                  <tbody>
+                    <tr>
+                      <td>Username</td>
+                      <td>{user.username}</td>
+                    </tr>
+                    <tr>
+                      <td>Nama Lengkap</td>
+                      <td>{user.nama_lengkap}</td>
+                    </tr>
+                    <tr>
+                      <td>Email</td>
+                      <td>{user.email}</td>
+                    </tr>
+                    <tr>
+                      <td>Alamat</td>
+                      <td>{user.alamat}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div className="card-footer">
-                <button className="btn btn-warning me-2 edit-btn" onClick={() => openEditModal(user)}>Edit</button>
-                <button className="btn btn-danger delete-btn" onClick={() => handleDeleteUser(user.id)}>Delete</button>
+              <div className="card-footer text-end">
+                <button
+                  className="btn btn-warning me-2 edit-btn"
+                  onClick={() => openEditModal(user)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="btn btn-danger delete-btn"
+                  onClick={() => handleDeleteUser(user.id)}
+                >
+                  Delete
+                </button>
               </div>
             </div>
-          </div>
+          
         ))}
       </div>
+
+
 
       {showModal && (
         <div className="modal" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>

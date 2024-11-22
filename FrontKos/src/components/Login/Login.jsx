@@ -24,7 +24,7 @@ const Login = () => {
       if (response.data.message === "Login berhasil") {
         localStorage.setItem("token", response.data.data.access_token); // Simpan token
         alert("Login berhasil!");
-        navigate("/home"); 
+        navigate("/dashboard"); // Navigasi ke halaman dashboard
       } else {
         setError("Username atau password salah");
       }
@@ -49,7 +49,7 @@ const Login = () => {
                 type="text"
                 className="form-control"
                 id="username"
-                placeholder="Enter Username"
+                placeholder="Masukkan Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
@@ -63,7 +63,7 @@ const Login = () => {
                 type="password"
                 className="form-control"
                 id="password"
-                placeholder="Enter Password"
+                placeholder="Masukkan Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required

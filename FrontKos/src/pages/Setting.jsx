@@ -91,7 +91,7 @@ const Setting = () => {
                         <p><strong>Instagram Kost:</strong> {isEditing ? (
                             <input name="instagram" value={formData.instagram || ""} onChange={handleInputChange} />
                         ) : settings.instagram}</p>
-                        
+
                     </div>
                 </div>
 

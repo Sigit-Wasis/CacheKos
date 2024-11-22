@@ -8,9 +8,25 @@ use App\Http\Controllers\Api\ResidentController;
 use App\Http\Controllers\Api\SettingController; 
 use App\Http\Controllers\Api\PaymentController; 
 use App\Http\Controllers\API\DashboardController;
+use App\Http\Controllers\API\ExpenseController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\LaporanController;
 
+<<<<<<< HEAD
+=======
+/*
+|---------------------------------------------------------------------------|
+| API Routes                                                                |
+|---------------------------------------------------------------------------|
+| Here is where you can register API routes for your application.          |
+| These routes are loaded by the RouteServiceProvider within a group which |
+| is assigned the "api" middleware group. Enjoy building your API!        |
+|---------------------------------------------------------------------------|
+*/
+//route register
+Route::post('/register', [AuthController::class, 'register']);
+// Rute untuk autentikasi
+>>>>>>> e6a85371f890356d74528d282b612a0618b9a554
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -39,11 +55,19 @@ Route::prefix('rooms')->middleware('auth:sanctum')->group(function () {
 });
 
 Route::prefix('users')->middleware('auth:sanctum')->group(function () {
+<<<<<<< HEAD
     Route::get('/', [UserController::class, 'index']);
     Route::post('/', [UserController::class, 'create']);
     Route::put('/{id}', [UserController::class, 'edit']);
     Route::get('/{id}', [UserController::class, 'show']);
     Route::delete('/{id}', [UserController::class, 'destroy']);
+=======
+    Route::get('/', [UserController::class, 'index']); // Menampilkan semua data user
+    Route::post('/', [UserController::class, 'create']); // Menambahkan data user baru
+    Route::put('/{id}', [UserController::class, 'update']); // Memperbarui data user berdasarkan ID
+    Route::get('/{id}', [UserController::class, 'show']); // Mengambil data user berdasarkan ID
+    Route::delete('/{id}', [UserController::class, 'destroy']); // Menghapus data user berdasarkan ID
+>>>>>>> e6a85371f890356d74528d282b612a0618b9a554
 });
 
 Route::prefix('residents')->middleware('auth:sanctum')->group(function () {
@@ -106,3 +130,20 @@ Route::prefix('payments')->group(function () {
     Route::delete('/{id}', [PaymentController::class, 'destroy']);
 });
 
+
+Route::middleware('auth:api')->group(function () {
+    // Get all expenses
+    Route::get('/expenses', [ExpenseController::class, 'index']);
+    
+    // Get expense by ID
+    Route::get('/expenses/{id}', [ExpenseController::class, 'getExpenseById']);
+    
+    // Store new expense
+    Route::post('/expenses', [ExpenseController::class, 'store']);
+    
+    // Update existing expense
+    Route::put('/expenses/{id}', [ExpenseController::class, 'update']);
+    
+    // Delete expense by ID
+    Route::delete('/expenses/{id}', [ExpenseController::class, 'delete']);
+});
