@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Link,
-  useNavigate,
-} from "react-router-dom";
+import {BrowserRouter as Router,Route,Routes,Link,useNavigate,} from "react-router-dom";
 import Register from "./components/Register/Register";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
@@ -37,7 +31,7 @@ function App() {
     if (token) {
       setIsAuthenticated(true);
     }
-  }, []);
+  }, [navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -68,8 +62,8 @@ function App() {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav me-auto">
                 <li className="nav-item">
-                  <Link className="nav-link" to="/">
-                    Home
+                  <Link className="nav-link" to="/dashboard">
+                    Dashboard
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -88,8 +82,8 @@ function App() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/dashboard">
-                    Dashboard
+                  <Link className="nav-link" to="/user">
+                    User
                   </Link>
                 </li>
                 <li className="nav-item">

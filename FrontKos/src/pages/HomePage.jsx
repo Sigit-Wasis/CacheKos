@@ -12,7 +12,7 @@ const LandingPage = () => {
     return (
         <div className="landing-page">
             {/* Header */}
-            <header className="header">
+            <header className="headerar">
                 <div className="logo">Cache Kos</div>
                 <nav className="nav">
                     <a href="#fasilitas">Fasilitas</a>
