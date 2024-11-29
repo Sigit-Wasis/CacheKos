@@ -237,6 +237,7 @@ function LaporanCard() {
   const [kategoriCetakBulanLalu] = useState("bulanlalu");
   const [kategoriCetakTahunLalu] = useState("tahunlalu");
   const [endDate, setEndDate] = useState("");
+
   const [activeTab, setActiveTab] = useState("bulanan");
 
   useEffect(() => {
@@ -250,50 +251,6 @@ function LaporanCard() {
       );
 
     axios
-      .get("http://localhost:8000/api/laporan-bulan-ini")
-      .then((response) => {
-        setLaporanBulanIni(response.data.data);
-      })
-      .catch((error) =>
-        console.error("Error fetching laporan bulan ini:", error)
-      );
-
-    axios
-      .get("http://localhost:8000/api/laporan-bulan-lalu")
-      .then((response) => {
-        setLaporanBulanLalu(response.data.data);
-      })
-      .catch((error) =>
-        console.error("Error fetching laporan bulan Lalu:", error)
-      );
-    axios
-      .get("http://localhost:8000/api/laporan-tahunan")
-      .then((response) => {
-        setLaporanTahunan(response.data.data);
-      })
-      .catch((error) =>
-        console.error("Error fetching laporan bulanan:", error)
-      );
-
-    axios
-      .get("http://localhost:8000/api/laporan-tahun-ini")
-      .then((response) => {
-        setLaporanTahunIni(response.data.data);
-      })
-      .catch((error) =>
-        console.error("Error fetching laporan tahun ini:", error)
-      );
-
-    axios
-      .get("http://localhost:8000/api/laporan-tahun-lalu")
-      .then((response) => {
-        setLaporanTahunLalu(response.data.data);
-      })
-      .catch((error) =>
-        console.error("Error fetching laporan tahun lalu:", error)
-      );
-
-    axios
       .get("http://localhost:8000/api/settings")
       .then((response) => {
         setSetting(response.data.data);
@@ -301,17 +258,81 @@ function LaporanCard() {
       .catch((error) => console.error("Error fetching settings:", error));
   }, []);
 
-  const handleFilter = () => {
+  const handleCetak = () => {
     axios
       .get("http://localhost:8000/api/laporan-custom-range", {
         params: { start_date: startDate, end_date: endDate },
       })
       .then((response) => {
-        setLaporanBulanan(response.data.data);
+        const dataToPrint = response.data.data;
+
+        // Pastikan data API memiliki properti yang diharapkan
+        if (!dataToPrint) {
+          alert("Tidak ada data untuk tanggal yang dipilih.");
+          return;
+        }
+
+        // Membuka jendela cetak
+        const printWindow = window.open("", "_blank");
+        printWindow.document.write(`
+          <html>
+            <head>
+              <title>Laporan Custom Range</title>
+              <style>
+                body {
+                  font-family: Arial, sans-serif;
+                  margin: 20px;
+                }
+                table {
+                  width: 100%;
+                  border-collapse: collapse;
+                }
+                th, td {
+                  border: 1px solid #ddd;
+                  padding: 8px;
+                  text-align: left;
+                }
+                th {
+                  background-color: #f2f2f2;
+                }
+              </style>
+            </head>
+            <body>
+              <h1>Laporan Custom Range</h1>
+              <p>Periode: ${startDate} - ${endDate}</p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Keterangan</th>
+                    <th>Jumlah</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Pemasukan</td>
+                    <td>${dataToPrint.pemasukan}</td>
+                  </tr>
+                  <tr>
+                    <td>Pengeluaran</td>
+                    <td>${dataToPrint.pengeluaran}</td>
+                  </tr>
+                  <tr>
+                    <td>Hasil</td>
+                    <td>${dataToPrint.hasil}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </body>
+          </html>
+        `);
+
+        // Menutup dan mencetak
+        printWindow.document.close();
+        printWindow.print();
       })
       .catch((error) => {
         console.error("Error fetching laporan custom range:", error);
-        alert("Error fetching laporan custom range: " + error.message);
+        alert("Terjadi kesalahan saat mengambil data: " + error.message);
       });
   };
 
@@ -343,8 +364,8 @@ function LaporanCard() {
             onChange={(e) => setEndDate(e.target.value)}
           />
         </div>
-        <button className="filter-button" onClick={handleFilter}>
-          Filter
+        <button className="filter-button" onClick={handleCetak}>
+          Cetak
         </button>
       </div>
 
