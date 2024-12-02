@@ -18,6 +18,7 @@ import ActiveResident from "./pages/ActiveResidents";
 import PrintInvoicePage from "./pages/PrintInvoicePage";
 import EditResidentPage from "./pages/EditResidentPage";
 import User from "./pages/User";
+import Laporan from "./pages/Laporan";
 import Dashboard from "./pages/Dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -30,6 +31,8 @@ function App() {
     const token = localStorage.getItem("token");
     if (token) {
       setIsAuthenticated(true);
+    } else {
+      navigate('/login'); // Jika tidak ada token, arahkan ke halaman login
     }
   }, [navigate]);
 
@@ -89,6 +92,11 @@ function App() {
                 <li className="nav-item">
                   <Link className="nav-link" to="/expense">
                     Expense
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/laporan">
+                    Laporan
                   </Link>
                 </li>
 
@@ -157,6 +165,7 @@ function App() {
         {isAuthenticated && <Route path="/payment" element={<Payment />} />}
         {isAuthenticated && <Route path="/dashboard" element={<Dashboard />} />}
         {isAuthenticated && <Route path="/expense" element={<Expense />} />}
+        {isAuthenticated && <Route path="/laporan" element={<Laporan />} />}
         {isAuthenticated && <Route path="/resident" element={<Resident />} />}
         {isAuthenticated && <Route path="/add" element={<AddResidentPage />} />}
         {isAuthenticated && (
@@ -170,6 +179,8 @@ function App() {
           <Route path="/invoice/:id" element={<PrintInvoicePage />} />
         )}
         {isAuthenticated && <Route path="/user" element={<User />} />}
+        {isAuthenticated && <Route path="/invoice/:id" element={<PrintInvoicePage />} />}
+        
       </Routes>
     </div>
   );
