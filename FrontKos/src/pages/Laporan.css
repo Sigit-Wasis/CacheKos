@@ -15,6 +15,7 @@
     width: 100%;
     max-width: 1100px;
     margin-top: 30px;
+    padding-bottom: 10px;
   }
   
   .card-laporan-bulanan {
@@ -115,7 +116,7 @@
 .card-bulanan, .card-tahunan{
   width: 500px !important;
   border-radius: 0px!important;
-  padding: 0;
+  padding: 0 !important;
   padding-bottom: 30px;
 }
 .card-header{
@@ -208,4 +209,20 @@ span.label .label-pemasukan {
 }
 .card-bulanan, .card-tahunan{
   border: none !important;
+}
+
+.nav-tabs .nav-link.active{
+  color: blue;
+}
+
+.nav-tabs .nav-link{
+  color: rgb(0, 0, 0);
+}
+.list-group-flush>.list-group-item:last-child {
+  border-bottom-width: 0;
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+.nav-tabs{
+  gap: 0px;
 }

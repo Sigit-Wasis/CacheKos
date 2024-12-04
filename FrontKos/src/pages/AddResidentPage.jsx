@@ -170,7 +170,6 @@ const AddResidentPage = () => {
             <option value="4">Dokter</option>
             <option value="5">Perawat</option>
             <option value="6">Programmer</option>
-            <option value="7">Lainnya</option>
           </select>
         </div>
         <div className="form-group">
@@ -187,7 +186,7 @@ const AddResidentPage = () => {
         </div>
         <div className="form-group">
           <label>Keterangan</label>
-          <textarea name="keterangan" value={residentData.keterangan} onChange={handleInputChange} placeholder='Boleh diisi Boleh Kosongin Aja ' className="form-control"></textarea>
+          <textarea name="keterangan" value={residentData.keterangan} onChange={handleInputChange} placeholder='Wajib Di sisi ' className="form-control"></textarea>
         </div>
         <div className="form-group">
           <label>Status Sewa</label>

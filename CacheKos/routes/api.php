@@ -11,6 +11,7 @@ use App\Http\Controllers\API\DashboardController;
 use App\Http\Controllers\API\ExpenseController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\LaporanController;
+use App\Http\Controllers\API\InvoiceController;
 
 /*
 |---------------------------------------------------------------------------|
@@ -91,6 +92,8 @@ Route::prefix('payments')->group(function () {
 // Rute untuk ResidentController (jika diperlukan)
 Route::prefix('residents')->middleware('auth:sanctum')->group(function () {
     Route::get('/', [ResidentController::class, 'index']); // Mendapatkan semua resident
+    Route::get('/residents/non-active', [ResidentController::class, 'getNonActiveResidents']);
+    Route::get('/residents/active', [ResidentController::class, 'getActiveResidents']);
     Route::post('/', [ResidentController::class, 'store']); // Membuat resident baru
     Route::get('/{id}', [ResidentController::class, 'show']); // Mendapatkan resident berdasarkan ID
     Route::put('/{id}', [ResidentController::class, 'update']); // Memperbarui resident berdasarkan ID
@@ -136,3 +139,7 @@ Route::middleware('auth:api')->group(function () {
     // Delete expense by ID
     Route::delete('/expenses/{id}', [ExpenseController::class, 'delete']);
 });
+
+
+
+Route::get('/invoice/{id}', [InvoiceController::class, 'printInvoice']);

@@ -43,6 +43,7 @@ return [
     'api' => [
         'driver' => 'sanctum',  // or 'passport' if you're using Passport
         'provider' => 'users',
+        'hash' => false,
     ],
     ],
 

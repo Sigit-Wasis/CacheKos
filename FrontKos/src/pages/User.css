@@ -1,189 +1,100 @@
-/* User.css */
-.container {
+/* Container utama */
+.user-container {
+  padding: 20px;
   max-width: 1200px;
   margin: auto;
-  padding: 20px;
 }
 
-.header {
+/* Header */
+.user-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 20px;
 }
 
-.title {
-  font-size: 2.5rem;
-  color: #4a90e2;
-  font-weight: 700;
+.user-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
 }
 
-.add-user-btn {
-  background-color: #4a90e2;
+.user-add-user-btn {
+  background-color: #007bff;
   color: white;
-  border: none;
   padding: 10px 20px;
-  font-size: 1rem;
-  font-weight: 500;
-  border-radius: 8px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.add-user-btn:hover {
-  background-color: #357ab8;
-  transform: scale(1.05);
+.user-add-user-btn:hover {
+  background-color: #0056b3;
 }
 
-.add-user-btn:active {
-  background-color: #2b5f8d;
-  transform: scale(0.95);
-}
-
-.card {
-  border: 2px solid #4a90e2;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+/* Card pengguna */
+.user-card {
+  background-color: #fff;
+  border: 2px solid #007bff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  margin-bottom: 20px; /* Tambahkan jarak antar kartu */
+  padding: 10px; /* Memberi ruang pada isi kartu */
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  border-color: #357ab8;
+.user-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.card-title {
-  color: #4a90e2;
-  font-weight: 600;
-  font-size: 1.2rem;
+.user-card .card-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff;
   margin-bottom: 10px;
 }
 
-.card-text {
-  color: #555;
-  font-size: 0.9rem;
-}
-
-.card-footer {
-  background-color: #f1f7fd;
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  border-top: 1px solid #dceefc;
-}
-
-.card-footer .btn {
-  font-size: 0.9rem;
-  padding: 8px 12px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.card-footer .btn-warning {
-  background-color: #ffcc00;
-  color: white;
-  border: none;
-}
-
-.card-footer .btn-warning:hover {
-  background-color: #e6b800;
-  transform: scale(1.05);
-}
-
-.card-footer .btn-danger {
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
-}
-
-.card-footer .btn-danger:hover {
-  background-color: #e63939;
-  transform: scale(1.05);
-}
-
-/* Modal Styling */
-.modal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: fadeIn 0.3s ease;
-}
-
-.modal-content {
-  position: relative;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  background-color: #ffffff;
-  animation: slideIn 0.4s ease;
-  max-width: 500px;
-  width: 100%;
-}
-
-.modal-header {
-  background-color: #4a90e2;
-  color: white;
-  padding: 15px;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.modal-title {
-  font-weight: 600;
-  font-size: 1.5rem;
-}
-
-.close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  font-size: 1.2rem;
+.user-card .card-content {
+  font-size: 14px;
   color: #333;
-  opacity: 0.8;
-  cursor: pointer;
-  transition: opacity 0.3s ease;
+  margin-bottom: 15px;
 }
 
-.close:hover {
-  opacity: 1;
+/* Modal */
+.user-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-/* Animations */
-@keyframes fadeIn {
+.user-modal-content {
+  background: #fff;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  animation: modalShow 0.3s ease-out;
+  transform: translate(0, 0); /* Pastikan tidak ada translate di sini */
+}
+
+@keyframes modalShow {
   from {
+    transform: scale(0.9);
     opacity: 0;
-    transform: scale(0.95);
   }
   to {
-    opacity: 1;
     transform: scale(1);
-  }
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
     opacity: 1;
-    transform: translateY(0);
   }
-}
-
-.user-table td:first-child {
-  text-align: left; /* Aligns the first column to the right */
-  padding-right: 15px; /* Adds space between columns */
-  font-weight: bold; /* Optional: make the label bold */
-  color: rgb(98, 98, 98);
-}
-
-.user-table td:last-child {
-  text-align: right; /* Aligns the second column to the left */
-  font-weight: normal;
-  font-weight: bold; /* Makes the data normal weight */
 }
