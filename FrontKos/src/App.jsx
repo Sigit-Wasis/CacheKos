@@ -32,9 +32,18 @@ function App() {
     if (token) {
       setIsAuthenticated(true);
     } else {
-      navigate('/login'); // Jika tidak ada token, arahkan ke halaman login
+      setIsAuthenticated(false);
     }
   }, [navigate]);
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     setIsAuthenticated(true);
+  //   } else {
+  //     navigate('/login'); // Jika tidak ada token, arahkan ke halaman login
+  //   }
+  // }, [navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");

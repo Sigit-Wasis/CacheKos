@@ -208,9 +208,6 @@ class LaporanController extends Controller
     }
     
 
-
-
-
     // Metode untuk laporan dengan rentang tanggal khusus
     public function laporanCustomRange(Request $request)
     {
