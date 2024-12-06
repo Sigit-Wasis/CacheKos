@@ -233,57 +233,68 @@ const Room = () => {
       <button className="btn btn-primary mb-4" onClick={toggleModal}>Tambah Kamar</button>
       
       {isModalOpen && (
-        <div className="modal fade show d-block" tabIndex="-1" aria-hidden="true">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">{isEditMode ? "Edit Kamar" : "Tambah Kamar Baru"}</h5>
-                <button type="button" className="btn-close" onClick={toggleModal}></button>
-              </div>
-              <div className="modal-body">
-                <form onSubmit={handleSubmit}>
-                  {Object.keys(newRoom).map((field) => (
-                    <div className="mb-3" key={field}>
-                      <label htmlFor={field} className="form-label">{field.replace('_', ' ').toUpperCase()}</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name={field}
-                        value={newRoom[field]}
-                        onChange={handleChange}
-                        placeholder={`Masukkan ${field.replace('_', ' ')}`}
-                      />
-                    </div>
-                  ))}
-                  <button type="submit" className="btn btn-primary">Simpan</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+  <>
+    {/* Backdrop */}
+    <div className="modal-backdrop fade show" style={{ zIndex: 1040 }}></div>
 
-      {isDetailModalOpen && (
-        <div className="modal fade show d-block" tabIndex="-1" aria-hidden="true">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Detail Kamar</h5>
-                <button type="button" className="btn-close" onClick={toggleDetailModal}></button>
-              </div>
-              <div className="modal-body">
-                {detailRoom && (
-                  <>
-                    {Object.keys(detailRoom).map((field) => (
-                      <p key={field}><strong>{field.replace('_', ' ').toUpperCase()}:</strong> {detailRoom[field]}</p>
-                    ))}
-                  </>
-                )}
-              </div>
-            </div>
+    <div className="modal fade show d-block" tabIndex="-1" aria-hidden="true" style={{ zIndex: 1050 }}>
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">{isEditMode ? "Edit Kamar" : "Tambah Kamar Baru"}</h5>
+            <button type="button" className="btn-close" onClick={toggleModal}></button>
+          </div>
+          <div className="modal-body">
+            <form onSubmit={handleSubmit}>
+              {Object.keys(newRoom).map((field) => (
+                <div className="mb-3" key={field}>
+                  <label htmlFor={field} className="form-label">{field.replace('_', ' ').toUpperCase()}</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name={field}
+                    value={newRoom[field]}
+                    onChange={handleChange}
+                    placeholder={`Masukkan ${field.replace('_', ' ')}`}
+                  />
+                </div>
+              ))}
+              <button type="submit" className="btn btn-primary">Simpan</button>
+            </form>
           </div>
         </div>
-      )}
+      </div>
+    </div>
+  </>
+)}
+
+{isDetailModalOpen && (
+  <>
+    {/* Backdrop */}
+    <div className="modal-backdrop fade show" style={{ zIndex: 1040 }}></div>
+
+    <div className="modal fade show d-block" tabIndex="-1" aria-hidden="true" style={{ zIndex: 1050 }}>
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Detail Kamar</h5>
+            <button type="button" className="btn-close" onClick={toggleDetailModal}></button>
+          </div>
+          <div className="modal-body">
+            {detailRoom && (
+              <>
+                {Object.keys(detailRoom).map((field) => (
+                  <p key={field}><strong>{field.replace('_', ' ').toUpperCase()}:</strong> {detailRoom[field]}</p>
+                ))}
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </>
+)}
+
 
       <DataTable columns={columns} data={filteredRooms} pagination />
     </div>
