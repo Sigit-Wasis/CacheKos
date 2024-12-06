@@ -117,7 +117,7 @@ Route::prefix('settings')->group(function () {
 // Route untuk PaymentController
 Route::prefix('payments')->group(function () {
     Route::get('/', [PaymentController::class, 'index']);
-    Route::post('/', [PaymentController::class, 'store']);
+    Route::post('/', [PaymentController::class, 'create']);
     Route::get('/{id}', [PaymentController::class, 'show']);
     Route::put('/{id}', [PaymentController::class, 'update']);
     Route::delete('/{id}', [PaymentController::class, 'destroy']);

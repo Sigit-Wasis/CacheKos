@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
+    "content-hash": "5891ecee08748c4c234eefb0aa2b2b46",
+=======
     "content-hash": "1249c42bdac70aa452c08e6e8ce54411",
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -3685,6 +3689,8 @@
             "time": "2024-04-27T21:32:50+00:00"
         },
         {
+<<<<<<< HEAD
+=======
             "name": "sabberworm/php-css-parser",
             "version": "v8.7.0",
             "source": {
@@ -3750,6 +3756,7 @@
             "time": "2024-10-27T17:38:32+00:00"
         },
         {
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
             "name": "swagger-api/swagger-ui",
             "version": "v5.18.2",
             "source": {
@@ -8607,12 +8614,16 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2.0"
     },
+<<<<<<< HEAD
+    "platform-dev": [],
+=======
     "platform-dev": {},
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
     "plugin-api-version": "2.6.0"
 }

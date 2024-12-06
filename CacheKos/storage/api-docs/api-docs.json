@@ -2,6 +2,9 @@
     "openapi": "3.0.0",
     "info": {
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
         "title": "Dokumentasi API",
         "description": "Lorem Ipsum",
         "contact": {
@@ -20,6 +23,7 @@
         }
     ],
     "paths": {
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/kategori-berita": {
             "get": {
@@ -45,6 +49,98 @@
                                         }
                                     ]
 =======
+        "/api/payments": {
+            "get": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Get all payments",
+                "description": "Retrieve all payments data",
+                "operationId": "a67c4dcf277fa699515fd3b6d4835388",
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved all payments",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data payments berhasil diambil"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "invoice": {
+                                                        "type": "string"
+                                                    },
+                                                    "jumlah_bayar": {
+                                                        "type": "number",
+                                                        "format": "float"
+                                                    },
+                                                    "status": {
+                                                        "type": "string"
+                                                    },
+                                                    "tanggal": {
+                                                        "type": "string",
+                                                        "format": "date"
+                                                    },
+                                                    "id_resident": {
+                                                        "type": "integer"
+                                                    },
+                                                    "keterangan": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "kurang_bayar": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "nullable": true
+                                                    },
+                                                    "grand_total": {
+                                                        "type": "number",
+                                                        "format": "float"
+                                                    },
+                                                    "bukti_bayar": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "created_by": {
+                                                        "type": "integer"
+                                                    },
+                                                    "updated_by": {
+                                                        "type": "integer",
+                                                        "nullable": true
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Create a new payment",
+                "description": "Add a new payment record",
+                "operationId": "92ea432a93ffed2bbf16f721fdee61e0",
+>>>>>>> e799e4c2d9536a983c842831b57cea1ab2565b33
+=======
         "/api/login": {
             "post": {
                 "tags": [
@@ -53,11 +149,75 @@
                 "summary": "Login user",
                 "description": "Autentikasi pengguna menggunakan username dan password untuk mendapatkan token akses.",
                 "operationId": "222b2625838e3c57e017987f73598fda",
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
+<<<<<<< HEAD
+                                "required": [
+                                    "invoice",
+                                    "jumlah_bayar",
+                                    "status",
+                                    "tanggal",
+                                    "id_resident",
+                                    "grand_total",
+                                    "created_by"
+                                ],
+                                "properties": {
+                                    "invoice": {
+                                        "type": "string",
+                                        "example": "INV001"
+                                    },
+                                    "jumlah_bayar": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 100000
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "Paid"
+                                    },
+                                    "tanggal": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-12-06"
+                                    },
+                                    "id_resident": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "keterangan": {
+                                        "type": "string",
+                                        "example": "Payment for services",
+                                        "nullable": true
+                                    },
+                                    "kurang_bayar": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 0,
+                                        "nullable": true
+                                    },
+                                    "grand_total": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 100000
+                                    },
+                                    "bukti_bayar": {
+                                        "type": "string",
+                                        "example": "file_url",
+                                        "nullable": true
+                                    },
+                                    "created_by": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "updated_by": {
+                                        "type": "integer",
+                                        "example": null,
+                                        "nullable": true
+=======
                                 "properties": {
                                     "username": {
                                         "description": "Username pengguna",
@@ -68,6 +228,7 @@
                                         "description": "Password pengguna",
                                         "type": "string",
                                         "example": "password123"
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
                                     }
                                 },
                                 "type": "object"
@@ -76,14 +237,28 @@
                     }
                 },
                 "responses": {
+<<<<<<< HEAD
+                    "201": {
+                        "description": "Payment successfully created",
+=======
                     "200": {
                         "description": "Login berhasil",
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
                                             "type": "string",
+<<<<<<< HEAD
+                                            "example": "Data payments berhasil ditambahkan"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "data": {
+=======
                                             "example": "Login berhasil"
                                         },
                                         "data": {
@@ -120,6 +295,7 @@
                                                     "example": "Bearer"
                                                 }
                                             },
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
                                             "type": "object"
                                         }
                                     },
@@ -127,6 +303,8 @@
                                 }
                             }
                         }
+<<<<<<< HEAD
+=======
                     },
                     "400": {
                         "description": "Validasi gagal",
@@ -186,10 +364,12 @@
                                 }
                             }
                         }
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
                     }
                 }
             }
         },
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/api/residents": {
             "get": {
@@ -237,12 +417,34 @@
                         "schema": {
                             "type": "string",
                             "default": "asc"
+=======
+        "/api/payments/{id}": {
+            "get": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Get payment by ID",
+                "description": "Retrieve a specific payment by its ID",
+                "operationId": "055c1b4080a8c5b59d53aa69a505abf5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Payment ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+>>>>>>> e799e4c2d9536a983c842831b57cea1ab2565b33
                         }
                     }
                 ],
                 "responses": {
                     "200": {
+<<<<<<< HEAD
                         "description": "Residents retrieved successfully",
+=======
+                        "description": "Successfully retrieved payment",
+>>>>>>> e799e4c2d9536a983c842831b57cea1ab2565b33
 =======
         "/api/rooms": {
             "get": {
@@ -819,13 +1021,22 @@
                         "description": "Validation error",
 =======
                         "description": "Bad request",
+<<<<<<< HEAD
 >>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
+=======
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
+>>>>>>> e799e4c2d9536a983c842831b57cea1ab2565b33
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
                                             "type": "string",
+<<<<<<< HEAD
+                                            "example": "Data payment berhasil dimuat."
+                                        },
+                                        "data": {
+=======
                                             "example": "Validation error"
                                         },
                                         "errors": {
@@ -1060,6 +1271,7 @@
 >>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                                                 }
                                             },
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
                                             "type": "object"
                                         }
                                     },
@@ -1073,8 +1285,15 @@
                         "description": "Invalid request",
 =======
                     "404": {
+<<<<<<< HEAD
+                        "description": "Payment not found",
+=======
                         "description": "Room not found",
+<<<<<<< HEAD
 >>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
+=======
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
+>>>>>>> e799e4c2d9536a983c842831b57cea1ab2565b33
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1082,11 +1301,15 @@
                                         "message": {
                                             "type": "string",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             "example": "Invalid request"
                                         },
                                         "code": {
                                             "type": "integer",
                                             "example": 400
+=======
+                                            "example": "Data payment tidak ditemukan."
+>>>>>>> e799e4c2d9536a983c842831b57cea1ab2565b33
 =======
                                             "example": "Data kamar tidak ditemukan."
 >>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
@@ -1112,6 +1335,7 @@
                                         "error": {
                                             "type": "string",
                                             "example": "Error message"
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
                                         }
                                     },
                                     "type": "object"
@@ -1123,6 +1347,13 @@
             },
             "put": {
                 "tags": [
+<<<<<<< HEAD
+                    "Payments"
+                ],
+                "summary": "Update an existing payment",
+                "description": "Update a payment record by ID",
+                "operationId": "256d3cd03413b7fd8f82cf4491f08847",
+=======
                     "Rooms"
                 ],
                 "summary": "Mengupdate data kamar",
@@ -1402,11 +1633,16 @@
 >>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
 =======
 >>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
+<<<<<<< HEAD
 >>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
+=======
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
+>>>>>>> e799e4c2d9536a983c842831b57cea1ab2565b33
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                         "description": "ID of the resident to update",
@@ -1415,11 +1651,17 @@
                             "type": "integer",
                             "example": 1
 =======
+=======
+                        "description": "Payment ID",
+=======
+<<<<<<< HEAD
+>>>>>>> e799e4c2d9536a983c842831b57cea1ab2565b33
                         "description": "ID kamar yang ingin diupdate",
 >>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
 =======
                         "description": "ID room setting",
 >>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -1434,6 +1676,7 @@
                             "schema": {
 <<<<<<< HEAD
                                 "required": [
+<<<<<<< HEAD
                                     "jenis_sewa_kamar",
                                     "id_kamar",
                                     "nama_penghuni",
@@ -1494,6 +1737,57 @@
                                     "keterangan": {
                                         "type": "string",
                                         "example": "Special conditions apply",
+=======
+                                    "invoice",
+                                    "jumlah_bayar",
+                                    "status",
+                                    "tanggal",
+                                    "kurang_bayar",
+                                    "grand_total"
+                                ],
+                                "properties": {
+                                    "invoice": {
+                                        "type": "string",
+                                        "example": "INV001"
+                                    },
+                                    "jumlah_bayar": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 100000
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "Paid"
+                                    },
+                                    "tanggal": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-12-06"
+                                    },
+                                    "keterangan": {
+                                        "type": "string",
+                                        "example": "Payment for services",
+                                        "nullable": true
+                                    },
+                                    "kurang_bayar": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 0
+                                    },
+                                    "grand_total": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 100000
+                                    },
+                                    "bukti_bayar": {
+                                        "type": "string",
+                                        "example": "file_url",
+                                        "nullable": true
+                                    },
+                                    "updated_by": {
+                                        "type": "integer",
+                                        "example": 1,
+>>>>>>> e799e4c2d9536a983c842831b57cea1ab2565b33
                                         "nullable": true
 =======
                                 "properties": {
@@ -1564,7 +1858,11 @@
 >>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
 =======
 >>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
+<<<<<<< HEAD
 >>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
+=======
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
+>>>>>>> e799e4c2d9536a983c842831b57cea1ab2565b33
                                     }
                                 },
                                 "type": "object"
@@ -1576,37 +1874,87 @@
                     "200": {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                         "description": "Resident updated successfully",
 =======
                         "description": "Data room setting berhasil diubah",
 >>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
 =======
+=======
+                        "description": "Payment successfully updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Payment updated successfully"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+=======
+<<<<<<< HEAD
+>>>>>>> e799e4c2d9536a983c842831b57cea1ab2565b33
                         "description": "Data kamar berhasil diperbarui",
                         "content": {
                             "application/json": {
                                 "schema": {}
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
                             }
                         }
                     },
                     "404": {
+<<<<<<< HEAD
+                        "description": "Payment not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Payment not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+=======
                         "description": "Kamar tidak ditemukan"
                     },
                     "500": {
                         "description": "Kesalahan server"
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
                     }
                 }
             },
             "delete": {
                 "tags": [
+<<<<<<< HEAD
+                    "Payments"
+                ],
+                "summary": "Delete a payment",
+                "description": "Delete a payment record by ID",
+                "operationId": "fd511b89a9c38f94cb4d1e5a35fe9f40",
+=======
                     "Rooms"
                 ],
                 "summary": "Menghapus kamar berdasarkan ID",
                 "operationId": "9f216809b68e2ce14c857a26768e9228",
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
+<<<<<<< HEAD
+                        "description": "Payment ID",
+=======
                         "description": "ID kamar yang ingin dihapus",
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -1615,11 +1963,18 @@
                 ],
                 "responses": {
                     "200": {
+<<<<<<< HEAD
+                        "description": "Successfully deleted payment",
+=======
                         "description": "Kamar berhasil dihapus",
 =======
                         "description": "Data room setting berhasil diubah",
 >>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
+<<<<<<< HEAD
 >>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
+=======
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
+>>>>>>> e799e4c2d9536a983c842831b57cea1ab2565b33
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1628,11 +1983,16 @@
                                         "message": {
                                             "type": "string",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             "example": "Resident updated successfully"
+=======
+                                            "example": "Data payments berhasil dihapus"
+>>>>>>> e799e4c2d9536a983c842831b57cea1ab2565b33
                                         },
                                         "code": {
                                             "type": "integer",
                                             "example": 200
+<<<<<<< HEAD
                                         },
                                         "data": {
                                             "properties": {
@@ -1732,6 +2092,12 @@
                                         },
                                         "errors": {
 =======
+=======
+=======
+<<<<<<< HEAD
+                                        "message": {
+                                            "type": "string",
+>>>>>>> e799e4c2d9536a983c842831b57cea1ab2565b33
                                             "example": "Kamar berhasil dihapus."
 >>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
 =======
@@ -1747,12 +2113,18 @@
 >>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
                                             "type": "object"
 >>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
                                         }
                                     },
                                     "type": "object"
                                 }
                             }
                         }
+<<<<<<< HEAD
+                    },
+                    "404": {
+                        "description": "Payment not found",
+=======
 <<<<<<< HEAD
                     },
                     "404": {
@@ -1803,7 +2175,11 @@
                         "description": "Resident deleted successfully",
 =======
                         "description": "Data room setting berhasil dihapus",
+<<<<<<< HEAD
 >>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+=======
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
+>>>>>>> e799e4c2d9536a983c842831b57cea1ab2565b33
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1811,6 +2187,7 @@
 <<<<<<< HEAD
                                         "message": {
                                             "type": "string",
+<<<<<<< HEAD
                                             "example": "Resident deleted successfully"
                                         }
                                     },
@@ -1829,6 +2206,9 @@
                                             "type": "string",
                                             "example": "Resident not found"
 =======
+                                            "example": "Pembayaran tidak ditemukan."
+>>>>>>> e799e4c2d9536a983c842831b57cea1ab2565b33
+=======
                                         "success": {
                                             "type": "boolean",
                                             "example": true
@@ -1839,7 +2219,11 @@
                                         },
                                         "data": {
                                             "type": "object"
+<<<<<<< HEAD
 >>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+=======
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
+>>>>>>> e799e4c2d9536a983c842831b57cea1ab2565b33
                                         }
                                     },
                                     "type": "object"
@@ -1855,6 +2239,7 @@
         {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             "name": "Berita",
             "description": "Berita"
         },
@@ -1862,6 +2247,14 @@
             "name": "Residents",
             "description": "Residents"
 =======
+=======
+            "name": "Payments",
+            "description": "Payments"
+        }
+    ]
+=======
+<<<<<<< HEAD
+>>>>>>> e799e4c2d9536a983c842831b57cea1ab2565b33
             "name": "Authentication",
             "description": "Authentication"
         },
@@ -1888,4 +2281,5 @@
         }
     ]
 >>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
 }
