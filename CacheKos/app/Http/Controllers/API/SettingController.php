@@ -6,29 +6,52 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @OA\Info(
+ *     title="API Documentation",
+ *     version="1.0.0",
+ *     description="API untuk mengelola room settings",
+ * )
+ */
 class SettingController extends Controller
 {
-    // Mendapatkan semua data room settings
+    /**
+     * @OA\Get(
+     *     path="/api/setting",
+     *     summary="Mendapatkan semua data room settings",
+     *     tags={"Settings"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Berhasil mengambil data room settings",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=true),
+     *             @OA\Property(property="message", type="string", example="Berhasil mengambil data room settings"),
+     *             @OA\Property(property="data", type="array", 
+     *                 @OA\Items(
+     *                     @OA\Property(property="nama_kost", type="string"),
+     *                     @OA\Property(property="alamat", type="string"),
+     *                     @OA\Property(property="telepon", type="string"),
+     *                     @OA\Property(property="email", type="string"),
+     *                     @OA\Property(property="deskripsi", type="string"),
+     *                     @OA\Property(property="logo", type="string"),
+     *                     @OA\Property(property="tenggang_waktu", type="integer"),
+     *                     @OA\Property(property="biaya_terlambat", type="number"),
+     *                     @OA\Property(property="facebook", type="string"),
+     *                     @OA\Property(property="instagram", type="string"),
+     *                     @OA\Property(property="tiktok", type="string")
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
     public function index()
     {
-        // Mengambil semua data dari tabel room_settings
         $room_settings = DB::table('room_settings')->select(
-
-            'nama_kost',
-            'alamat',
-            'telepon',
-            'email',
-            'deskripsi',
-            'logo',
-            'tenggang_waktu',
-            'biaya_terlambat',
-            'facebook',
-            'instagram',
-            'tiktok'
-
+            'nama_kost', 'alamat', 'telepon', 'email', 'deskripsi', 'logo', 
+            'tenggang_waktu', 'biaya_terlambat', 'facebook', 'instagram', 'tiktok'
         )->get();
 
-        // Menampilkan data 
         return response()->json([
             'success' => true,
             'message' => 'Berhasil mengambil data room settings',
@@ -36,11 +59,42 @@ class SettingController extends Controller
         ], 200);
     }
 
-
-    // Menambahkan data room setting baru
+    /**
+     * @OA\Post(
+     *     path="/api/setting",
+     *     summary="Menambahkan data room setting baru",
+     *     tags={"Settings"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"nama_kost", "alamat", "telepon", "email", "tenggang_waktu", "biaya_terlambat"},
+     *             @OA\Property(property="nama_kost", type="string"),
+     *             @OA\Property(property="alamat", type="string"),
+     *             @OA\Property(property="telepon", type="string"),
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="deskripsi", type="string"),
+     *             @OA\Property(property="logo", type="string"),
+     *             @OA\Property(property="tenggang_waktu", type="integer"),
+     *             @OA\Property(property="biaya_terlambat", type="number"),
+     *             @OA\Property(property="facebook", type="string"),
+     *             @OA\Property(property="instagram", type="string"),
+     *             @OA\Property(property="tiktok", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Data room setting berhasil ditambahkan",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=true),
+     *             @OA\Property(property="message", type="string", example="Data room setting berhasil ditambahkan"),
+     *             @OA\Property(property="data", type="object")
+     *         )
+     *     )
+     * )
+     */
     public function store(Request $request)
     {
-        // Validasi data yang dikirimkan
+        // Validasi data
         $validatedData = $request->validate([
             'nama_kost' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
@@ -55,21 +109,60 @@ class SettingController extends Controller
             'tiktok' => 'nullable|url|max:255',
         ]);
 
-        // Menyimpan data baru ke dalam tabel room_settings
-        $newSetting = DB::table('room_settings')->insertGetId($validatedData); // Menggunakan insertGetId() untuk mendapatkan ID baru yang telah disimpan.get($validatedData);
+        $newSetting = DB::table('room_settings')->insertGetId($validatedData);
 
-        // Mengembalikan response sukses
         return response()->json([
             'success' => true,
             'message' => 'Data room setting berhasil ditambahkan',
             'data' => $validatedData
         ], 201);
+        
     }
 
-    //function edit 
+
+    //swagger edit
+    /**
+     * @OA\Put(
+     *     path="/api/setting/{id}",
+     *     summary="Mengubah data room setting",
+     *     tags={"Settings"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID room setting",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="nama_kost", type="string"),
+     *             @OA\Property(property="alamat", type="string"),
+     *             @OA\Property(property="telepon", type="string"),
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="deskripsi", type="string"),
+     *             @OA\Property(property="logo", type="string"),
+     *             @OA\Property(property="tenggang_waktu", type="integer"),
+     *             @OA\Property(property="biaya_terlambat", type="number"),
+     *             @OA\Property(property="facebook", type="string"),
+     *             @OA\Property(property="instagram", type="string"),
+     *             @OA\Property(property="tiktok", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Data room setting berhasil diubah",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=true),
+     *             @OA\Property(property="message", type="string", example="Data room setting berhasil diubah"),
+     *             @OA\Property(property="data", type="object")
+     *         )
+     *     )
+     * )
+     */
     public function edit(Request $request, $id)
     {
-        // Validasi data yang dikirimkan
+        // Validasi data
         $validatedData = $request->validate([
             'nama_kost' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
@@ -84,37 +177,17 @@ class SettingController extends Controller
             'tiktok' => 'nullable|url|max:255',
         ]);
 
-        // Mengambil data room setting berdasarkan ID
-        $roomSetting = DB::table('room_settings')->where('id', $id)->first();
+        $updatedSetting = DB::table('room_settings')        
+        ->where('id', $id)
+        ->update($validatedData);
 
-        if (!$roomSetting) {
-            return response()->json([
-                'message' => 'Data room setting tidak ditemukan.',
-            ], 404);
-        }
-
-        // Mengupdate data room setting
-        DB::table('room_settings')->where('id', $id)->update($validatedData);
-
-        // Mengembalikan response sukses
         return response()->json([
             'success' => true,
-            'message' => 'Data room setting berhasil diperbarui.',
+            'message' => 'Data room setting berhasil diubah',
             'data' => $validatedData
         ], 200);
     }
-
-    //function delete
-    public function delete($id)
-    {
-        // Menghapus data room setting berdasarkan ID
-        DB::table('room_settings')->where('id', $id)->delete();
-
-        // Mengembalikan response sukses
-        return response()->json([
-            'success' => true,
-            'message' => 'Data room setting berhasil dihapus.',
-        ], 200);
-    }
-   
+     
+     
+    // Anda dapat menambahkan anotasi Swagger untuk edit dan delete sesuai dengan cara di atas
 }

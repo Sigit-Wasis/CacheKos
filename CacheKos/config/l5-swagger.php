@@ -208,14 +208,21 @@ return [
                         ],
                     ],
                 ],
+<<<<<<< HEAD
                  */
+=======
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                 'sanctum' => [ // Unique name of security
                     'type' => 'apiKey', // Valid values are "basic", "apiKey" or "oauth2".
                     'description' => 'Enter token in format (Bearer <token>)',
                     'name' => 'Authorization', // The name of the header or query parameter to be used.
                     'in' => 'header', // The location of the API key. Valid values are "query" or "header".
                 ],
+<<<<<<< HEAD
                
+=======
+                */
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
             ],
             'security' => [
                 /*
@@ -313,9 +320,14 @@ return [
          * Constants which can be used in annotations
          */
         'constants' => [
+<<<<<<< HEAD
             'L5_SWAGGER_CONST_HOST' =>
             env('L5_SWAGGER_CONST_HOST', 'http://localhost:8000'),
         ],
     
+=======
+            'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST', 'http://my-default-host.com'),
+        ],
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
     ],
 ];

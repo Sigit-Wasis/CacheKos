@@ -1,6 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
+<<<<<<< HEAD
         "title": "Dokumentasi API",
         "description": "Lorem Ipsum",
         "contact": {
@@ -174,18 +175,46 @@
                 "responses": {
                     "200": {
                         "description": "Data rooms berhasil dimuat.",
+=======
+        "title": "API Documentation",
+        "description": "API untuk mengelola room settings",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/setting": {
+            "get": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Mendapatkan semua data room settings",
+                "operationId": "157b012c813096f67d7d4785c04164d5",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil mengambil data room settings",
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
+<<<<<<< HEAD
                                         "message": {
                                             "type": "string",
                                             "example": "Data rooms berhasil dimuat."
+=======
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Berhasil mengambil data room settings"
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                                         },
                                         "data": {
                                             "type": "array",
                                             "items": {
                                                 "properties": {
+<<<<<<< HEAD
                                                     "id": {
                                                         "type": "integer"
                                                     },
@@ -205,6 +234,40 @@
                                                     "updated_at": {
                                                         "type": "string",
                                                         "format": "date-time"
+=======
+                                                    "nama_kost": {
+                                                        "type": "string"
+                                                    },
+                                                    "alamat": {
+                                                        "type": "string"
+                                                    },
+                                                    "telepon": {
+                                                        "type": "string"
+                                                    },
+                                                    "email": {
+                                                        "type": "string"
+                                                    },
+                                                    "deskripsi": {
+                                                        "type": "string"
+                                                    },
+                                                    "logo": {
+                                                        "type": "string"
+                                                    },
+                                                    "tenggang_waktu": {
+                                                        "type": "integer"
+                                                    },
+                                                    "biaya_terlambat": {
+                                                        "type": "number"
+                                                    },
+                                                    "facebook": {
+                                                        "type": "string"
+                                                    },
+                                                    "instagram": {
+                                                        "type": "string"
+                                                    },
+                                                    "tiktok": {
+                                                        "type": "string"
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                                                     }
                                                 },
                                                 "type": "object"
@@ -215,17 +278,21 @@
                                 }
                             }
                         }
+<<<<<<< HEAD
                     },
                     "400": {
                         "description": "Bad request"
                     },
                     "404": {
                         "description": "Not found"
+=======
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                     }
                 }
             },
             "post": {
                 "tags": [
+<<<<<<< HEAD
                     "Rooms"
                 ],
                 "summary": "Create a new room",
@@ -233,11 +300,19 @@
                 "operationId": "createRoom",
                 "requestBody": {
                     "description": "Room data to create a new room",
+=======
+                    "Settings"
+                ],
+                "summary": "Menambahkan data room setting baru",
+                "operationId": "b212ad9c34d8071ccdf5ab4440e0d769",
+                "requestBody": {
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "required": [
+<<<<<<< HEAD
                                     "nama_kamar",
                                     "nomor_kamar",
                                     "harga_per_bulan",
@@ -285,6 +360,48 @@
                                     "catatan_kamar": {
                                         "type": "string",
                                         "example": "Kamar bersih dan nyaman"
+=======
+                                    "nama_kost",
+                                    "alamat",
+                                    "telepon",
+                                    "email",
+                                    "tenggang_waktu",
+                                    "biaya_terlambat"
+                                ],
+                                "properties": {
+                                    "nama_kost": {
+                                        "type": "string"
+                                    },
+                                    "alamat": {
+                                        "type": "string"
+                                    },
+                                    "telepon": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "deskripsi": {
+                                        "type": "string"
+                                    },
+                                    "logo": {
+                                        "type": "string"
+                                    },
+                                    "tenggang_waktu": {
+                                        "type": "integer"
+                                    },
+                                    "biaya_terlambat": {
+                                        "type": "number"
+                                    },
+                                    "facebook": {
+                                        "type": "string"
+                                    },
+                                    "instagram": {
+                                        "type": "string"
+                                    },
+                                    "tiktok": {
+                                        "type": "string"
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                                     }
                                 },
                                 "type": "object"
@@ -294,11 +411,16 @@
                 },
                 "responses": {
                     "201": {
+<<<<<<< HEAD
                         "description": "Room created successfully",
+=======
+                        "description": "Data room setting berhasil ditambahkan",
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
+<<<<<<< HEAD
                                         "message": {
                                             "type": "string",
                                             "example": "Data kamar berhasil ditambahkan."
@@ -358,6 +480,17 @@
                                                     "example": 1
                                                 }
                                             },
+=======
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data room setting berhasil ditambahkan"
+                                        },
+                                        "data": {
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                                             "type": "object"
                                         }
                                     },
@@ -365,6 +498,7 @@
                                 }
                             }
                         }
+<<<<<<< HEAD
                     },
                     "400": {
                         "description": "Bad request",
@@ -551,11 +685,28 @@
                 ],
                 "summary": "Mengupdate data kamar",
                 "operationId": "ecfbab1bf15cf26481362b8f8846a1e8",
+=======
+                    }
+                }
+            }
+        },
+        "/api/setting/{id}": {
+            "put": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Mengubah data room setting",
+                "operationId": "d928ba08c05e0e8211150139f44cdc42",
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
+<<<<<<< HEAD
                         "description": "ID kamar yang ingin diupdate",
+=======
+                        "description": "ID room setting",
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -568,6 +719,7 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
+<<<<<<< HEAD
                                     "nama_kamar": {
                                         "type": "string",
                                         "nullable": true
@@ -597,6 +749,40 @@
                                     "catatan_kamar": {
                                         "type": "string",
                                         "nullable": true
+=======
+                                    "nama_kost": {
+                                        "type": "string"
+                                    },
+                                    "alamat": {
+                                        "type": "string"
+                                    },
+                                    "telepon": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "deskripsi": {
+                                        "type": "string"
+                                    },
+                                    "logo": {
+                                        "type": "string"
+                                    },
+                                    "tenggang_waktu": {
+                                        "type": "integer"
+                                    },
+                                    "biaya_terlambat": {
+                                        "type": "number"
+                                    },
+                                    "facebook": {
+                                        "type": "string"
+                                    },
+                                    "instagram": {
+                                        "type": "string"
+                                    },
+                                    "tiktok": {
+                                        "type": "string"
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                                     }
                                 },
                                 "type": "object"
@@ -606,6 +792,7 @@
                 },
                 "responses": {
                     "200": {
+<<<<<<< HEAD
                         "description": "Data kamar berhasil diperbarui",
                         "content": {
                             "application/json": {
@@ -641,25 +828,44 @@
                 "responses": {
                     "200": {
                         "description": "Kamar berhasil dihapus",
+=======
+                        "description": "Data room setting berhasil diubah",
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
+<<<<<<< HEAD
                                         "message": {
                                             "type": "string",
                                             "example": "Kamar berhasil dihapus."
+=======
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data room setting berhasil diubah"
+                                        },
+                                        "data": {
+                                            "type": "object"
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                                         }
                                     },
                                     "type": "object"
                                 }
                             }
                         }
+<<<<<<< HEAD
                     },
                     "404": {
                         "description": "Kamar tidak ditemukan"
                     },
                     "500": {
                         "description": "Kesalahan server"
+=======
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                     }
                 }
             }
@@ -667,6 +873,7 @@
     },
     "tags": [
         {
+<<<<<<< HEAD
             "name": "Authentication",
             "description": "Authentication"
         },
@@ -685,4 +892,10 @@
             }
         }
     }
+=======
+            "name": "Settings",
+            "description": "Settings"
+        }
+    ]
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
 }
