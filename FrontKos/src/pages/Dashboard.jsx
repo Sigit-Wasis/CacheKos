@@ -127,10 +127,10 @@ const Dashboard = () => {
                 </div>
                 <i className="icon income-icon"></i>
             </div>
-            <div className="card red">
+            <div className="card red"onClick={() => navigate('/expense')}>
                 <div className="card-content">
                     <h3>Pengeluaran</h3>
-                    <p>Rp. -</p>
+                    <p>Rp.-</p>
                     <span>{todayDate}</span>
                 </div>
                 <i className="icon expense-icon"></i>

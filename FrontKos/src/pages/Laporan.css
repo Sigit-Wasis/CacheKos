@@ -1,0 +1,228 @@
+.laporan-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    flex-direction: column;
+  }
+  .judul-laporan{
+    margin-bottom: 5rem;
+  }
+  .card-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    max-width: 1100px;
+    margin-top: 30px;
+    padding-bottom: 10px;
+  }
+  
+  .card-laporan-bulanan {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 48%; /* Setengah dari lebar kontainer untuk tiap card */
+  }
+  
+  .card-laporan-bulanan h3 {
+    text-align: center;
+  }
+  
+ 
+  
+  .print-button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Styling khusus untuk media cetak */
+  @media print {
+    .print-button {
+      display: none;
+    }
+  }
+  .download-button {
+    background-color: #4CAF50; /* Warna hijau untuk tombol download */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .download-button:hover {
+    background-color: #45a049;
+  }
+  /* Laporan.css */
+.print-only {
+  display: none;
+}
+
+@media print {
+  .print-only {
+    display: block;
+  }
+  .screen-only {
+    display: none;
+  }
+}
+.filter-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px; /* Memberikan jarak antar elemen */
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  margin-bottom: 3rem;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Memberikan jarak antara label dan input */
+}
+
+.filter-item label {
+  font-size: 14px;
+  color: #333;
+}
+
+.filter-item input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.filter-button {
+  padding: 10px 20px;
+  background-color: #2d63ba;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.filter-button:hover {
+  background-color: #1e4a9f;
+}
+.card-bulanan, .card-tahunan{
+  width: 500px !important;
+  border-radius: 0px!important;
+  padding: 0 !important;
+  padding-bottom: 30px;
+}
+.card-header{
+  color: rgb(255, 255, 255);
+  background-color: #042b55;
+}
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label {
+  flex-grow: 1;
+}
+
+
+.cetak {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #042b55; /* Warna latar belakang biru */
+  color: white; /* Warna teks putih */
+  font-size: 16px;
+  border: none;
+  border-radius: 5px; /* Membuat sudut tombol melengkung */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Efek transisi saat hover */
+  text-decoration: none; /* Menghapus garis bawah */
+}
+
+.cetak:hover {
+  background-color: #378ce7; /* Warna latar belakang saat hover */
+}
+
+.cetak i {
+  margin-right: 8px; /* Jarak antara ikon dan teks */
+}
+.label .label-pemasukan{
+  color: #45a049;
+}
+/* Menambahkan warna hijau pada label Pemasukan */
+span.label .label-pemasukan {
+  color: green; /* Atur warna hijau untuk label Pemasukan */
+}
+
+/* Menambahkan warna hijau pada amount Pemasukan */
+.amount-pemasukan {
+  color: rgb(255, 255, 255); /* Atur warna hijau untuk jumlah Pemasukan */
+  background-color: #45a049;
+  padding: 8px;
+  border-radius: 20px;
+}
+.amount-pengeluaran {
+  color: rgb(255, 255, 255); /* Atur warna hijau untuk jumlah Pemasukan */
+  background-color: #bb0b0b;
+  padding: 8px;
+  border-radius: 20px;
+}
+.amount-hasil {
+  color: rgb(255, 255, 255); /* Atur warna hijau untuk jumlah Pemasukan */
+  background-color: #1d84d8;
+  padding: 8px;
+  border-radius: 20px;
+}
+.nav-tabs {
+  display: flex; /* Membuat elemen menjadi flex container */
+  justify-content: flex-start; /* Menempatkan tab ke kiri */
+  padding: 0; /* Menghilangkan padding yang tidak diinginkan */
+}
+
+.nav-item {
+  margin-right: 20px; /* Jarak antar item tab jika diperlukan */
+}
+.nav-tabs {
+  display: flex;
+  justify-content: flex-start; /* Menempatkan tab di kiri */
+  align-items: center; /* Menjaga elemen tetap ter-align vertikal */
+  padding: 0;
+  width: 100%; /* Membuat ul mengisi lebar penuh kontainer */
+  /* margin-left: 250px; */
+}
+.tab-wrapper {
+  background-color: #f7f5f5; /* Warna latar belakang */
+  padding: 20px; /* Padding di dalam pembungkus */
+  border-radius: 10px; /* Sudut melengkung */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Bayangan */
+  max-width: 1200px; /* Lebar maksimal */
+  margin: 20px auto; /* Tengah vertikal dan horizontal */
+}
+.card-bulanan, .card-tahunan{
+  border: none !important;
+}
+
+.nav-tabs .nav-link.active{
+  color: blue;
+}
+
+.nav-tabs .nav-link{
+  color: rgb(0, 0, 0);
+}
+.list-group-flush>.list-group-item:last-child {
+  border-bottom-width: 0;
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+.nav-tabs{
+  gap: 0px;
+}

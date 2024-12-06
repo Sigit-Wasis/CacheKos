@@ -58,7 +58,7 @@ const ResidentPage = () => {
 
   const handleDelete = async (id) => {
     const token = localStorage.getItem('token');
-    
+    const apiUrl = import.meta.env.VITE_API_URL;
     const confirmDelete = window.confirm("Are you sure you want to delete this resident?");
     
     if (!confirmDelete) {
@@ -66,7 +66,7 @@ const ResidentPage = () => {
     }
   
     try {
-      await axios.delete(apiUrl+`/api/residents/${id}`, {
+      await axios.delete(`${apiUrl}/api/residents/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -113,13 +113,13 @@ const ResidentPage = () => {
 
   return (
     <div className="container mt-5">
-      <h1 className="mb-4">Residents</h1>
-      <Link to="/add" className="btn btn-primary mb-4">Add New Resident</Link>
+      <h1 className="mb-4">Penghuni</h1>
+      <Link to="/add" className="btn btn-primary mb-4">Tambah Penghuni</Link>
       <div className="mb-2">
         <input 
           type="text"
           className="form-control"
-          placeholder="Search residents by name"
+          placeholder="Cari Penghuni"
           value={searchText}
           onChange={handleSearchChange}
         />
@@ -168,7 +168,7 @@ const ResidentPage = () => {
                     </tr>
                     <tr>
                       <td>Pekerjaan</td>
-                      <td><strong>{["Mahasiswa", "Guru", "Dokter", "Karyawan", "Wiraswasta", "PNS", "Programmer"][resident.pekerjaan - 1] || "Lainnya"}</strong></td>
+                      <td><strong>{["Mahasiswa", "Guru", "Polisi", "Dokter", "Perawat", "Programmer"][resident.pekerjaan - 1] || "Lainnya"}</strong></td>
                     </tr>
                     <tr>
                       <td>Jumlah Penghuni</td>
@@ -216,11 +216,11 @@ const ResidentPage = () => {
             </div>
           ))
         ) : (
-          <p className="text-center">No residents found</p>
+          <p className="text-center">Penghuni Tidak ditemukan</p>
         )}
       </div>
     </div>
   );
-};
+}
 
 export default ResidentPage;

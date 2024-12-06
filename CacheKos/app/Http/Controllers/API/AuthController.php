@@ -10,7 +10,69 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
-{
+{/**
+ * @OA\Post(
+ *     path="/api/login",
+ *     summary="Login user",
+ *     description="Autentikasi pengguna menggunakan username dan password untuk mendapatkan token akses.",
+ *     tags={"Authentication"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="username", type="string", description="Username pengguna", example="user123"),
+ *             @OA\Property(property="password", type="string", description="Password pengguna", example="password123")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Login berhasil",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Login berhasil"),
+ *             @OA\Property(
+ *                 property="data",
+ *                 type="object",
+ *                 @OA\Property(
+ *                     property="user",
+ *                     type="object",
+ *                     @OA\Property(property="id", type="integer", example=1),
+ *                     @OA\Property(property="username", type="string", example="user123"),
+ *                     @OA\Property(property="nama_lengkap", type="string", example="John Doe"),
+ *                     @OA\Property(property="email", type="string", example="johndoe@example.com")
+ *                 ),
+ *                 @OA\Property(property="access_token", type="string", description="Token akses", example="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."),
+ *                 @OA\Property(property="token_type", type="string", description="Tipe token", example="Bearer")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="Validasi gagal",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="username", type="array", @OA\Items(type="string", example="Username wajib diisi.")),
+ *             @OA\Property(property="password", type="array", @OA\Items(type="string", example="Password wajib diisi."))
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Kredensial salah",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Akses Ditolak! Username atau password salah.")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=500,
+ *         description="Kesalahan server",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Kesalahan server.")
+ *         )
+ *     )
+ * )
+ */
     // Fungsi untuk login pengguna dengan username
     public function login(Request $request)
     {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Impor useNavigate dari react-router-dom
+import Swal from 'sweetalert2';
 import "./Login.css";
 
 const Login = () => {
@@ -10,30 +11,41 @@ const Login = () => {
   const navigate = useNavigate(); // Inisialisasi useNavigate
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-  
+    e.preventDefault(); // Mencegah reload halaman
+    setError(""); // Reset error setiap kali login
+
     try {
       // Kirim permintaan login ke backend Laravel
       const response = await axios.post("http://localhost:8000/api/login", {
         username,
         password,
       });
-  
+
       // Cek apakah respons berhasil
       if (response.data.message === "Login berhasil") {
-        localStorage.setItem("token", response.data.data.access_token); // Simpan token
-        alert("Login berhasil!");
-        navigate("/home"); 
+        localStorage.setItem("token", response.data.data.access_token); // Simpan token ke localStorage
+        Swal.fire({
+          title: 'Sukses!',
+          text: 'Login berhasil!',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        }).then(() => {
+          navigate("/dashboard"); // Navigasi ke halaman dashboard setelah user klik "OK"
+        });
       } else {
-        setError("Username atau password salah");
+        Swal.fire({
+          title: 'Error!',
+          text: 'Login gagal, periksa kembali data Anda.',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
       }
     } catch (err) {
+      // Tangani error dari server atau permintaan
       console.error("Login error:", err);
-      setError("Terjadi kesalahan pada server");
+      setError("Terjadi kesalahan pada server. Silakan coba lagi.");
     }
   };
-  
 
   return (
     <div className="login-container">

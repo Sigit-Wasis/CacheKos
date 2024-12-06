@@ -1,31 +1,61 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import './HomePage.css';
+import Fasilitas from '../components/Fasilitas/Fasilitas';
+import Kamar from '../components/Kamar/Kamar';
+import Contact from '../components/Contact/Contact';
+import Footer from '../components/Footer/Footer';
 
-const Welcome = () => {
-  return (
-    <div style={styles.container}>
-      <h1 style={styles.heading}>Welcome to Our Website!</h1>
-      <p style={styles.paragraph}>This is a simple welcome page created with React.js.</p>
-    </div>
-  );
-}
+const LandingPage = () => {
+    const navigate = useNavigate(); 
 
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    backgroundColor: '#f0f8ff',
-  },
-  heading: {
-    fontSize: '36px',
-    color: '#333',
-  },
-  paragraph: {
-    fontSize: '18px',
-    color: '#666',
-  }
+    return (
+        <div className="landing-page">
+            {/* Header */}
+            <header className="headerar">
+                <div className="logo">Cache Kos</div>
+                <nav className="nav">
+                    <a href="#fasilitas">Fasilitas</a>
+                    <a href="#kamar"> Kamar</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+            </header>
+
+            {/* Hero Section */}
+            <section className="hero">
+                <div className="hero-content">
+                    <h1>Choose your room with CacheKos</h1>
+                    <p>
+                        Bringing interiors to life, understanding the person or people 
+                        living in a home is far greater need in design.
+                    </p>
+                    <div className="button-group">
+                        <button onClick={() => navigate('/login')} className="login-btn">Login</button>
+                        <button onClick={() => navigate('/register')} className="register-btn">Register</button>
+                    </div>
+                </div>
+            </section>
+
+            {/* New Section for Kost Details */}
+           {/* Section Fasilitas */}
+           <section id="fasilitas">
+                <Fasilitas />
+            </section>
+
+            {/* Section Kamar */}
+            <section id="kamar">
+                <Kamar />
+            </section>
+
+            {/* Section Contact */}
+            <section id="contact">
+                <Contact />
+            </section>
+
+            {/* Footer */}
+            <Footer />
+        </div>
+    );
 };
 
-export default Welcome;
+export default LandingPage;

@@ -22,5 +22,8 @@ class Room extends Model
         'updated_by'
     ];
     
-  
+    public function residents()
+    {
+        return $this->hasMany(Resident::class, 'id_kamar', 'id');
+    }
 }

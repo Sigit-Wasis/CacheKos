@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Payment;
+use App\Models\Resident;
+
 
 class PaymentController extends Controller
 {
@@ -67,6 +69,7 @@ class PaymentController extends Controller
         ]);
     }
 
+<<<<<<< HEAD
     /**
      * @OA\Post(
      *     path="/api/payments",
@@ -118,14 +121,33 @@ class PaymentController extends Controller
         ]);
 
         $newPayment = Payment::create($validatedData);
+=======
+    public function store(Request $request)
+{
+    $validatedData = $request->validate([
+        'invoice' => 'required|string|max:255',
+        'jumlah_bayar' => 'required|numeric',
+        'status' => 'required|string|max:50',
+        'tanggal' => 'required|date',
+        'id_resident' => 'required|integer', // Pastikan id_resident valid
+        'keterangan' => 'nullable|string',
+        'kurang_bayar' => 'nullable|numeric',
+        'grand_total' => 'required|numeric',
+        'bukti_bayar' => 'nullable|string',
+        'created_by' => 'required|integer',
+        'updated_by' => 'nullable|integer',
+    ]);
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
 
+    // Pastikan id_resident yang diterima ada di tabel residents
+    $resident = Resident::find($validatedData['id_resident']);
+    if (!$resident) {
         return response()->json([
-            'message' => 'Data payments berhasil ditambahkan',
-            'code' => 201,
-            'data' => $newPayment
-        ]);
+            'message' => 'Resident tidak ditemukan.',
+        ], 400);
     }
 
+<<<<<<< HEAD
     /**
      * @OA\Put(
      *     path="/api/payments/{id}",
@@ -171,6 +193,18 @@ class PaymentController extends Controller
      *     )
      * )
      */
+=======
+    $newPayment = Payment::create($validatedData);
+
+    return response()->json([
+        'message' => 'Data payments berhasil ditambahkan',
+        'code' => 201,
+        'data' => $newPayment
+    ]);
+}
+
+
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
     public function update(Request $request, $id)
     {
         $payment = Payment::find($id);
@@ -188,7 +222,7 @@ class PaymentController extends Controller
             'kurang_bayar' => 'required|numeric',
             'grand_total' => 'required|numeric',
             'bukti_bayar' => 'nullable|string',
-            'updated_by' => 'nullable|integer', 
+            'updated_by' => 'nullable|integer',
         ]);
 
         $payment->update($validatedData);

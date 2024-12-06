@@ -66,5 +66,29 @@
     background-color: #ffffff; /* Latar belakang modal yang lebih terang */
     border-radius: 0.5rem; /* Sudut melengkung */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bayangan */
-    z-index:9999;
+    z-index: 9999;
   }
+  
+  .modal-header {
+    border-bottom: 1px solid #ddd;
+    background-color: #6283f0;
+    padding: 15px;
+    border-radius: 10px 10px 0 0;
+    color: #ffffff;
+    margin: 0;
+    /* Menambahkan reset untuk border dan outline */
+    outline: none;
+    box-shadow: none;
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .modal-footer {
+    border-top: 1px solid #ddd;
+    padding: 10px 15px;
+    background-color: #f7f7f7;
+  }
+  
+ 
