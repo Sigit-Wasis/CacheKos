@@ -25,7 +25,7 @@ class CreateResidentsTable extends Migration
             $table->smallInteger('status_penghuni');
             $table->smallInteger('pekerjaan');
             $table->integer('jumlah_penghuni');
-            $table->string('lama_sewa');
+            $table->integer('lama_sewa');
             $table->date('tanggal_masuk');
             $table->text('keterangan')->nullable();
             $table->smallInteger('status_sewa');

@@ -11,6 +11,7 @@ use App\Http\Controllers\API\DashboardController;
 use App\Http\Controllers\API\ExpenseController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\LaporanController;
+use App\Http\Controllers\API\InvoiceController;
 
 /*
 |---------------------------------------------------------------------------|
@@ -52,13 +53,6 @@ Route::prefix('rooms')->middleware('auth:sanctum')->group(function () {
 });
 
 Route::prefix('users')->middleware('auth:sanctum')->group(function () {
-
-    Route::get('/', [UserController::class, 'index']);
-    Route::post('/', [UserController::class, 'create']);
-    Route::put('/{id}', [UserController::class, 'edit']);
-    Route::get('/{id}', [UserController::class, 'show']);
-    Route::delete('/{id}', [UserController::class, 'destroy']);
-
     Route::get('/', [UserController::class, 'index']); // Menampilkan semua data user
     Route::post('/', [UserController::class, 'create']); // Menambahkan data user baru
     Route::put('/{id}', [UserController::class, 'update']); // Memperbarui data user berdasarkan ID
@@ -81,7 +75,7 @@ Route::prefix('settings')->group(function () {
     Route::get('/', [SettingController::class, 'index']);
     Route::post('/', [SettingController::class, 'store']);
     Route::get('/{id}', [SettingController::class, 'show']);
-    Route::put('/{id}', [SettingController::class, 'update']);
+    Route::put('/{id}', [SettingController::class, 'edit']);
     Route::delete('/{id}', [SettingController::class, 'destroy']);
 });
 
@@ -98,6 +92,8 @@ Route::prefix('payments')->group(function () {
 // Rute untuk ResidentController (jika diperlukan)
 Route::prefix('residents')->middleware('auth:sanctum')->group(function () {
     Route::get('/', [ResidentController::class, 'index']); // Mendapatkan semua resident
+    Route::get('/residents/non-active', [ResidentController::class, 'getNonActiveResidents']);
+    Route::get('/residents/active', [ResidentController::class, 'getActiveResidents']);
     Route::post('/', [ResidentController::class, 'store']); // Membuat resident baru
     Route::get('/{id}', [ResidentController::class, 'show']); // Mendapatkan resident berdasarkan ID
     Route::put('/{id}', [ResidentController::class, 'update']); // Memperbarui resident berdasarkan ID
@@ -143,3 +139,7 @@ Route::middleware('auth:api')->group(function () {
     // Delete expense by ID
     Route::delete('/expenses/{id}', [ExpenseController::class, 'delete']);
 });
+
+
+
+Route::get('/invoice/{id}', [InvoiceController::class, 'printInvoice']);

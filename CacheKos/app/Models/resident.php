@@ -92,7 +92,7 @@ class Resident extends Model
     /**
      * Relationship with the Room model.
      */
-    public function room()
+    public function rooms()
     {
         return $this->belongsTo(Room::class, 'id_kamar');
     }
