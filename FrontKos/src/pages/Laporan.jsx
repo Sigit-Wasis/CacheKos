@@ -237,7 +237,6 @@ function LaporanCard() {
   const [kategoriCetakBulanLalu] = useState("bulanlalu");
   const [kategoriCetakTahunLalu] = useState("tahunlalu");
   const [endDate, setEndDate] = useState("");
-
   const [activeTab, setActiveTab] = useState("bulanan");
 
   useEffect(() => {
@@ -251,6 +250,50 @@ function LaporanCard() {
       );
 
     axios
+      .get("http://localhost:8000/api/laporan-bulan-ini")
+      .then((response) => {
+        setLaporanBulanIni(response.data.data);
+      })
+      .catch((error) =>
+        console.error("Error fetching laporan bulan ini:", error)
+      );
+
+    axios
+      .get("http://localhost:8000/api/laporan-bulan-lalu")
+      .then((response) => {
+        setLaporanBulanLalu(response.data.data);
+      })
+      .catch((error) =>
+        console.error("Error fetching laporan bulan Lalu:", error)
+      );
+    axios
+      .get("http://localhost:8000/api/laporan-tahunan")
+      .then((response) => {
+        setLaporanTahunan(response.data.data);
+      })
+      .catch((error) =>
+        console.error("Error fetching laporan bulanan:", error)
+      );
+
+    axios
+      .get("http://localhost:8000/api/laporan-tahun-ini")
+      .then((response) => {
+        setLaporanTahunIni(response.data.data);
+      })
+      .catch((error) =>
+        console.error("Error fetching laporan tahun ini:", error)
+      );
+
+    axios
+      .get("http://localhost:8000/api/laporan-tahun-lalu")
+      .then((response) => {
+        setLaporanTahunLalu(response.data.data);
+      })
+      .catch((error) =>
+        console.error("Error fetching laporan tahun lalu:", error)
+      );
+
+    axios
       .get("http://localhost:8000/api/settings")
       .then((response) => {
         setSetting(response.data.data);
@@ -258,7 +301,21 @@ function LaporanCard() {
       .catch((error) => console.error("Error fetching settings:", error));
   }, []);
 
-  const handleCetak = () => {
+  // const handleFilter = () => {
+  //   axios
+  //     .get("http://localhost:8000/api/laporan-custom-range", {
+  //       params: { start_date: startDate, end_date: endDate },
+  //     })
+  //     .then((response) => {
+  //       setLaporanBulanan(response.data.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching laporan custom range:", error);
+  //       alert("Error fetching laporan custom range: " + error.message);
+  //     });
+  // };
+
+  const handleFilter = () => {
     axios
       .get("http://localhost:8000/api/laporan-custom-range", {
         params: { start_date: startDate, end_date: endDate },
@@ -364,8 +421,8 @@ function LaporanCard() {
             onChange={(e) => setEndDate(e.target.value)}
           />
         </div>
-        <button className="filter-button" onClick={handleCetak}>
-          Cetak
+        <button className="filter-button" onClick={handleFilter}>
+          Filter
         </button>
       </div>
 
