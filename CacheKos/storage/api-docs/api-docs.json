@@ -20,6 +20,7 @@
         }
     ],
     "paths": {
+<<<<<<< HEAD
         "/kategori-berita": {
             "get": {
                 "tags": [
@@ -43,6 +44,145 @@
                                             "nama_kategori": "Pendidikan"
                                         }
                                     ]
+=======
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Login user",
+                "description": "Autentikasi pengguna menggunakan username dan password untuk mendapatkan token akses.",
+                "operationId": "222b2625838e3c57e017987f73598fda",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "username": {
+                                        "description": "Username pengguna",
+                                        "type": "string",
+                                        "example": "user123"
+                                    },
+                                    "password": {
+                                        "description": "Password pengguna",
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login berhasil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Login berhasil"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "user": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "username": {
+                                                            "type": "string",
+                                                            "example": "user123"
+                                                        },
+                                                        "nama_lengkap": {
+                                                            "type": "string",
+                                                            "example": "John Doe"
+                                                        },
+                                                        "email": {
+                                                            "type": "string",
+                                                            "example": "johndoe@example.com"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "access_token": {
+                                                    "description": "Token akses",
+                                                    "type": "string",
+                                                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                                                },
+                                                "token_type": {
+                                                    "description": "Tipe token",
+                                                    "type": "string",
+                                                    "example": "Bearer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validasi gagal",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "username": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "Username wajib diisi."
+                                            }
+                                        },
+                                        "password": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "Password wajib diisi."
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Kredensial salah",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Akses Ditolak! Username atau password salah."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Kesalahan server",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kesalahan server."
+                                        }
+                                    },
+                                    "type": "object"
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                                 }
                             }
                         }
@@ -50,6 +190,7 @@
                 }
             }
         },
+<<<<<<< HEAD
         "/api/residents": {
             "get": {
                 "tags": [
@@ -103,6 +244,19 @@
                     "200": {
                         "description": "Residents retrieved successfully",
 =======
+        "/api/rooms": {
+            "get": {
+                "tags": [
+                    "Rooms"
+                ],
+                "summary": "Get all rooms",
+                "description": "Retrieve a list of all rooms",
+                "operationId": "getAllRooms",
+                "responses": {
+                    "200": {
+                        "description": "Data rooms berhasil dimuat.",
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
+=======
         "title": "API Documentation",
         "description": "API untuk mengelola room settings",
         "version": "1.0.0"
@@ -118,7 +272,11 @@
                 "responses": {
                     "200": {
                         "description": "Berhasil mengambil data room settings",
+<<<<<<< HEAD
 >>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+=======
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -126,11 +284,15 @@
 <<<<<<< HEAD
                                         "message": {
                                             "type": "string",
+<<<<<<< HEAD
                                             "example": "Residents retrieved successfully"
                                         },
                                         "code": {
                                             "type": "integer",
                                             "example": 200
+=======
+                                            "example": "Data rooms berhasil dimuat."
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
 =======
                                         "success": {
                                             "type": "boolean",
@@ -139,7 +301,11 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Berhasil mengambil data room settings"
+<<<<<<< HEAD
 >>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+=======
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                                         },
                                         "data": {
                                             "type": "array",
@@ -147,6 +313,7 @@
                                                 "properties": {
 <<<<<<< HEAD
                                                     "id": {
+<<<<<<< HEAD
                                                         "type": "integer",
                                                         "example": 1
                                                     },
@@ -157,6 +324,26 @@
                                                     "rooms": {
                                                         "type": "object",
                                                         "nullable": true
+=======
+                                                        "type": "integer"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "description": {
+                                                        "type": "string"
+                                                    },
+                                                    "capacity": {
+                                                        "type": "integer"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
 =======
                                                     "nama_kost": {
                                                         "type": "string"
@@ -190,7 +377,11 @@
                                                     },
                                                     "tiktok": {
                                                         "type": "string"
+<<<<<<< HEAD
 >>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+=======
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                                                     }
                                                 },
                                                 "type": "object"
@@ -245,16 +436,35 @@
                                 }
                             }
                         }
+<<<<<<< HEAD
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Not found"
+=======
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                     }
                 }
             },
             "post": {
                 "tags": [
 <<<<<<< HEAD
+<<<<<<< HEAD
                     "Residents"
                 ],
                 "summary": "Create a new resident",
                 "operationId": "ef2db06ded8f439e3e361c5c8eb5e27f",
+=======
+                    "Rooms"
+                ],
+                "summary": "Create a new room",
+                "description": "Create a new room with all the necessary details",
+                "operationId": "createRoom",
+                "requestBody": {
+                    "description": "Room data to create a new room",
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
 =======
                     "Settings"
                 ],
@@ -262,11 +472,13 @@
                 "operationId": "b212ad9c34d8071ccdf5ab4440e0d769",
 >>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
                 "requestBody": {
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "required": [
+<<<<<<< HEAD
 <<<<<<< HEAD
                                     "jenis_sewa_kamar",
                                     "id_kamar",
@@ -330,6 +542,55 @@
                                         "example": "Special conditions apply",
                                         "nullable": true
 =======
+                                    "nama_kamar",
+                                    "nomor_kamar",
+                                    "harga_per_bulan",
+                                    "harga_per_hari",
+                                    "harga_per_minggu",
+                                    "harga_per_tahun"
+                                ],
+                                "properties": {
+                                    "nama_kamar": {
+                                        "type": "string",
+                                        "example": "Deluxe Room"
+                                    },
+                                    "nomor_kamar": {
+                                        "type": "string",
+                                        "example": "101"
+                                    },
+                                    "harga_per_bulan": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 1000000
+                                    },
+                                    "harga_per_hari": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 50000
+                                    },
+                                    "harga_per_minggu": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 300000
+                                    },
+                                    "harga_per_tahun": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 12000000
+                                    },
+                                    "fasilitas": {
+                                        "type": "string",
+                                        "example": "AC, Wi-Fi"
+                                    },
+                                    "kelengkapan_lain": {
+                                        "type": "string",
+                                        "example": "TV, Kamar Mandi Pribadi"
+                                    },
+                                    "catatan_kamar": {
+                                        "type": "string",
+                                        "example": "Kamar bersih dan nyaman"
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
+=======
                                     "nama_kost",
                                     "alamat",
                                     "telepon",
@@ -370,7 +631,11 @@
                                     },
                                     "tiktok": {
                                         "type": "string"
+<<<<<<< HEAD
 >>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+=======
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                                     }
                                 },
                                 "type": "object"
@@ -381,10 +646,17 @@
                 "responses": {
                     "201": {
 <<<<<<< HEAD
+<<<<<<< HEAD
                         "description": "Resident created successfully",
 =======
                         "description": "Data room setting berhasil ditambahkan",
 >>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+=======
+                        "description": "Room created successfully",
+=======
+                        "description": "Data room setting berhasil ditambahkan",
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -392,11 +664,15 @@
 <<<<<<< HEAD
                                         "message": {
                                             "type": "string",
+<<<<<<< HEAD
                                             "example": "Resident created successfully"
                                         },
                                         "code": {
                                             "type": "integer",
                                             "example": 201
+=======
+                                            "example": "Data kamar berhasil ditambahkan."
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                                         },
                                         "data": {
                                             "properties": {
@@ -404,6 +680,7 @@
                                                     "type": "integer",
                                                     "example": 1
                                                 },
+<<<<<<< HEAD
                                                 "jenis_sewa_kamar": {
                                                     "type": "integer",
                                                     "example": 1
@@ -449,6 +726,47 @@
                                                     "type": "string",
                                                     "example": "Special conditions apply",
                                                     "nullable": true
+=======
+                                                "nama_kamar": {
+                                                    "type": "string",
+                                                    "example": "Deluxe Room"
+                                                },
+                                                "nomor_kamar": {
+                                                    "type": "string",
+                                                    "example": "101"
+                                                },
+                                                "harga_per_bulan": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 1000000
+                                                },
+                                                "harga_per_hari": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 50000
+                                                },
+                                                "harga_per_minggu": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 300000
+                                                },
+                                                "harga_per_tahun": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 12000000
+                                                },
+                                                "fasilitas": {
+                                                    "type": "string",
+                                                    "example": "AC, Wi-Fi"
+                                                },
+                                                "kelengkapan_lain": {
+                                                    "type": "string",
+                                                    "example": "TV, Kamar Mandi Pribadi"
+                                                },
+                                                "catatan_kamar": {
+                                                    "type": "string",
+                                                    "example": "Kamar bersih dan nyaman"
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                                                 },
                                                 "created_by": {
                                                     "type": "integer",
@@ -457,6 +775,7 @@
                                                 "updated_by": {
                                                     "type": "integer",
                                                     "example": 1
+<<<<<<< HEAD
                                                 },
                                                 "created_at": {
                                                     "type": "string",
@@ -467,6 +786,8 @@
                                                     "type": "string",
                                                     "format": "date-time",
                                                     "example": "2024-01-01T12:00:00Z"
+=======
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                                                 }
                                             },
 =======
@@ -479,7 +800,11 @@
                                             "example": "Data room setting berhasil ditambahkan"
                                         },
                                         "data": {
+<<<<<<< HEAD
 >>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+=======
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                                             "type": "object"
                                         }
                                     },
@@ -490,7 +815,11 @@
 <<<<<<< HEAD
                     },
                     "400": {
+<<<<<<< HEAD
                         "description": "Validation error",
+=======
+                        "description": "Bad request",
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -508,21 +837,35 @@
                             }
                         }
                     },
+<<<<<<< HEAD
                     "401": {
                         "description": "Unauthenticated",
+=======
+                    "500": {
+                        "description": "Internal server error",
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
                                             "type": "string",
+<<<<<<< HEAD
                                             "example": "Unauthenticated"
+=======
+                                            "example": "Terjadi kesalahan saat menambahkan data kamar."
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Error message"
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                                         }
                                     },
                                     "type": "object"
                                 }
                             }
                         }
+<<<<<<< HEAD
 =======
 >>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
                     }
@@ -566,18 +909,51 @@
                         "schema": {
                             "type": "string",
                             "default": "asc"
+=======
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/rooms/{id}": {
+            "get": {
+                "tags": [
+                    "Rooms"
+                ],
+                "summary": "Get a room by ID",
+                "description": "Retrieve the details of a specific room by its ID",
+                "operationId": "getRoomById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the room to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                         }
                     }
                 ],
                 "responses": {
                     "200": {
+<<<<<<< HEAD
                         "description": "Non-active residents retrieved successfully",
+=======
+                        "description": "Room data retrieved successfully",
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
                                             "type": "string",
+<<<<<<< HEAD
                                             "example": "Non-active residents retrieved successfully"
                                         },
                                         "code": {
@@ -625,6 +1001,63 @@
                                                 "last_page": {
                                                     "type": "integer",
                                                     "example": 5
+=======
+                                            "example": "Data kamar berhasil dimuat."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nama_kamar": {
+                                                    "type": "string",
+                                                    "example": "Deluxe Room"
+                                                },
+                                                "nomor_kamar": {
+                                                    "type": "string",
+                                                    "example": "101"
+                                                },
+                                                "harga_per_bulan": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 1000000
+                                                },
+                                                "harga_per_hari": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 50000
+                                                },
+                                                "harga_per_minggu": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 300000
+                                                },
+                                                "harga_per_tahun": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 12000000
+                                                },
+                                                "fasilitas": {
+                                                    "type": "string",
+                                                    "example": "AC, Wi-Fi"
+                                                },
+                                                "kelengkapan_lain": {
+                                                    "type": "string",
+                                                    "example": "TV, Kamar Mandi Pribadi"
+                                                },
+                                                "catatan_kamar": {
+                                                    "type": "string",
+                                                    "example": "Kamar bersih dan nyaman"
+                                                },
+                                                "created_by": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "updated_by": {
+                                                    "type": "integer",
+                                                    "example": 1
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                                                 }
                                             },
                                             "type": "object"
@@ -635,25 +1068,67 @@
                             }
                         }
                     },
+<<<<<<< HEAD
                     "400": {
                         "description": "Invalid request",
+=======
+                    "404": {
+                        "description": "Room not found",
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
                                             "type": "string",
+<<<<<<< HEAD
                                             "example": "Invalid request"
                                         },
                                         "code": {
                                             "type": "integer",
                                             "example": 400
+=======
+                                            "example": "Data kamar tidak ditemukan."
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                                         }
                                     },
                                     "type": "object"
                                 }
                             }
                         }
+<<<<<<< HEAD
+=======
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Terjadi kesalahan saat menampilkan data kamar."
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Error message"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Rooms"
+                ],
+                "summary": "Mengupdate data kamar",
+                "operationId": "ecfbab1bf15cf26481362b8f8846a1e8",
+=======
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                     }
                 }
             }
@@ -923,11 +1398,16 @@
                 ],
                 "summary": "Mengubah data room setting",
                 "operationId": "d928ba08c05e0e8211150139f44cdc42",
+<<<<<<< HEAD
 >>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+=======
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
+<<<<<<< HEAD
 <<<<<<< HEAD
                         "description": "ID of the resident to update",
                         "required": true,
@@ -935,7 +1415,11 @@
                             "type": "integer",
                             "example": 1
 =======
+                        "description": "ID kamar yang ingin diupdate",
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
+=======
                         "description": "ID room setting",
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -1013,6 +1497,37 @@
                                         "nullable": true
 =======
                                 "properties": {
+<<<<<<< HEAD
+                                    "nama_kamar": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "nomor_kamar": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "harga_per_bulan": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "nullable": true
+                                    },
+                                    "harga_per_hari": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "nullable": true
+                                    },
+                                    "fasilitas": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "kelengkapan_lain": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "catatan_kamar": {
+                                        "type": "string",
+                                        "nullable": true
+=======
                                     "nama_kost": {
                                         "type": "string"
                                     },
@@ -1045,7 +1560,11 @@
                                     },
                                     "tiktok": {
                                         "type": "string"
+<<<<<<< HEAD
 >>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+=======
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                                     }
                                 },
                                 "type": "object"
@@ -1056,10 +1575,51 @@
                 "responses": {
                     "200": {
 <<<<<<< HEAD
+<<<<<<< HEAD
                         "description": "Resident updated successfully",
 =======
                         "description": "Data room setting berhasil diubah",
 >>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+=======
+                        "description": "Data kamar berhasil diperbarui",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Kamar tidak ditemukan"
+                    },
+                    "500": {
+                        "description": "Kesalahan server"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Rooms"
+                ],
+                "summary": "Menghapus kamar berdasarkan ID",
+                "operationId": "9f216809b68e2ce14c857a26768e9228",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID kamar yang ingin dihapus",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Kamar berhasil dihapus",
+=======
+                        "description": "Data room setting berhasil diubah",
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1067,6 +1627,7 @@
 <<<<<<< HEAD
                                         "message": {
                                             "type": "string",
+<<<<<<< HEAD
                                             "example": "Resident updated successfully"
                                         },
                                         "code": {
@@ -1171,6 +1732,9 @@
                                         },
                                         "errors": {
 =======
+                                            "example": "Kamar berhasil dihapus."
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
+=======
                                         "success": {
                                             "type": "boolean",
                                             "example": true
@@ -1182,12 +1746,22 @@
                                         "data": {
 >>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
                                             "type": "object"
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                                         }
                                     },
                                     "type": "object"
                                 }
                             }
                         }
+<<<<<<< HEAD
+                    },
+                    "404": {
+                        "description": "Kamar tidak ditemukan"
+                    },
+                    "500": {
+                        "description": "Kesalahan server"
+=======
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                     }
                 }
             },
@@ -1280,6 +1854,7 @@
     "tags": [
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             "name": "Berita",
             "description": "Berita"
         },
@@ -1287,9 +1862,30 @@
             "name": "Residents",
             "description": "Residents"
 =======
+            "name": "Authentication",
+            "description": "Authentication"
+        },
+        {
+            "name": "Rooms",
+            "description": "Rooms"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+>>>>>>> 1b4002e6b4a46b24350b8fe8078f5d92ca95d606
+=======
             "name": "Settings",
             "description": "Settings"
 >>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
         }
     ]
+>>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
 }
