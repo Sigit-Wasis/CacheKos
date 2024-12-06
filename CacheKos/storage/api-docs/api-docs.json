@@ -868,6 +868,49 @@
 >>>>>>> 7ba9d3dba916688a8cd9b5df3217eab195f995da
                     }
                 }
+            },
+            "delete": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Menghapus data room setting",
+                "operationId": "d970189e8faf867bc555a86034f96410",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID room setting",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Data room setting berhasil dihapus",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data room setting berhasil dihapus"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     },

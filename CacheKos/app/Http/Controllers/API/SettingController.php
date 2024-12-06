@@ -187,7 +187,40 @@ class SettingController extends Controller
             'data' => $validatedData
         ], 200);
     }
-     
+      //swagger delete
+    /**
+     * @OA\Delete(
+     *     path="/api/setting/{id}",
+     *     summary="Menghapus data room setting",
+     *     tags={"Settings"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID room setting",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Data room setting berhasil dihapus",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=true),
+     *             @OA\Property(property="message", type="string", example="Data room setting berhasil dihapus"),
+     *             @OA\Property(property="data", type="object")
+     *         )
+     *     )
+     * )
+     */
+    public function delete($id)
+    {
+        $deletedSetting = DB::table('room_settings')->where('id', $id)->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Data room setting berhasil dihapus',
+            'data' => $deletedSetting
+        ], 200);
+    }
+    
      
     // Anda dapat menambahkan anotasi Swagger untuk edit dan delete sesuai dengan cara di atas
 }
