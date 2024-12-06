@@ -67,13 +67,11 @@
 /* Card colors */
 .purple {
     background: linear-gradient(135deg, #6a1b9a, #8e24aa, #ba68c8);
-    margin-top: 20px;
-}
+    }
 
 .yellow {
     background: linear-gradient(135deg, #fbc02d, #ffb300, #ffca28);
-    margin-top: 20px;
-}
+    }
 
 .green {
     background: linear-gradient(135deg, #43a047, #66bb6a, #81c784);
