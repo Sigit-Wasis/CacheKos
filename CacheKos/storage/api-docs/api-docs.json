@@ -1,0 +1,1295 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+<<<<<<< HEAD
+        "title": "Dokumentasi API",
+        "description": "Lorem Ipsum",
+        "contact": {
+            "email": "hi.wasissubekti02@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Demo API Server"
+        }
+    ],
+    "paths": {
+        "/kategori-berita": {
+            "get": {
+                "tags": [
+                    "Berita"
+                ],
+                "summary": "Kategori Berita",
+                "description": "Mengambil Data Kategori Berita",
+                "operationId": "kategoriBerita",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "success": true,
+                                    "message": "Berhasil mengambil Kategori Berita",
+                                    "data": [
+                                        {
+                                            "id": "1",
+                                            "nama_kategori": "Pendidikan"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/residents": {
+            "get": {
+                "tags": [
+                    "Residents"
+                ],
+                "summary": "Retrieve a list of residents with pagination",
+                "operationId": "2ec7f855eded9e0618a5b4d19bfb66c9",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of records per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search term for filtering residents by name",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "John"
+                        }
+                    },
+                    {
+                        "name": "sort_field",
+                        "in": "query",
+                        "description": "Field to sort the results by",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "id"
+                        }
+                    },
+                    {
+                        "name": "sort_order",
+                        "in": "query",
+                        "description": "Sort order (asc or desc)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "asc"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Residents retrieved successfully",
+=======
+        "title": "API Documentation",
+        "description": "API untuk mengelola room settings",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/setting": {
+            "get": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Mendapatkan semua data room settings",
+                "operationId": "157b012c813096f67d7d4785c04164d5",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil mengambil data room settings",
+>>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+<<<<<<< HEAD
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Residents retrieved successfully"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+=======
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Berhasil mengambil data room settings"
+>>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+<<<<<<< HEAD
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "nama_penghuni": {
+                                                        "type": "string",
+                                                        "example": "John Doe"
+                                                    },
+                                                    "rooms": {
+                                                        "type": "object",
+                                                        "nullable": true
+=======
+                                                    "nama_kost": {
+                                                        "type": "string"
+                                                    },
+                                                    "alamat": {
+                                                        "type": "string"
+                                                    },
+                                                    "telepon": {
+                                                        "type": "string"
+                                                    },
+                                                    "email": {
+                                                        "type": "string"
+                                                    },
+                                                    "deskripsi": {
+                                                        "type": "string"
+                                                    },
+                                                    "logo": {
+                                                        "type": "string"
+                                                    },
+                                                    "tenggang_waktu": {
+                                                        "type": "integer"
+                                                    },
+                                                    "biaya_terlambat": {
+                                                        "type": "number"
+                                                    },
+                                                    "facebook": {
+                                                        "type": "string"
+                                                    },
+                                                    "instagram": {
+                                                        "type": "string"
+                                                    },
+                                                    "tiktok": {
+                                                        "type": "string"
+>>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+<<<<<<< HEAD
+                                        },
+                                        "pagination": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 50
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid request"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 400
+=======
+>>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+<<<<<<< HEAD
+                    "Residents"
+                ],
+                "summary": "Create a new resident",
+                "operationId": "ef2db06ded8f439e3e361c5c8eb5e27f",
+=======
+                    "Settings"
+                ],
+                "summary": "Menambahkan data room setting baru",
+                "operationId": "b212ad9c34d8071ccdf5ab4440e0d769",
+>>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+<<<<<<< HEAD
+                                    "jenis_sewa_kamar",
+                                    "id_kamar",
+                                    "nama_penghuni",
+                                    "no_handphone",
+                                    "jenis_kelamin",
+                                    "no_ktp",
+                                    "status_penghuni",
+                                    "lama_sewa",
+                                    "tanggal_masuk",
+                                    "status_sewa"
+                                ],
+                                "properties": {
+                                    "jenis_sewa_kamar": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_kamar": {
+                                        "type": "integer",
+                                        "example": 101
+                                    },
+                                    "nama_penghuni": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "no_handphone": {
+                                        "type": "string",
+                                        "example": "081234567890"
+                                    },
+                                    "jenis_kelamin": {
+                                        "description": "1 for male, 0 for female",
+                                        "type": "boolean",
+                                        "example": true
+                                    },
+                                    "no_ktp": {
+                                        "description": "16-digit KTP number",
+                                        "type": "string",
+                                        "example": "1234567890123456"
+                                    },
+                                    "status_penghuni": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "lama_sewa": {
+                                        "description": "Duration of rent in months",
+                                        "type": "integer",
+                                        "example": 12
+                                    },
+                                    "tanggal_masuk": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-01-01"
+                                    },
+                                    "status_sewa": {
+                                        "description": "1 for active, 2 for non-active",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "keterangan": {
+                                        "type": "string",
+                                        "example": "Special conditions apply",
+                                        "nullable": true
+=======
+                                    "nama_kost",
+                                    "alamat",
+                                    "telepon",
+                                    "email",
+                                    "tenggang_waktu",
+                                    "biaya_terlambat"
+                                ],
+                                "properties": {
+                                    "nama_kost": {
+                                        "type": "string"
+                                    },
+                                    "alamat": {
+                                        "type": "string"
+                                    },
+                                    "telepon": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "deskripsi": {
+                                        "type": "string"
+                                    },
+                                    "logo": {
+                                        "type": "string"
+                                    },
+                                    "tenggang_waktu": {
+                                        "type": "integer"
+                                    },
+                                    "biaya_terlambat": {
+                                        "type": "number"
+                                    },
+                                    "facebook": {
+                                        "type": "string"
+                                    },
+                                    "instagram": {
+                                        "type": "string"
+                                    },
+                                    "tiktok": {
+                                        "type": "string"
+>>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+<<<<<<< HEAD
+                        "description": "Resident created successfully",
+=======
+                        "description": "Data room setting berhasil ditambahkan",
+>>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+<<<<<<< HEAD
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Resident created successfully"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "jenis_sewa_kamar": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_kamar": {
+                                                    "type": "integer",
+                                                    "example": 101
+                                                },
+                                                "nama_penghuni": {
+                                                    "type": "string",
+                                                    "example": "John Doe"
+                                                },
+                                                "no_handphone": {
+                                                    "type": "string",
+                                                    "example": "081234567890"
+                                                },
+                                                "jenis_kelamin": {
+                                                    "type": "boolean",
+                                                    "example": true
+                                                },
+                                                "no_ktp": {
+                                                    "type": "string",
+                                                    "example": "1234567890123456"
+                                                },
+                                                "status_penghuni": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "lama_sewa": {
+                                                    "type": "integer",
+                                                    "example": 12
+                                                },
+                                                "tanggal_masuk": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2024-01-01"
+                                                },
+                                                "status_sewa": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "keterangan": {
+                                                    "type": "string",
+                                                    "example": "Special conditions apply",
+                                                    "nullable": true
+                                                },
+                                                "created_by": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "updated_by": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-01-01T12:00:00Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-01-01T12:00:00Z"
+                                                }
+                                            },
+=======
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data room setting berhasil ditambahkan"
+                                        },
+                                        "data": {
+>>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+<<<<<<< HEAD
+                    },
+                    "400": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation error"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+=======
+>>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+                    }
+                }
+            }
+        },
+<<<<<<< HEAD
+        "/api/non-active-residents": {
+            "get": {
+                "tags": [
+                    "Residents"
+                ],
+                "summary": "Retrieve a list of non-active residents with pagination",
+                "operationId": "ed0796bf3e94b189f39b48746c5be568",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of records per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "name": "sort_field",
+                        "in": "query",
+                        "description": "Field to sort the results by",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "id"
+                        }
+                    },
+                    {
+                        "name": "sort_order",
+                        "in": "query",
+                        "description": "Sort order (asc or desc)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "asc"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Non-active residents retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Non-active residents retrieved successfully"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "nama_penghuni": {
+                                                        "type": "string",
+                                                        "example": "John Doe"
+                                                    },
+                                                    "status_sewa": {
+                                                        "type": "integer",
+                                                        "example": 2
+                                                    },
+                                                    "rooms": {
+                                                        "type": "object",
+                                                        "nullable": true
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "pagination": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 50
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid request"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/active-residents": {
+            "get": {
+                "tags": [
+                    "Residents"
+                ],
+                "summary": "Retrieve a list of active residents with pagination",
+                "operationId": "a16ae35bd0cf7155309395abb8b4514e",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of records per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "name": "sort_field",
+                        "in": "query",
+                        "description": "Field to sort the results by",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "id"
+                        }
+                    },
+                    {
+                        "name": "sort_order",
+                        "in": "query",
+                        "description": "Sort order (asc or desc)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "asc"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Active residents retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Active residents retrieved successfully"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "nama_penghuni": {
+                                                        "type": "string",
+                                                        "example": "John Doe"
+                                                    },
+                                                    "status_sewa": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "rooms": {
+                                                        "type": "object",
+                                                        "nullable": true
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "pagination": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 50
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid request"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/residents/{id}": {
+            "get": {
+                "tags": [
+                    "Residents"
+                ],
+                "summary": "Retrieve a specific resident by ID",
+                "operationId": "629aa62f9a09c216f2af4793d836e8cb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the resident to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Resident retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Resident retrieved successfully"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nama_penghuni": {
+                                                    "type": "string",
+                                                    "example": "John Doe"
+                                                },
+                                                "no_handphone": {
+                                                    "type": "string",
+                                                    "example": "081234567890"
+                                                },
+                                                "jenis_kelamin": {
+                                                    "type": "boolean",
+                                                    "example": true
+                                                },
+                                                "no_ktp": {
+                                                    "type": "string",
+                                                    "example": "1234567890123456"
+                                                },
+                                                "status_penghuni": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "lama_sewa": {
+                                                    "type": "integer",
+                                                    "example": 12
+                                                },
+                                                "tanggal_masuk": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2024-01-01"
+                                                },
+                                                "status_sewa": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "keterangan": {
+                                                    "type": "string",
+                                                    "example": "Special conditions apply",
+                                                    "nullable": true
+                                                },
+                                                "rooms": {
+                                                    "type": "object",
+                                                    "example": {
+                                                        "id": 101,
+                                                        "nama_kamar": "A-101"
+                                                    },
+                                                    "nullable": true
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-01-01T12:00:00Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-01-01T12:00:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resident not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Resident not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Residents"
+                ],
+                "summary": "Update a specific resident by ID",
+                "operationId": "cd390a3cc3a7d8f72fcb1301585f8b56",
+=======
+        "/api/setting/{id}": {
+            "put": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Mengubah data room setting",
+                "operationId": "d928ba08c05e0e8211150139f44cdc42",
+>>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+<<<<<<< HEAD
+                        "description": "ID of the resident to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+=======
+                        "description": "ID room setting",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+>>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+<<<<<<< HEAD
+                                "required": [
+                                    "jenis_sewa_kamar",
+                                    "id_kamar",
+                                    "nama_penghuni",
+                                    "no_handphone",
+                                    "jenis_kelamin",
+                                    "no_ktp",
+                                    "status_penghuni",
+                                    "lama_sewa",
+                                    "tanggal_masuk",
+                                    "status_sewa"
+                                ],
+                                "properties": {
+                                    "jenis_sewa_kamar": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_kamar": {
+                                        "type": "integer",
+                                        "example": 101
+                                    },
+                                    "nama_penghuni": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "no_handphone": {
+                                        "type": "string",
+                                        "example": "081234567890"
+                                    },
+                                    "jenis_kelamin": {
+                                        "description": "1 for male, 0 for female",
+                                        "type": "boolean",
+                                        "example": true
+                                    },
+                                    "no_ktp": {
+                                        "description": "16-digit KTP number",
+                                        "type": "string",
+                                        "example": "1234567890123456"
+                                    },
+                                    "status_penghuni": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "lama_sewa": {
+                                        "description": "Duration of rent in months",
+                                        "type": "integer",
+                                        "example": 12
+                                    },
+                                    "tanggal_masuk": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-01-01"
+                                    },
+                                    "status_sewa": {
+                                        "description": "1 for active, 2 for non-active",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "keterangan": {
+                                        "type": "string",
+                                        "example": "Special conditions apply",
+                                        "nullable": true
+=======
+                                "properties": {
+                                    "nama_kost": {
+                                        "type": "string"
+                                    },
+                                    "alamat": {
+                                        "type": "string"
+                                    },
+                                    "telepon": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "deskripsi": {
+                                        "type": "string"
+                                    },
+                                    "logo": {
+                                        "type": "string"
+                                    },
+                                    "tenggang_waktu": {
+                                        "type": "integer"
+                                    },
+                                    "biaya_terlambat": {
+                                        "type": "number"
+                                    },
+                                    "facebook": {
+                                        "type": "string"
+                                    },
+                                    "instagram": {
+                                        "type": "string"
+                                    },
+                                    "tiktok": {
+                                        "type": "string"
+>>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+<<<<<<< HEAD
+                        "description": "Resident updated successfully",
+=======
+                        "description": "Data room setting berhasil diubah",
+>>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+<<<<<<< HEAD
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Resident updated successfully"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "jenis_sewa_kamar": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_kamar": {
+                                                    "type": "integer",
+                                                    "example": 101
+                                                },
+                                                "nama_penghuni": {
+                                                    "type": "string",
+                                                    "example": "John Doe"
+                                                },
+                                                "no_handphone": {
+                                                    "type": "string",
+                                                    "example": "081234567890"
+                                                },
+                                                "jenis_kelamin": {
+                                                    "type": "boolean",
+                                                    "example": true
+                                                },
+                                                "no_ktp": {
+                                                    "type": "string",
+                                                    "example": "1234567890123456"
+                                                },
+                                                "status_penghuni": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "lama_sewa": {
+                                                    "type": "integer",
+                                                    "example": 12
+                                                },
+                                                "tanggal_masuk": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2024-01-01"
+                                                },
+                                                "status_sewa": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "keterangan": {
+                                                    "type": "string",
+                                                    "example": "Special conditions apply",
+                                                    "nullable": true
+                                                },
+                                                "updated_by": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-01-01T12:00:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resident not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Resident not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation error"
+                                        },
+                                        "errors": {
+=======
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data room setting berhasil diubah"
+                                        },
+                                        "data": {
+>>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+<<<<<<< HEAD
+                    "Residents"
+                ],
+                "summary": "Delete a specific resident by ID",
+                "operationId": "53e70e4d9fedab976099b254cfe24785",
+=======
+                    "Settings"
+                ],
+                "summary": "Menghapus data room setting",
+                "operationId": "d970189e8faf867bc555a86034f96410",
+>>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+<<<<<<< HEAD
+                        "description": "ID of the resident to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+=======
+                        "description": "ID room setting",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+>>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+<<<<<<< HEAD
+                        "description": "Resident deleted successfully",
+=======
+                        "description": "Data room setting berhasil dihapus",
+>>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+<<<<<<< HEAD
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Resident deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resident not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Resident not found"
+=======
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data room setting berhasil dihapus"
+                                        },
+                                        "data": {
+                                            "type": "object"
+>>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+<<<<<<< HEAD
+            "name": "Berita",
+            "description": "Berita"
+        },
+        {
+            "name": "Residents",
+            "description": "Residents"
+=======
+            "name": "Settings",
+            "description": "Settings"
+>>>>>>> b2900cdf7ca3f58705271fa24d31b909f2551463
+        }
+    ]
+}
