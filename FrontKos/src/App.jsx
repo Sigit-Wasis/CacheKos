@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {BrowserRouter as Router,Route,Routes,Link,useNavigate,} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate, Navigate } from "react-router-dom";
 import Register from "./components/Register/Register";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
@@ -32,9 +32,9 @@ function App() {
     if (token) {
       setIsAuthenticated(true);
     } else {
-      navigate('/login'); // Jika tidak ada token, arahkan ke halaman login
+      setIsAuthenticated(false);
     }
-  }, [navigate]);
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -44,7 +44,7 @@ function App() {
 
   return (
     <div>
-      {/* Navbar hanya ditampilkan jika pengguna sudah login */}
+      {/* Navbar */}
       {isAuthenticated && (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <div className="container-fluid">
@@ -99,8 +99,6 @@ function App() {
                     Laporan
                   </Link>
                 </li>
-
-                {/* Dropdown for Resident */}
                 <li className="nav-item dropdown">
                   <a
                     className="nav-link dropdown-toggle"
@@ -144,43 +142,36 @@ function App() {
         </nav>
       )}
 
-      
       {/* Routing */}
       <Routes>
-        <Route
-          path="/register"
-          element={<Register setIsAuthenticated={setIsAuthenticated} />}
-        />
-        <Route
-          path="/login"
-          element={<LoginPage setIsAuthenticated={setIsAuthenticated} />}
-        />
+        <Route path="/register" element={<Register setIsAuthenticated={setIsAuthenticated} />} />
+        <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/fasilitas" element={<Fasilitas />} />
         <Route path="/kamar" element={<Kamar />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/footer" element={<Footer />} />
-        {isAuthenticated && <Route path="/room" element={<Room />} />}
-        {isAuthenticated && <Route path="/setting" element={<Setting />} />}
-        {isAuthenticated && <Route path="/payment" element={<Payment />} />}
-        {isAuthenticated && <Route path="/dashboard" element={<Dashboard />} />}
-        {isAuthenticated && <Route path="/expense" element={<Expense />} />}
-        {isAuthenticated && <Route path="/laporan" element={<Laporan />} />}
-        {isAuthenticated && <Route path="/resident" element={<Resident />} />}
-        {isAuthenticated && <Route path="/add" element={<AddResidentPage />} />}
-        {isAuthenticated && (
-          <Route path="/selesai" element={<InactiveResidentsPage />} />
+
+        {/* Routes with authentication */}
+        {isAuthenticated ? (
+          <>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/room" element={<Room />} />
+            <Route path="/setting" element={<Setting />} />
+            <Route path="/payment" element={<Payment />} />
+            <Route path="/expense" element={<Expense />} />
+            <Route path="/laporan" element={<Laporan />} />
+            <Route path="/resident" element={<Resident />} />
+            <Route path="/add" element={<AddResidentPage />} />
+            <Route path="/selesai" element={<InactiveResidentsPage />} />
+            <Route path="/active" element={<ActiveResident />} />
+            <Route path="/edit/:id" element={<EditResidentPage />} />
+            <Route path="/invoice/:id" element={<PrintInvoicePage />} />
+            <Route path="/user" element={<User />} />
+          </>
+        ) : (
+          <Route path="*" element={<Navigate to="/login" />} />
         )}
-        {isAuthenticated && <Route path="/active" element={<ActiveResident />} />}
-        {isAuthenticated && (
-          <Route path="/edit/:id" element={<EditResidentPage />} />
-        )}
-        {isAuthenticated && (
-          <Route path="/invoice/:id" element={<PrintInvoicePage />} />
-        )}
-        {isAuthenticated && <Route path="/user" element={<User />} />}
-        {isAuthenticated && <Route path="/invoice/:id" element={<PrintInvoicePage />} />}
-        
       </Routes>
     </div>
   );
