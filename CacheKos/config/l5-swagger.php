@@ -312,7 +312,16 @@ return [
          * Constants which can be used in annotations
          */
         'constants' => [
+            'L5_SWAGGER_CONST_HOST' =>
+            env('L5_SWAGGER_CONST_HOST', 'http://localhost:8000'),
+        ],
+    
+<<<<<<< HEAD
+=======
+=======
             'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST', 'http://my-default-host.com'),
         ],
+>>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
+>>>>>>> e799e4c2d9536a983c842831b57cea1ab2565b33
     ],
 ];

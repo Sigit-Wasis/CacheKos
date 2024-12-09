@@ -4,14 +4,21 @@
 body {
     font-family: 'Poppins', sans-serif !important;
 }
+
 .custom-font-weight {
     font-weight: 700 !important; /* Menambahkan ketebalan font */
 }
 
-
 /* Remove borders from the table */
 .table-bordered, .table-bordered th, .table-bordered td {
     border: none;
+}
+
+.table td {
+    white-space: normal; /* Membungkus teks agar tidak terpotong */
+    word-wrap: break-word; /* Memastikan kata panjang dibungkus */
+    line-height: 1.5; /* Menambahkan jarak antar baris */
+    max-width: 200px; /* Sesuaikan lebar maksimal kolom jika diperlukan */
 }
 
 /* Optional: Add spacing to the table cells to make it more readable without borders */
@@ -66,4 +73,100 @@ body {
     width: 100%;
     height: 30px;
     margin-bottom: 10px;
+}
+
+.pagination .page-item .page-link {
+    color: #007bff;
+    border: 1px solid #dee2e6;
+    font-weight: normal; /* Menghilangkan bold */
+    font-size: 14px; /* Ukuran font */
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+    font-weight: normal;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.text-muted {
+    margin-left: 20px; /* Sesuaikan angka untuk memindahkan ke kiri */
+    font-size: 14px; /* Ukuran font */
+    color: #6c757d;
+}
+
+/* Styling untuk input search */
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+.search-container i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+}
+
+.search-container input {
+    padding-left: 30px; /* Space for the search icon */
+    width: 100%;
+}
+
+.form-control {
+    max-width: 300px;  /* Batasi lebar */
+    padding: 10px;  /* Padding dalam input */
+    border: 1px solid #ccc;  /* Warna border */
+    border-radius: 8px;  /* Membuat border bulat */
+    font-size: 14px;  /* Ukuran font */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* Tambahkan bayangan ringan */
+    transition: all 0.3s ease-in-out;  /* Efek transisi */
+}
+
+/* Efek ketika input search difokuskan */
+.form-control:focus {
+    outline: none;  /* Hilangkan outline default */
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);  /* Efek shadow saat fokus */
+}
+
+.search-container {
+    width: 100%; /* Ensure the container takes the full available width */
+}
+
+.search-container select {
+    padding: 10px;
+    border: 1px solid #8aa8cb;
+    border-radius: 8px;
+    font-size: 14px;
+    width: 100%; /* This makes the select take up the full width of its parent */
+    transition: border-color 0.3s ease;
+}
+/* If you want it to auto-size based on content */
+.form-select.w-auto {
+    width: auto;  /* Set width to auto, adjust based on content */
+    min-width: 130px;  /* You can set a minimum width to avoid it being too small */
+}
+
+/* Alternatively, if you want it to take full width */
+.form-select.w-100 {
+    width: 100%;  /* Makes the select take the full width of the container */
+}
+
+
+/* Efek saat memilih status */
+.search-container select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
