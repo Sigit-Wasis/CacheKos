@@ -105,7 +105,7 @@ function App() {
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/laporan">
-                    Laporan
+                    Report
                   </Link>
                 </li>
 
@@ -119,22 +119,22 @@ function App() {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    Penghuni
+                    Resident
                   </a>
                   <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li>
                       <Link className="dropdown-item" to="/resident">
-                        Penghuni
+                        Resident
                       </Link>
                     </li>
                     <li>
                       <Link className="dropdown-item" to="/active">
-                        Penghuni Aktif
+                      Resident Active
                       </Link>
                     </li>
                     <li>
                       <Link className="dropdown-item" to="/selesai">
-                        Penghuni Selesai
+                      Resident Inactive
                       </Link>
                     </li>
                   </ul>

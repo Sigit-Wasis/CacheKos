@@ -12,6 +12,7 @@ use App\Http\Controllers\API\ExpenseController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\LaporanController;
 use App\Http\Controllers\API\InvoiceController;
+ use App\Http\Controllers\API\KategoriBeritaController;
 
 /*
 |---------------------------------------------------------------------------|
