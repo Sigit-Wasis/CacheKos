@@ -69,59 +69,6 @@ class PaymentController extends Controller
         ]);
     }
 
-<<<<<<< HEAD
-    /**
-     * @OA\Post(
-     *     path="/api/payments",
-     *     summary="Create a new payment",
-     *     description="Add a new payment record",
-     *     tags={"Payments"},
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"invoice", "jumlah_bayar", "status", "tanggal", "id_resident", "grand_total", "created_by"},
-     *             @OA\Property(property="invoice", type="string", example="INV001"),
-     *             @OA\Property(property="jumlah_bayar", type="number", format="float", example=100000),
-     *             @OA\Property(property="status", type="string", example="Paid"),
-     *             @OA\Property(property="tanggal", type="string", format="date", example="2024-12-06"),
-     *             @OA\Property(property="id_resident", type="integer", example=1),
-     *             @OA\Property(property="keterangan", type="string", nullable=true, example="Payment for services"),
-     *             @OA\Property(property="kurang_bayar", type="number", format="float", nullable=true, example=0),
-     *             @OA\Property(property="grand_total", type="number", format="float", example=100000),
-     *             @OA\Property(property="bukti_bayar", type="string", nullable=true, example="file_url"),
-     *             @OA\Property(property="created_by", type="integer", example=1),
-     *             @OA\Property(property="updated_by", type="integer", nullable=true, example=null)
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=201,
-     *         description="Payment successfully created",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Data payments berhasil ditambahkan"),
-     *             @OA\Property(property="code", type="integer", example=201),
-     *             @OA\Property(property="data", type="object")
-     *         )
-     *     )
-     * )
-     */
-    public function create(Request $request)
-    {
-        $validatedData = $request->validate([
-            'invoice' => 'required|string|max:255',
-            'jumlah_bayar' => 'required|numeric',
-            'status' => 'required|string|max:50',
-            'tanggal' => 'required|date',
-            'id_resident' => 'required|integer',
-            'keterangan' => 'nullable|string',
-            'kurang_bayar' => 'nullable|numeric',
-            'grand_total' => 'required|numeric',
-            'bukti_bayar' => 'nullable|string',
-            'created_by' => 'required|integer',  
-            'updated_by' => 'nullable|integer', 
-        ]);
-
-        $newPayment = Payment::create($validatedData);
-=======
     public function store(Request $request)
 {
     $validatedData = $request->validate([
@@ -137,7 +84,6 @@ class PaymentController extends Controller
         'created_by' => 'required|integer',
         'updated_by' => 'nullable|integer',
     ]);
->>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
 
     // Pastikan id_resident yang diterima ada di tabel residents
     $resident = Resident::find($validatedData['id_resident']);
@@ -147,53 +93,6 @@ class PaymentController extends Controller
         ], 400);
     }
 
-<<<<<<< HEAD
-    /**
-     * @OA\Put(
-     *     path="/api/payments/{id}",
-     *     summary="Update an existing payment",
-     *     description="Update a payment record by ID",
-     *     tags={"Payments"},
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         required=true,
-     *         description="Payment ID",
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"invoice", "jumlah_bayar", "status", "tanggal", "kurang_bayar", "grand_total"},
-     *             @OA\Property(property="invoice", type="string", example="INV001"),
-     *             @OA\Property(property="jumlah_bayar", type="number", format="float", example=100000),
-     *             @OA\Property(property="status", type="string", example="Paid"),
-     *             @OA\Property(property="tanggal", type="string", format="date", example="2024-12-06"),
-     *             @OA\Property(property="keterangan", type="string", nullable=true, example="Payment for services"),
-     *             @OA\Property(property="kurang_bayar", type="number", format="float", example=0),
-     *             @OA\Property(property="grand_total", type="number", format="float", example=100000),
-     *             @OA\Property(property="bukti_bayar", type="string", nullable=true, example="file_url"),
-     *             @OA\Property(property="updated_by", type="integer", nullable=true, example=1)
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Payment successfully updated",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Payment updated successfully"),
-     *             @OA\Property(property="data", type="object")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="Payment not found",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Payment not found")
-     *         )
-     *     )
-     * )
-     */
-=======
     $newPayment = Payment::create($validatedData);
 
     return response()->json([
@@ -204,7 +103,6 @@ class PaymentController extends Controller
 }
 
 
->>>>>>> c138ea25e70d873919f7e13b841aff89de679abc
     public function update(Request $request, $id)
     {
         $payment = Payment::find($id);

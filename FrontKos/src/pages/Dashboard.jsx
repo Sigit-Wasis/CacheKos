@@ -9,6 +9,7 @@ const Dashboard = () => {
     const [dashboardCount, setDashboardCount] = useState({});
     const [totalRooms, setTotalRooms] = useState(0);
     const [income, setIncome] = useState(0);
+    const [expenses, setExpenses] = useState(0);
     const [monthlyData, setMonthlyData] = useState({ paymentsByMonth: [], expensesByMonth: [] });
     const [todayDate, setTodayDate] = useState('');
     const [loading, setLoading] = useState(true);
@@ -36,6 +37,7 @@ const Dashboard = () => {
                 setDashboardCount(dashboardResponse.data.data);
                 setTotalRooms(dashboardResponse.data.data.total_kamar_terisi + dashboardResponse.data.data.total_kamar_kosong);
                 setIncome(dashboardResponse.data.data.total_pemasukan);
+                setExpenses(dashboardResponse.data.data.total_pengeluaran);
 
                 const monthlyIncome = Array.from({ length: 12 }, (_, i) => dashboardResponse.data.data.monthly_income[i + 1] || 0);
                 const monthlyExpenses = Array.from({ length: 12 }, (_, i) => dashboardResponse.data.data.monthly_expenses[i + 1] || 0);
@@ -130,7 +132,7 @@ const Dashboard = () => {
             <div className="card red"onClick={() => navigate('/expense')}>
                 <div className="card-content">
                     <h3>Pengeluaran</h3>
-                    <p>Rp.-</p>
+                    <p>Rp. {expenses.toLocaleString()}</p>
                     <span>{todayDate}</span>
                 </div>
                 <i className="icon expense-icon"></i>
